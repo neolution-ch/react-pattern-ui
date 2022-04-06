@@ -35,6 +35,12 @@ module.exports = {
 
     // Doesn't work with our neolution-ch packages
     "import/named": "off",
+    "import/no-unresolved": "off",
+    "import/default": "off",
+    "import/no-duplicates": "off",
+    "import/namespace": "off",
+    "import/no-named-as-default": "off",
+    "import/no-named-as-default-member": "off",
 
     // Enforce double quotes
     quotes: ["error", "double", { avoidEscape: true }],
