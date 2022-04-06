@@ -10,7 +10,7 @@ describe("DeleteAction", () => {
     expect(container.firstChild).toMatchInlineSnapshot(`
       <button
         aria-label="Close"
-        class="btn-close"
+        class="close"
         type="button"
       >
         <svg
