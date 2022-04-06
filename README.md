@@ -1,2 +1,2 @@
 # pattern-ui
-Collection of some UI related pattern
+Some basic functions and components which are needed in most of projects.
