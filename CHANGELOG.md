@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2022-04-07
+
 ### Added
 
 -   created package :tada: 
 -   added tests
+
+[Unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.0...HEAD
+
+[2.0.0]: https://github.com/neolution-ch/react-pattern-ui/compare/45cbeb76034667019da84605082679900f506d75...2.0.0
