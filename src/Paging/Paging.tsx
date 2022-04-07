@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, ButtonGroup, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown } from "reactstrap";
 
 interface PagingProps {
