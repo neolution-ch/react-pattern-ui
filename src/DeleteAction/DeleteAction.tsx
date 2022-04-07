@@ -6,6 +6,8 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 interface DeleteActionProps {
   title?: string;
   text?: string;
+  deleteButtonText?: string;
+  cancelButtonText?: string;
   iconOnly?: boolean;
   onDelete: () => void;
 }
@@ -13,6 +15,8 @@ interface DeleteActionProps {
 function DeleteAction({
   title = "Delete Entry",
   text = "Are you sure to Delete this Entry?",
+  deleteButtonText = "Delete",
+  cancelButtonText = "Cancel",
   iconOnly = false,
   onDelete,
 }: DeleteActionProps) {
@@ -40,10 +44,10 @@ function DeleteAction({
               toggle();
             }}
           >
-            Delete
+            {deleteButtonText}
           </Button>{" "}
           <Button color="secondary" onClick={toggle}>
-            Cancel
+            {cancelButtonText}
           </Button>
         </ModalFooter>
       </Modal>
