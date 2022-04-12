@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Package doesn't use 'h()' anymore, replaced with 'React.createElement' instead
+
 ## [2.0.0] - 2022-04-07
 
 ### Added
