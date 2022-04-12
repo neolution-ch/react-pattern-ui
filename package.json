@@ -1,6 +1,6 @@
 {
   "name": "@neolution-ch/react-pattern-ui",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Some basic functions and components which are needed in most of projects.",
   "repository": {
     "type": "git",
@@ -15,11 +15,11 @@
     "dist"
   ],
   "scripts": {
-    "build": "shx rm -rf dist && microbundle --no-compress --tsconfig ./tsconfig.microbundle.json",
+    "build": "shx rm -rf dist && microbundle --jsx React.createElement --no-compress --tsconfig ./tsconfig.microbundle.json",
     "lint": "eslint \"**/*.{ts,tsx}\" --cache --max-warnings 0",
     "prepack": "yarn build",
     "prettier-check": "prettier --check .",
-    "start": "microbundle watch --no-compress --tsconfig ./tsconfig.microbundle.json",
+    "start": "microbundle watch --jsx React.createElement --no-compress --tsconfig ./tsconfig.microbundle.json",
     "start-all": "concurrently \"yarn start\" \"yarn start-yalc\"",
     "start-yalc": "yarn nodemon --watch dist -x \"yarn yalc push\"",
     "test": "cross-env DEBUG_PRINT_LIMIT=100 jest",
