@@ -15,11 +15,12 @@
     "dist"
   ],
   "scripts": {
-    "build": "shx rm -rf dist && microbundle --jsx React.createElement --no-compress --tsconfig ./tsconfig.microbundle.json",
+    "build": "shx rm -rf dist && microbundle --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react --globals react/jsx-runtime=jsx --no-compress --tsconfig ./tsconfig.microbundle.json",
     "lint": "eslint \"**/*.{ts,tsx}\" --cache --max-warnings 0",
     "prepack": "yarn build",
     "prettier-check": "prettier --check .",
-    "start": "microbundle watch --jsx React.createElement --no-compress --tsconfig ./tsconfig.microbundle.json",
+    "prepare-pr": "yarn prettier . --write && yarn lint && yarn build && yarn test\"",
+    "start": "microbundle watch --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react --globals react/jsx-runtime=jsx --no-compress --tsconfig ./tsconfig.microbundle.json",
     "start-all": "concurrently \"yarn start\" \"yarn start-yalc\"",
     "start-yalc": "yarn nodemon --watch dist -x \"yarn yalc push\"",
     "test": "cross-env DEBUG_PRINT_LIMIT=100 jest",
