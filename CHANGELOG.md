@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.2] - 2022-04-14
+
 ### Fixed
 
-- Fix added for missing react import aftger microbundling
+-   Fix added for missing react import aftger microbundling
 
 ## [2.0.1] - 2022-04-12
 
@@ -24,7 +26,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   created package :tada: 
 -   added tests
 
-[Unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.1...HEAD
+[Unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.2...HEAD
+
+[2.0.2]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.1...2.0.2
 
 [2.0.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.0...2.0.1
 
