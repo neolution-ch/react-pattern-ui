@@ -9,7 +9,7 @@ interface DeleteActionProps {
   deleteButtonText?: string;
   cancelButtonText?: string;
   iconOnly?: boolean;
-  onDelete: () => void;
+  onDelete: () => void | Promise<boolean>;
 }
 
 function DeleteAction({
@@ -39,9 +39,15 @@ function DeleteAction({
         <ModalFooter>
           <Button
             color="danger"
-            onClick={() => {
-              onDelete();
-              toggle();
+            onClick={async () => {
+              if (onDelete instanceof Promise) {
+                if (await onDelete()) {
+                  toggle();
+                }
+              } else {
+                onDelete();
+                toggle();
+              }
             }}
           >
             {deleteButtonText}
