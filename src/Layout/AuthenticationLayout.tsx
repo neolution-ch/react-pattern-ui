@@ -1,16 +1,18 @@
+import classNames from "classnames";
 import { PropsWithChildren, ReactNode } from "react";
 import "../../styles/Layout/AuthenticationLayout.scss";
 
 interface AuthenticationLayoutProps {
-  logo?: ReactNode;
+  className?: string;
   footer?: ReactNode;
+  logo?: ReactNode;
 }
 
 export const AuthenticationLayout = (props: PropsWithChildren<AuthenticationLayoutProps>) => {
-  const { children, footer, logo } = props;
+  const { children, className, footer, logo } = props;
 
   return (
-    <div className="auth__wrapper">
+    <div className={classNames("auth__wrapper", className)}>
       <div className="container auth__container">
         <aside className="auth__sidebar-left" />
         <main className="auth__content">

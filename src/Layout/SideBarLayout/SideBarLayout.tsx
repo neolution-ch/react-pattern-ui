@@ -8,29 +8,31 @@ import { SideBarLayoutContent } from "./SideBarLayoutContent";
 
 interface SideBarLayoutProps extends PropsWithChildren {
   brand?: ReactNode;
+  footer?: ReactNode;
 }
 
 export const SideBarLayout = (props: SideBarLayoutProps) => {
-  const { brand, children } = props;
+  const { brand, children, footer } = props;
 
   const [isOpen, setIsOpen] = useState(true);
   const toggleSidebar = () => setIsOpen((prev) => !prev);
 
   return (
     <>
-      <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+      <nav id="nav-top" className="navbar navbar-expand navbar-dark">
+        {/* Sidebar Toggle*/}
+        <button id="sidebar-toggle" className="btn btn-link btn-sm order-0 me-lg-0" onClick={() => toggleSidebar()}>
+          <FontAwesomeIcon icon={faBars} size="2x" />
+        </button>
+
         {/* Navbar Brand*/}
         <div className="navbar-brand">{brand}</div>
 
-        {/* Sidebar Toggle*/}
-        <button className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" onClick={() => toggleSidebar()}>
-          <FontAwesomeIcon icon={faBars} />
-        </button>
         {/* <NavbarUser /> */}
       </nav>
       <section id="layout-sidenav" className={classNames({ toggled: !isOpen })}>
         <SideBarMenu />
-        <SideBarLayoutContent>{children}</SideBarLayoutContent>
+        <SideBarLayoutContent footer={footer}>{children}</SideBarLayoutContent>
       </section>
     </>
   );

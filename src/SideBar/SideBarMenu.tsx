@@ -6,7 +6,7 @@ const SideBarMenu = () => {
 
   return (
     <div id="layout-sidenav__nav">
-      <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+      <nav className="sb-sidenav accordion sb-sidenav-dark">
         <div className="sb-sidenav-menu">
           <div className="nav">
             {items?.map((x, i) => (

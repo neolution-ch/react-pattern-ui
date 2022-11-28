@@ -16,8 +16,6 @@ const SideBarMenuItem = ({ item, depth = 0 }: SideBarMenuItemProps) => {
   const hasChildren = (item.children?.length || 0) > 0;
   const isOpen = item?.expanded === true;
 
-  console.log(item.id, ":", item.expanded);
-
   if (item.display === false) {
     return null;
   }
@@ -25,12 +23,18 @@ const SideBarMenuItem = ({ item, depth = 0 }: SideBarMenuItemProps) => {
   return (
     <>
       <div>
-        <NavItem onClick={() => toggleItem(item.id)} className={classNames({ "menu-open": isOpen })} style={{ paddingLeft: `${0.5 * depth}rem` }}>
+        <NavItem
+          onClick={() => toggleItem(item.id)}
+          className={classNames({ "menu-open": isOpen })}
+          style={{ paddingLeft: `${0.5 * depth}rem` }}
+        >
           {hasChildren ? (
             <>
               <a role="button" className={classNames("nav-link", { "dropdown-toggle": hasChildren })}>
-                {item.icon && <FontAwesomeIcon icon={item.icon as IconProp} className="me-2" />}
-                {item.title}
+                <span>
+                  {item.icon && <FontAwesomeIcon icon={item.icon as IconProp} className="me-2" />}
+                  {item.title}
+                </span>
               </a>
             </>
           ) : (

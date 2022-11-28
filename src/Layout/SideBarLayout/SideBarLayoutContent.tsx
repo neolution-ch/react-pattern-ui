@@ -1,18 +1,17 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, ReactNode } from "react";
 
-const SideBarLayoutContent: FC<PropsWithChildren> = ({ children }) => (
+interface SideBarLayoutContentProps {
+  footer?: ReactNode;
+}
+
+const SideBarLayoutContent: FC<PropsWithChildren<SideBarLayoutContentProps>> = ({ children, footer }) => (
   <article id="layout-sidenav__content">
     <main>
-      <div className="container-fluid px-4">{children}</div>
+      <div className="m-2">{children}</div>
     </main>
     <footer className="py-4 bg-light mt-auto">
       <div className="container-fluid px-4">
-        <div className="d-flex align-items-center justify-content-between small">
-          <div className="text-muted">Copyright © Your Website 2022</div>
-          <div>
-            <a href="#">Privacy Policy</a>·<a href="#">Terms &amp; Conditions</a>
-          </div>
-        </div>
+        <div className="layout-sidenav__footer align-items-center justify-content-between small">{footer}</div>
       </div>
     </footer>
   </article>
