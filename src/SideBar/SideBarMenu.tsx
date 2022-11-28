@@ -2,16 +2,14 @@ import { useSideBarMenuContext } from "./SideBarMenuContext";
 import { SideBarMenuItem } from "./SideBarMenuItem";
 
 const SideBarMenu = () => {
-  const { state } = useSideBarMenuContext();
-
-  if (!state) return null;
+  const { items } = useSideBarMenuContext();
 
   return (
     <div id="layoutSidenav_nav">
       <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div className="sb-sidenav-menu">
           <div className="nav">
-            {state.items?.map((x, i) => (
+            {items?.map((x, i) => (
               <SideBarMenuItem key={i} item={x} />
             ))}
           </div>
