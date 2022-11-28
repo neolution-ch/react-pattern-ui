@@ -19,7 +19,7 @@ interface SideBarMenuProviderProps extends Pick<SideBarMenuContextProps, "items"
 }
 
 const SideBarMenuProvider = (props: SideBarMenuProviderProps) => {
-  const { items, children, LinkRenderer } = props;
+  const { children, items, LinkRenderer } = props;
 
   const [itemState, setItemState] = useState(items);
 

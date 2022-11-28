@@ -5,6 +5,7 @@ import { PropsWithChildren, ReactNode, useState } from "react";
 import SideBarMenu from "src/SideBar/SideBarMenu";
 import "../../../styles/Layout/SideBarLayout.scss";
 import { SideBarLayoutContent } from "./SideBarLayoutContent";
+import { useSideBarLayoutContext } from "./SideBarLayoutContext";
 
 interface SideBarLayoutProps extends PropsWithChildren {
   brand?: ReactNode;
@@ -17,6 +18,8 @@ export const SideBarLayout = (props: SideBarLayoutProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggleSidebar = () => setIsOpen((prev) => !prev);
 
+  const { brand: contextBrand } = useSideBarLayoutContext();
+
   return (
     <>
       <nav id="nav-top" className="navbar navbar-expand navbar-dark">
@@ -26,7 +29,7 @@ export const SideBarLayout = (props: SideBarLayoutProps) => {
         </button>
 
         {/* Navbar Brand*/}
-        <div className="navbar-brand">{brand}</div>
+        <div className="navbar-brand">{brand ?? contextBrand}</div>
 
         {/* <NavbarUser /> */}
       </nav>

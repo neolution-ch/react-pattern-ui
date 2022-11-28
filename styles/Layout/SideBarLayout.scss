@@ -52,6 +52,12 @@ $topnav-light-toggler-color: $gray-900;
   display: flex;
 
   &__nav {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: $topnav-base-height;
+    width: $sidenav-base-width;
     flex-basis: $sidenav-base-width;
     flex-shrink: 0;
     transition: transform 0.15s ease-in-out;
@@ -62,13 +68,20 @@ $topnav-light-toggler-color: $gray-900;
 
   &__content {
     position: relative;
+    top: $topnav-base-height;
+    margin-left: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     min-width: 0;
     flex-grow: 1;
     min-height: calc(100vh - #{$topnav-base-height});
-    margin-left: -$sidenav-base-width;
+  }
+
+  &__footer {
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
   }
 
   &.toggled {
@@ -76,13 +89,12 @@ $topnav-light-toggler-color: $gray-900;
       transform: translateX(0);
     }
 
-    #layout-sidebav__content {
+    #layout-sidenav__content {
       &:before {
         content: "";
         display: block;
         position: absolute;
         top: 0;
-        left: 0;
         width: 100%;
         height: 100%;
         background: $black;
@@ -102,7 +114,7 @@ $topnav-light-toggler-color: $gray-900;
     }
 
     &__content {
-      margin-left: 0;
+      margin-left: $sidenav-base-width;
       transition: margin 0.15s ease-in-out;
     }
   }
@@ -114,7 +126,7 @@ $topnav-light-toggler-color: $gray-900;
     }
 
     #layout-sidenav__content {
-      margin-left: -$sidenav-base-width;
+      margin-left: 0;
 
       // Removes the sidenav overlay on screens larger than the med breakpoint
       &:before {
@@ -137,6 +149,10 @@ $topnav-light-toggler-color: $gray-900;
 //
 
 #nav-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
   padding-left: 0;
   height: $topnav-base-height;
   z-index: $zindex-topnav;
@@ -184,6 +200,7 @@ $topnav-light-toggler-color: $gray-900;
 
   .sb-sidenav-menu {
     flex-grow: 1;
+    overflow-y: auto;
 
     .nav {
       flex-direction: column;
@@ -202,6 +219,11 @@ $topnav-light-toggler-color: $gray-900;
         padding-top: 0.75rem;
         padding-bottom: 0.75rem;
         position: relative;
+
+        div.d-flex {
+          align-items: center;
+          white-space: break-spaces;
+        }
 
         .sb-nav-link-icon {
           font-size: 0.9rem;
