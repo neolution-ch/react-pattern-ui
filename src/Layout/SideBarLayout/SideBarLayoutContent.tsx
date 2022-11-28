@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from "react";
 
 const SideBarLayoutContent: FC<PropsWithChildren> = ({ children }) => (
-  <div id="layoutSidenav_content">
+  <article id="layout-sidenav__content">
     <main>
       <div className="container-fluid px-4">{children}</div>
     </main>
@@ -15,7 +15,7 @@ const SideBarLayoutContent: FC<PropsWithChildren> = ({ children }) => (
         </div>
       </div>
     </footer>
-  </div>
+  </article>
 );
 
 export { SideBarLayoutContent };

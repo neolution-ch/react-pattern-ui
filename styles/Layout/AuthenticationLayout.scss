@@ -4,7 +4,7 @@
 
 $container-min-width: 15rem;
 
-.login {
+.auth {
   &__wrapper {
     height: 100vh;
   }
@@ -52,7 +52,7 @@ $container-min-width: 15rem;
 }
 
 @include media-breakpoint-up(sm) {
-  .login {
+  .auth {
     &__wrapper {
       $neolution: #faba2f;
       $neolution-light: #faba2f2f;
@@ -62,7 +62,7 @@ $container-min-width: 15rem;
 }
 
 @include media-breakpoint-up(md) {
-  .login {
+  .auth {
     &__footer {
       height: 20vh;
     }
@@ -70,7 +70,7 @@ $container-min-width: 15rem;
 }
 
 @include media-breakpoint-up(lg) {
-  .login {
+  .auth {
     &__container {
       grid-template-columns: 0 6fr 0;
       column-gap: 2rem;

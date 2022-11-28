@@ -23,7 +23,7 @@ const SideBarMenuItem = ({ item, depth = 0 }: SideBarMenuItemProps) => {
   return (
     <>
       <div>
-        <NavItem onClick={toggleItem} className={classNames(`ps-${depth * 2}`, { "menu-open": isOpen })}>
+        <NavItem onClick={toggleItem} className={classNames({ "menu-open": isOpen })} style={{ paddingLeft: `${0.5 * depth}rem` }}>
           {hasChildren || !item.routeName ? (
             <>
               <a role="button" className={classNames("nav-link", { "dropdown-toggle": hasChildren })}>

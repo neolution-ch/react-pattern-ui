@@ -2,10 +2,6 @@
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/mixins";
 
-body {
-  background-color: red !important;
-}
-
 $topnav-base-height: 56px;
 $sidenav-base-width: 225px;
 
@@ -48,6 +44,65 @@ $topnav-light-toggler-color: $gray-900;
 
 // Default behavior for the sidenav layout
 // The default positioning for the sidenav is a static position
+
+#layout-sidenav {
+  display: flex;
+
+  &__nav {
+    flex-basis: $sidenav-base-width;
+    flex-shrink: 0;
+    transition: transform 0.15s ease-in-out;
+    z-index: $zindex-sidenav;
+    // Mobile first transform - by default the sidenav will be moved off-canvas
+    transform: translateX(-$sidenav-base-width);
+  }
+
+  &__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+    flex-grow: 1;
+    min-height: calc(100vh - #{$topnav-base-height});
+    margin-left: -$sidenav-base-width;
+  }
+
+  &.toggled {
+    #layout-sidenav__nav {
+      transform: translateX(0);
+    }
+
+    #layout-sidebav__content {
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: $black;
+        z-index: $zindex-content;
+        opacity: 0.5;
+        transition: opacity 0.3s ease-in-out;
+      }
+    }
+    // &:before {
+    //   content: "";
+    //   display: block;
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   width: 100%;
+    //   height: 100%;
+    //   background: $black;
+    //   z-index: $zindex-content;
+    //   opacity: 0.5;
+    //   transition: opacity 0.3s ease-in-out;
+    // }
+  }
+}
 
 #layoutSidenav {
   display: flex;
@@ -100,24 +155,24 @@ $topnav-light-toggler-color: $gray-900;
 
 // Responsive styling for the sidenav layout
 @include media-breakpoint-up(lg) {
-  #layoutSidenav {
-    #layoutSidenav_nav {
+  #layout-sidenav {
+    &__nav {
       transform: translateX(0);
     }
 
-    #layoutSidenav_content {
+    &__content {
       margin-left: 0;
       transition: margin 0.15s ease-in-out;
     }
   }
 
   // Behavior for the sidenav collapse on screens larger than the med breakpoint
-  #layoutSidenav.toggled {
-    #layoutSidenav_nav {
+  #layout-sidenav.toggled {
+    #layout-sidenav__nav {
       transform: translateX(-$sidenav-base-width);
     }
 
-    #layoutSidenav_content {
+    #layout-sidenav__content {
       margin-left: -$sidenav-base-width;
 
       // Removes the sidenav overlay on screens larger than the med breakpoint

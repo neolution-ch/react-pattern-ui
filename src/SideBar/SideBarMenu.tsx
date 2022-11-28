@@ -7,7 +7,7 @@ const SideBarMenu = () => {
   if (!state) return null;
 
   return (
-    <div id="layoutSidenav_nav">
+    <div id="layout-sidenav__nav">
       <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div className="sb-sidenav-menu">
           <div className="nav">
