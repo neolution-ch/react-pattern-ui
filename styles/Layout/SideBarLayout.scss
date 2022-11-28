@@ -1,0 +1,267 @@
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+body {
+  background-color: red !important;
+}
+
+$topnav-base-height: 56px;
+$sidenav-base-width: 225px;
+
+//
+// Navigation
+//
+
+// Z index variables
+$zindex-content: 1037 !default;
+$zindex-sidenav: 1038 !default;
+$zindex-topnav: 1039 !default;
+
+// Color variables for the sidenav
+
+// -- Sidenav Dark
+$sidenav-dark-bg: $gray-900;
+$sidenav-dark-color: fade-out($white, 0.5);
+$sidenav-dark-heading-color: fade-out($white, 0.75);
+$sidenav-dark-link-color: fade-out($white, 0.5);
+$sidenav-dark-link-active-color: $white;
+$sidenav-dark-icon-color: fade-out($white, 0.75);
+$sidenav-dark-footer-bg: $gray-800;
+
+// -- Sidenav Light
+$sidenav-light-bg: $gray-100;
+$sidenav-light-color: $gray-900;
+$sidenav-light-heading-color: $gray-500;
+$sidenav-light-link-color: $sidenav-light-color;
+$sidenav-light-link-active-color: $primary;
+$sidenav-light-icon-color: $gray-500;
+$sidenav-light-footer-bg: $gray-200;
+
+// Color variables for the topnav
+$topnav-dark-toggler-color: fade-out($white, 0.5);
+$topnav-light-toggler-color: $gray-900;
+
+//
+// Default dashboard layout
+//
+
+// Default behavior for the sidenav layout
+// The default positioning for the sidenav is a static position
+
+#layoutSidenav {
+  display: flex;
+
+  // Wraps the .sb-sidenav element and sets the size
+  #layoutSidenav_nav {
+    flex-basis: $sidenav-base-width;
+    flex-shrink: 0;
+    transition: transform 0.15s ease-in-out;
+    z-index: $zindex-sidenav;
+    // Mobile first transform - by default the sidenav will be moved off-canvas
+    transform: translateX(-$sidenav-base-width);
+  }
+
+  // Wraps the content when using the sidenav layout
+  #layoutSidenav_content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+    flex-grow: 1;
+    min-height: calc(100vh - #{$topnav-base-height});
+    margin-left: -$sidenav-base-width;
+  }
+}
+
+// Default behavior for the static sidenav collapse
+#layoutSidenav.toggled {
+  #layoutSidenav_nav {
+    transform: translateX(0);
+  }
+
+  #layoutSidenav_content {
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: $black;
+      z-index: $zindex-content;
+      opacity: 0.5;
+      transition: opacity 0.3s ease-in-out;
+    }
+  }
+}
+
+// Responsive styling for the sidenav layout
+@include media-breakpoint-up(lg) {
+  #layoutSidenav {
+    #layoutSidenav_nav {
+      transform: translateX(0);
+    }
+
+    #layoutSidenav_content {
+      margin-left: 0;
+      transition: margin 0.15s ease-in-out;
+    }
+  }
+
+  // Behavior for the sidenav collapse on screens larger than the med breakpoint
+  #layoutSidenav.toggled {
+    #layoutSidenav_nav {
+      transform: translateX(-$sidenav-base-width);
+    }
+
+    #layoutSidenav_content {
+      margin-left: -$sidenav-base-width;
+
+      // Removes the sidenav overlay on screens larger than the med breakpoint
+      &:before {
+        display: none;
+      }
+    }
+  }
+}
+
+//
+// Topnav
+//
+
+.sb-topnav {
+  padding-left: 0;
+  height: $topnav-base-height;
+  z-index: $zindex-topnav;
+
+  .navbar-brand {
+    width: $sidenav-base-width;
+    padding-left: $navbar-padding-x;
+    padding-right: $navbar-padding-x;
+    margin: 0;
+  }
+
+  &.navbar-dark {
+    #sidebarToggle {
+      color: $topnav-dark-toggler-color;
+    }
+  }
+
+  &.navbar-light {
+    #sidebarToggle {
+      color: $topnav-light-toggler-color;
+    }
+  }
+}
+
+//
+// Sidenav
+//
+
+// Base styling for the sidenav
+
+.sb-sidenav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-wrap: nowrap;
+
+  .sb-sidenav-menu {
+    flex-grow: 1;
+
+    .nav {
+      flex-direction: column;
+      flex-wrap: nowrap;
+
+      .sb-sidenav-menu-heading {
+        padding: 1.75rem 1rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        position: relative;
+
+        .sb-nav-link-icon {
+          font-size: 0.9rem;
+        }
+
+        .sb-sidenav-collapse-arrow {
+          display: inline-block;
+          margin-left: auto;
+          transition: transform 0.15s ease;
+        }
+
+        &.collapsed {
+          .sb-sidenav-collapse-arrow {
+            transform: rotate(-90deg);
+          }
+        }
+      }
+
+      .sb-sidenav-menu-nested {
+        margin-left: 1.5rem;
+        flex-direction: column;
+      }
+    }
+  }
+
+  .sb-sidenav-footer {
+    padding: 0.75rem;
+    flex-shrink: 0;
+  }
+}
+
+//
+// Sidenav Dark
+//
+
+// Dark theme for sidenav
+// Append .sb-sidenav-dark to .sb-sidenav to use
+
+.sb-sidenav-dark {
+  background-color: $sidenav-dark-bg;
+  color: $sidenav-dark-color;
+
+  .sb-sidenav-menu {
+    .sb-sidenav-menu-heading {
+      color: $sidenav-dark-heading-color;
+    }
+
+    .nav-link {
+      color: $sidenav-dark-link-color;
+
+      .sb-nav-link-icon {
+        color: $sidenav-dark-icon-color;
+      }
+
+      .sb-sidenav-collapse-arrow {
+        color: $sidenav-dark-icon-color;
+      }
+
+      &:hover {
+        color: $sidenav-dark-link-active-color;
+      }
+
+      &.active {
+        color: $sidenav-dark-link-active-color;
+
+        .sb-nav-link-icon {
+          color: $sidenav-dark-link-active-color;
+        }
+      }
+    }
+  }
+
+  .sb-sidenav-footer {
+    background-color: $sidenav-dark-footer-bg;
+  }
+}

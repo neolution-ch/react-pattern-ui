@@ -15,16 +15,22 @@
     "dist"
   ],
   "scripts": {
-    "build": "shx rm -rf dist && microbundle --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react --globals react/jsx-runtime=jsx --no-compress --tsconfig ./tsconfig.microbundle.json",
+    "build": "yarn clean-dist && yarn build-lib && yarn copy-sass",
+    "build-lib": "microbundle --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react --globals react/jsx-runtime=jsx --no-compress --tsconfig ./tsconfig.microbundle.json",
+    "clean-dist": "shx rm -rf dist",
+    "copy-sass": "shx cp -r styles dist/scss",
     "lint": "eslint \"**/*.{ts,tsx}\" --cache --max-warnings 0",
     "prepack": "yarn build",
-    "prettier-check": "prettier --check .",
     "prepare-pr": "yarn prettier . --write && yarn lint && yarn build && yarn test\"",
+    "prettier-check": "prettier --check .",
     "start": "microbundle watch --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react --globals react/jsx-runtime=jsx --no-compress --tsconfig ./tsconfig.microbundle.json",
     "start-all": "concurrently \"yarn start\" \"yarn start-yalc\"",
     "start-yalc": "yarn nodemon --watch dist -x \"yarn yalc push\"",
     "test": "cross-env DEBUG_PRINT_LIMIT=100 jest",
     "tsc": "tsc"
+  },
+  "dependencies": {
+    "classnames": "^2.3.2"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -41,6 +47,7 @@
     "@types/react-dom": "^18.0.9",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
+    "bootstrap": "^5.2.3",
     "concurrently": "^7.5.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.12.0",
@@ -54,6 +61,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "reactstrap": "^9.1.5",
+    "sass": "^1.56.1",
     "shx": "^0.3.4",
     "ts-jest": "^27.1.4",
     "typescript": "^4.6.3",
@@ -69,6 +77,5 @@
   },
   "engines": {
     "node": ">=14"
-  },
-  "dependencies": {}
+  }
 }
