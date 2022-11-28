@@ -23,15 +23,20 @@ const SideBarMenuProvider = (props: SideBarMenuProviderProps) => {
 
   const [itemState, setItemState] = useState(items);
 
-  const toggleItem = (id: string) => {
-    const newItems = itemState.map((item) => {
-      if (item.id === id) {
-        return { ...item, expanded: !item.expanded };
-      }
-      return item;
-    });
+  const toggleItemInternal = (item: ISideBarMenuItem, id: string) => {
+    if (item.id === id) {
+      item.expanded = !item.expanded;
+    }
 
-    setItemState(newItems);
+    if (item.children) {
+      item.children = item.children.map((child) => toggleItemInternal(child, id));
+    }
+
+    return item;
+  };
+
+  const toggleItem = (id: string) => {
+    setItemState((prev) => prev.map((item) => toggleItemInternal(item, id)));
   };
 
   return <SideBarMenuContext.Provider value={{ items: itemState, LinkRenderer, toggleItem }}>{children}</SideBarMenuContext.Provider>;

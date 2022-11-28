@@ -14,7 +14,13 @@ const SideBarMenuItem = ({ item, depth = 0 }: SideBarMenuItemProps) => {
   const { toggleItem, LinkRenderer } = useSideBarMenuContext();
 
   const hasChildren = (item.children?.length || 0) > 0;
-  const isOpen = item?.expanded;
+  const isOpen = item?.expanded === true;
+
+  console.log(item.id, ":", item.expanded);
+
+  if (item.display === false) {
+    return null;
+  }
 
   return (
     <>
