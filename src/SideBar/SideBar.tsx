@@ -1,6 +1,6 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import classNames from "classnames";
-import { SideBarMenu } from "components/Layout/SideBar/Index";
+import SideBarMenu from "./SideBarMenu";
 
 interface SideBarProps {
   isOpen: boolean;
@@ -18,7 +18,7 @@ const SideBar: FC<SideBarProps> = ({ isOpen, toggle }) => (
       </div>
     </div>
     <div className="side-menu">
-      <SideBarMenu sideBarCollapsed={!isOpen}></SideBarMenu>
+      <SideBarMenu></SideBarMenu>
     </div>
   </div>
 );

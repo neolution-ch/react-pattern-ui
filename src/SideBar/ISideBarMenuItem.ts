@@ -1,11 +1,9 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { AppParameters, AppRoutes } from "src/routing/routeNames";
 
 export interface ISideBarMenuItem {
+  id: string;
   title: string;
   icon?: IconProp;
-  routeName?: AppRoutes;
-  routeParams?: AppParameters;
   children?: ISideBarMenuItem[];
   /**
    * Whether the item is expanded.

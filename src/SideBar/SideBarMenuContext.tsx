@@ -1,72 +1,48 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { ComponentType, createContext, ReactNode, useContext, useState } from "react";
 import { ISideBarMenuItem } from "./ISideBarMenuItem";
 
-type Actions = { type: "ToggleItem"; title: string };
+interface LinkRendererProps {
+  item: ISideBarMenuItem;
+  children: ReactNode;
+}
 
-interface SideBarMenuContextState {
+interface SideBarMenuContextProps {
   items: ISideBarMenuItem[];
+  LinkRenderer: ComponentType<LinkRendererProps>;
+  toggleItem: (id: string) => void;
 }
 
-const updateItem = (item: ISideBarMenuItem, title: string): ISideBarMenuItem | null => {
-  if (item == null) return null;
+const SideBarMenuContext = createContext<SideBarMenuContextProps | null>(null);
 
-  if (item.title === title) {
-    item.expanded = !item.expanded;
-    return item;
-  }
-
-  (item.children as any) = item.children?.map((childItem) => updateItem(childItem, title));
-
-  return item;
-};
-
-const sideBarMenuContextReducer = (prevState: SideBarMenuContextState, action: Actions): SideBarMenuContextState => {
-  const { type } = action;
-
-  switch (type) {
-    case "ToggleItem": {
-      const { title } = action;
-
-      const updatedItems = prevState.items.map((item) => updateItem(item, title));
-
-      return { ...prevState, items: updatedItems as ISideBarMenuItem[] };
-    }
-    default:
-      throw new Error(`Unhandled action: [${type}]`);
-  }
-};
-
-interface SiderBarMenuContextReducer {
-  state: SideBarMenuContextState | undefined;
-  dispatch: (action: Actions) => void | undefined;
-}
-
-type ISidebarMenuContext = SiderBarMenuContextReducer;
-
-const SideBarMenuContext = createContext<ISidebarMenuContext | undefined>(undefined);
-
-const useSideBarMenuContext = (): SiderBarMenuContextReducer => {
-  const ctx = useContext(SideBarMenuContext);
-
-  if (ctx === undefined) throw new Error("SidebarMenuProvider not found.");
-
-  return ctx;
-};
-
-interface SideBarMenuProviderProps {
+interface SideBarMenuProviderProps extends Pick<SideBarMenuContextProps, "items" | "LinkRenderer"> {
   children: React.ReactNode;
-  items: ISideBarMenuItem[];
 }
 
 const SideBarMenuProvider = (props: SideBarMenuProviderProps) => {
-  const { children, items } = props;
-  const initialValues: SideBarMenuContextState = {
-    items: items ?? [],
+  const { items, children, LinkRenderer } = props;
+
+  const [itemState, setItemState] = useState(items);
+
+  const toggleItem = (id: string) => {
+    const newItems = itemState.map((item) => {
+      if (item.id === id) {
+        return { ...item, expanded: !item.expanded };
+      }
+      return item;
+    });
+
+    setItemState(newItems);
   };
 
-  const [state, dispatch] = useReducer(sideBarMenuContextReducer, initialValues);
-
-  return <SideBarMenuContext.Provider value={{ dispatch, state }}>{children}</SideBarMenuContext.Provider>;
+  return <SideBarMenuContext.Provider value={{ items: itemState, LinkRenderer, toggleItem }}>{children}</SideBarMenuContext.Provider>;
 };
 
-export { SideBarMenuProvider, useSideBarMenuContext };
+const useSideBarMenuContext = () => {
+  const context = useContext(SideBarMenuContext);
+  if (context === null) {
+    throw new Error("useSideBarMenuContext must be used within a SideBarMenuProvider");
+  }
+  return context;
+};
+
+export { SideBarMenuProvider, useSideBarMenuContext, LinkRendererProps };
