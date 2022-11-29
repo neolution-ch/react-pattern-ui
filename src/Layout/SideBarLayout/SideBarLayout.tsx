@@ -32,17 +32,16 @@ export const SideBarLayout = (props: SideBarLayoutProps) => {
           <FontAwesomeIcon icon={faBars} size="2x" />
         </button>
 
-        {/* Navbar Brand*/}
-        <div className="navbar-brand me-auto">{brand ?? contextBrand}</div>
-
         {/* <NavbarUser /> */}
-        <Nav className="ms-auto" pills>
+        <Nav className="navbar-user">
           <NavItem>
-            <UncontrolledDropdown>
+            <UncontrolledDropdown direction="start">
               <DropdownToggle nav className="user-dropdown">
                 {userDropDownMenuToggle}
               </DropdownToggle>
-              <DropdownMenu>{userDropDownMenu}</DropdownMenu>
+              <div>
+                <DropdownMenu end offset={50} >{userDropDownMenu}</DropdownMenu>
+              </div>
             </UncontrolledDropdown>
           </NavItem>
         </Nav>

@@ -2,7 +2,8 @@
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/mixins";
 
-$topnav-base-height: 56px;
+$topnav-base-height: 4rem;
+$usernav-base-height: calc(#{$topnav-base-height} - 1rem);
 $sidenav-base-width: 225px;
 $toggle-btn-size: 2.5rem;
 $sidenav-max-width: $sidenav-base-width;
@@ -169,8 +170,31 @@ $topnav-light-toggler-color: $gray-900;
     }
   }
 
-  .user-dropdown {
-    background-color: aqua;
+  .navbar-user {
+    display: flex;
+    height: $usernav-base-height;
+    width: $usernav-base-height;
+    border: 1px solid $topnav-dark-toggler-color;
+    border-radius: $usernav-base-height;
+    background-color: $sidenav-dark-link-active-color;
+    background: linear-gradient(
+      60deg,
+      rgba($color: $sidenav-dark-link-active-color, $alpha: 1) 0%,
+      rgba($color: $sidenav-dark-link-active-color, $alpha: 1) 57%,
+      rgba($color: $sidenav-dark-color, $alpha: 0.75) 65%,
+      rgba($color: $sidenav-dark-color, $alpha: 0.75) 70%,
+      rgba($color: $sidenav-dark-link-active-color, $alpha: 1) 82%
+    );
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+    margin: 0 1rem;
+    margin-left: auto;
+
+    .user-dropdown {
+      font-weight: bold;
+      color: $sidenav-dark-bg;
+    }
   }
 
   &.navbar-dark {

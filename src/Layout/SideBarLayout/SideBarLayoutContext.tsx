@@ -7,7 +7,7 @@ interface SideBarLayoutProviderProps {
   userDropDownMenu?: ReactNode;
 }
 
-const SideBarLayoutContext = createContext<SideBarLayoutProviderProps | null>(null); // TODO Merge with menu provider (?)
+const SideBarLayoutContext = createContext<SideBarLayoutProviderProps | null>(null);
 
 export const SideBarLayoutProvider = (props: PropsWithChildren<SideBarLayoutProviderProps>) => {
   const { brand = null, children, footer = null, userDropDownMenu, userDropDownMenuToggle } = props;
