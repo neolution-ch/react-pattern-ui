@@ -30,12 +30,14 @@ const SideBarMenuItem = ({ item, depth = 0 }: SideBarMenuItemProps) => {
         >
           {hasChildren ? (
             <>
-              <a role="button" className={classNames("nav-link", { "dropdown-toggle": hasChildren })}>
-                <div className="d-flex">
-                  {item.icon && <FontAwesomeIcon icon={item.icon as IconProp} className="me-2" />}
-                  <div className="text-justify">{item.title}</div>
-                </div>
-              </a>
+              <div className={classNames({ dropend: !isOpen })}>
+                <a role="button" className={classNames("nav-link", { "dropdown-toggle": hasChildren })}>
+                  <div className="d-flex">
+                    {item.icon && <FontAwesomeIcon icon={item.icon as IconProp} className="me-2" />}
+                    <div className="text-justify">{item.title}</div>
+                  </div>
+                </a>
+              </div>
             </>
           ) : (
             <>

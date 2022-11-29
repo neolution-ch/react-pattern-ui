@@ -3,14 +3,20 @@ import { createContext, PropsWithChildren, ReactNode, useContext } from "react";
 interface SideBarLayoutProviderProps {
   footer?: ReactNode;
   brand?: ReactNode;
+  userDropDownMenuToggle?: ReactNode;
+  userDropDownMenu?: ReactNode;
 }
 
 const SideBarLayoutContext = createContext<SideBarLayoutProviderProps | null>(null); // TODO Merge with menu provider (?)
 
 export const SideBarLayoutProvider = (props: PropsWithChildren<SideBarLayoutProviderProps>) => {
-  const { brand = null, children, footer = null } = props;
+  const { brand = null, children, footer = null, userDropDownMenu, userDropDownMenuToggle } = props;
 
-  return <SideBarLayoutContext.Provider value={{ brand, footer }}>{children}</SideBarLayoutContext.Provider>;
+  return (
+    <SideBarLayoutContext.Provider value={{ brand, footer, userDropDownMenu, userDropDownMenuToggle }}>
+      {children}
+    </SideBarLayoutContext.Provider>
+  );
 };
 
 export const useSideBarLayoutContext = () => {
