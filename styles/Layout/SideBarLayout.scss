@@ -167,6 +167,10 @@ $topnav-light-toggler-color: $gray-900;
     }
   }
 
+  .user-dropdown {
+    background-color: aqua;
+  }
+
   &.navbar-dark {
     background-color: $sidenav-dark-bg;
     color: $topnav-dark-toggler-color;
