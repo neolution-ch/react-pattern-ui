@@ -40,7 +40,7 @@ export const SideBarLayout = (props: SideBarLayoutProps) => {
                 {userDropDownMenuToggle}
               </DropdownToggle>
               <div>
-                <DropdownMenu end offset={50} >{userDropDownMenu}</DropdownMenu>
+                <DropdownMenu end>{userDropDownMenu}</DropdownMenu>
               </div>
             </UncontrolledDropdown>
           </NavItem>
