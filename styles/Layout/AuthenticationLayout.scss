@@ -1,0 +1,94 @@
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+$container-min-width: 15rem;
+
+.auth {
+  &__wrapper {
+    height: 100vh;
+  }
+
+  &__container {
+    display: grid;
+    grid-template-columns: 0 1fr 0;
+    grid-template-rows: 1fr;
+    min-width: $container-min-width;
+    height: 100vh;
+    background-color: $body-bg;
+    align-items: center;
+  }
+
+  &__logo {
+    display: grid;
+    justify-content: center;
+
+    img {
+      max-width: $container-min-width;
+    }
+  }
+
+  &__content {
+    margin: 0 1rem;
+  }
+
+  &__footer {
+    display: grid;
+    grid-column: 1/-1;
+    grid-row: 2;
+    height: 10vh;
+    justify-content: center;
+    max-height: 20vh;
+    overflow: auto;
+  }
+
+  &__sidebar {
+    &-left,
+    &-right {
+      max-height: 100vh;
+      overflow: auto;
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .auth {
+    &__wrapper {
+      $neolution: #faba2f;
+      $neolution-light: #faba2f2f;
+      background-color: $neolution-light;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .auth {
+    &__footer {
+      height: 20vh;
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .auth {
+    &__container {
+      grid-template-columns: 0 6fr 0;
+      column-gap: 2rem;
+    }
+
+    &__content {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 2rem;
+    }
+
+    &__logo {
+      align-self: center;
+
+      img {
+        max-width: unset;
+        min-width: $container-min-width;
+      }
+    }
+  }
+}
