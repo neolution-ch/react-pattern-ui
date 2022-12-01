@@ -1,0 +1,379 @@
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+$topnav-base-height: 4rem;
+$usernav-base-height: calc(#{$topnav-base-height} - 1rem);
+$sidenav-base-width: 225px;
+$toggle-btn-size: 2.5rem;
+$sidenav-max-width: $sidenav-base-width;
+$navbar-padding-x: $navbar-padding-y;
+
+//
+// Navigation
+//
+
+// Z index variables
+$zindex-content: 1037 !default;
+$zindex-sidenav: 1038 !default;
+$zindex-topnav: 1039 !default;
+
+// Color variables for the sidenav
+
+// -- Sidenav Dark
+$sidenav-dark-bg: $gray-900;
+$sidenav-dark-color: fade-out($white, 0.5);
+$sidenav-dark-heading-color: fade-out($white, 0.75);
+$sidenav-dark-link-color: fade-out($white, 0.5);
+$sidenav-dark-link-active-color: $white;
+$sidenav-dark-icon-color: fade-out($white, 0.75);
+$sidenav-dark-footer-bg: $gray-800;
+
+// -- Sidenav Light
+$sidenav-light-bg: $gray-100;
+$sidenav-light-color: $gray-900;
+$sidenav-light-heading-color: $gray-500;
+$sidenav-light-link-color: $sidenav-light-color;
+$sidenav-light-link-active-color: $primary;
+$sidenav-light-icon-color: $gray-500;
+$sidenav-light-footer-bg: $gray-200;
+
+// Color variables for the topnav
+$topnav-dark-toggler-color: fade-out($white, 0.5);
+$topnav-light-toggler-color: $gray-900;
+
+//
+// Default dashboard layout
+//
+
+// Default behavior for the sidenav layout
+// The default positioning for the sidenav is a static position
+
+#layout-sidenav {
+  display: flex;
+
+  &__nav {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: $topnav-base-height;
+    width: $sidenav-base-width;
+    flex-basis: $sidenav-base-width;
+    flex-shrink: 0;
+    transition: transform 0.15s ease-in-out;
+    z-index: $zindex-sidenav;
+    // Mobile first transform - by default the sidenav will be moved off-canvas
+    transform: translateX(-$sidenav-base-width);
+    box-shadow: 0 0 0.5rem 0.125rem rgba($color: $black, $alpha: 0.75);
+  }
+
+  &__content {
+    position: relative;
+    top: $topnav-base-height;
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+    flex-grow: 1;
+    min-height: calc(100vh - #{$topnav-base-height});
+  }
+
+  &__footer {
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+  }
+
+  &.toggled {
+    #layout-sidenav__nav {
+      transform: translateX(0);
+      box-shadow: unset;
+    }
+
+    #layout-sidenav__content {
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: $black;
+        z-index: $zindex-content;
+        opacity: 0.5;
+        transition: opacity 0.3s ease-in-out;
+      }
+    }
+  }
+}
+
+// Responsive styling for the sidenav layout
+@include media-breakpoint-up(lg) {
+  #layout-sidenav {
+    &__nav {
+      transform: translateX(0);
+    }
+
+    &__content {
+      margin-left: $sidenav-base-width;
+      transition: margin 0.15s ease-in-out;
+    }
+  }
+
+  // Behavior for the sidenav collapse on screens larger than the med breakpoint
+  #layout-sidenav.toggled {
+    #layout-sidenav__nav {
+      transform: translateX(-$sidenav-base-width);
+    }
+
+    #layout-sidenav__content {
+      margin-left: 0;
+
+      // Removes the sidenav overlay on screens larger than the med breakpoint
+      &:before {
+        display: none;
+      }
+    }
+  }
+}
+
+#sidebar-toggle {
+  width: $toggle-btn-size;
+
+  &:hover {
+    color: $white !important;
+  }
+}
+
+//
+// Topnav
+//
+
+#nav-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  padding-left: 0;
+  height: $topnav-base-height;
+  z-index: $zindex-topnav;
+
+  .navbar-brand {
+    max-width: $sidenav-max-width;
+    padding: $navbar-padding-x;
+    margin: 0;
+
+    img {
+      max-width: calc(#{$sidenav-max-width} - (#{$navbar-padding-y} * 2));
+    }
+  }
+
+  .navbar-user {
+    display: flex;
+    height: $usernav-base-height;
+    width: $usernav-base-height;
+    border: 1px solid $topnav-dark-toggler-color;
+    border-radius: $usernav-base-height;
+    background-color: $sidenav-dark-link-active-color;
+    background: linear-gradient(
+      60deg,
+      rgba($color: $sidenav-dark-link-active-color, $alpha: 1) 0%,
+      rgba($color: $sidenav-dark-link-active-color, $alpha: 1) 57%,
+      rgba($color: $sidenav-dark-color, $alpha: 0.75) 65%,
+      rgba($color: $sidenav-dark-color, $alpha: 0.75) 70%,
+      rgba($color: $sidenav-dark-link-active-color, $alpha: 1) 82%
+    );
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+    margin: 0 1rem;
+    margin-left: auto;
+
+    .user-dropdown {
+      font-weight: bold;
+      color: $sidenav-dark-bg;
+    }
+  }
+
+  &.navbar-dark {
+    background-color: $sidenav-dark-bg;
+    color: $topnav-dark-toggler-color;
+
+    #sidebar-toggle {
+      color: $topnav-dark-toggler-color;
+    }
+  }
+
+  &.navbar-light {
+    background-color: $sidenav-light-bg;
+    color: $topnav-light-toggler-color;
+
+    #sidebar-toggle {
+      color: $topnav-light-toggler-color;
+    }
+  }
+}
+
+//
+// Sidenav
+//
+
+// Base styling for the sidenav
+
+@mixin chevron-left {
+  margin-left: 0;
+  border-top: 0.3em solid transparent;
+  border-right: 0.3em solid;
+  border-bottom: 0.3em solid transparent;
+  border-left: 0;
+}
+
+@mixin chevron-down {
+  margin-left: 0.3em;
+  border-top: 0.3em solid;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0;
+  border-left: 0.3em solid transparent;
+}
+
+.sb-sidenav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-wrap: nowrap;
+
+  .sb-sidenav-menu {
+    flex-grow: 1;
+    overflow-y: auto;
+
+    .nav {
+      flex-direction: column;
+      flex-wrap: nowrap;
+
+      .sb-sidenav-menu-heading {
+        padding: 1.75rem 1rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      .nav-item.menu-open .nav-link {
+        &::after,
+        div {
+          color: $sidenav-dark-link-active-color;
+        }
+
+        &::after {
+          @include chevron-down();
+        }
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        position: relative;
+
+        &::after {
+          @include chevron-left();
+        }
+
+        div.d-flex {
+          align-items: center;
+          white-space: break-spaces;
+        }
+
+        .sb-nav-link-icon {
+          font-size: 0.9rem;
+        }
+
+        .sb-sidenav-collapse-arrow {
+          display: inline-block;
+          margin-left: auto;
+          transition: transform 0.15s ease;
+        }
+
+        &.collapsed {
+          .sb-sidenav-collapse-arrow {
+            transform: rotate(-90deg);
+          }
+        }
+
+        &.dropdown-toggle {
+          justify-content: space-between;
+        }
+      }
+
+      .sb-sidenav-menu-nested {
+        margin-left: 1.5rem;
+        flex-direction: column;
+      }
+    }
+  }
+
+  .sb-sidenav-footer {
+    padding: 0.75rem;
+    flex-shrink: 0;
+  }
+}
+
+//
+// Sidenav Dark
+//
+
+// Dark theme for sidenav
+// Append .sb-sidenav-dark to .sb-sidenav to use
+
+.sb-sidenav-dark {
+  background-color: $sidenav-dark-bg;
+  color: $sidenav-dark-color;
+
+  .sb-sidenav-menu {
+    &::-webkit-scrollbar {
+      width: 0.25rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $sidenav-dark-color;
+    }
+
+    &::-webkit-scrollbar-track-piece {
+      background-color: $sidenav-dark-bg;
+    }
+
+    .sb-sidenav-menu-heading {
+      color: $sidenav-dark-heading-color;
+    }
+
+    .nav-link {
+      color: $sidenav-dark-link-color;
+
+      .sb-nav-link-icon {
+        color: $sidenav-dark-icon-color;
+      }
+
+      .sb-sidenav-collapse-arrow {
+        color: $sidenav-dark-icon-color;
+      }
+
+      &:hover {
+        color: $sidenav-dark-link-active-color;
+      }
+
+      &.active {
+        color: $sidenav-dark-link-active-color;
+
+        .sb-nav-link-icon {
+          color: $sidenav-dark-link-active-color;
+        }
+      }
+    }
+  }
+
+  .sb-sidenav-footer {
+    background-color: $sidenav-dark-footer-bg;
+  }
+}
