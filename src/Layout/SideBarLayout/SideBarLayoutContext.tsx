@@ -9,7 +9,7 @@ interface SideBarLayoutProviderProps {
 
 const SideBarLayoutContext = createContext<SideBarLayoutProviderProps | null>(null);
 
-export const SideBarLayoutProvider = (props: PropsWithChildren<SideBarLayoutProviderProps>) => {
+const SideBarLayoutProvider = (props: PropsWithChildren<SideBarLayoutProviderProps>) => {
   const { brand = null, children, footer = null, userDropDownMenu, userDropDownMenuToggle } = props;
 
   return (
@@ -19,10 +19,12 @@ export const SideBarLayoutProvider = (props: PropsWithChildren<SideBarLayoutProv
   );
 };
 
-export const useSideBarLayoutContext = () => {
+const useSideBarLayoutContext = () => {
   const context = useContext(SideBarLayoutContext);
   if (context === null) {
     throw new Error("useSideBarLayoutContext must be used within a SideBarLayoutProvider");
   }
   return context;
 };
+
+export { SideBarLayoutProvider, useSideBarLayoutContext, SideBarLayoutProviderProps };

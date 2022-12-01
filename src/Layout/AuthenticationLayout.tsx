@@ -8,7 +8,7 @@ interface AuthenticationLayoutProps {
   logo?: ReactNode;
 }
 
-export const AuthenticationLayout = (props: PropsWithChildren<AuthenticationLayoutProps>) => {
+const AuthenticationLayout = (props: PropsWithChildren<AuthenticationLayoutProps>) => {
   const { children, className, footer, logo } = props;
 
   return (
@@ -26,3 +26,5 @@ export const AuthenticationLayout = (props: PropsWithChildren<AuthenticationLayo
     </div>
   );
 };
+
+export { AuthenticationLayout, AuthenticationLayoutProps };

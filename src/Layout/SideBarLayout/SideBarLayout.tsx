@@ -13,7 +13,7 @@ interface SideBarLayoutProps extends PropsWithChildren {
   footer?: ReactNode;
 }
 
-export const SideBarLayout = (props: SideBarLayoutProps) => {
+const SideBarLayout = (props: SideBarLayoutProps) => {
   const { brand, children, footer } = props;
 
   const [isOpen, setIsOpen] = useState(true);
@@ -53,3 +53,5 @@ export const SideBarLayout = (props: SideBarLayoutProps) => {
     </>
   );
 };
+
+export { SideBarLayout, SideBarLayoutProps };

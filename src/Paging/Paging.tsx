@@ -19,7 +19,7 @@ interface PagingTranslations {
   itemsPerPageDropdown: string;
 }
 
-export function Paging({
+function Paging({
   currentItemsPerPage,
   currentPage,
   totalRecords,
@@ -97,3 +97,5 @@ export function Paging({
     </Row>
   );
 }
+
+export { Paging, PagingProps, PagingTranslations };
