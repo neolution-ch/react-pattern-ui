@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Adjusted exports to be more consistent
 
+### Added
+
+- DeleteAction now also accepts a promise
+
 ## [2.0.2] - 2022-04-14
 
 ### Fixed
