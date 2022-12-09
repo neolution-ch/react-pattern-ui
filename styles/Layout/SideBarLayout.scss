@@ -1,6 +1,7 @@
 @import "../../node_modules/bootstrap/scss/functions";
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/mixins";
+@import "../Form/index.scss";
 
 $topnav-base-height: 4rem;
 $usernav-base-height: calc(#{$topnav-base-height} - 1rem);
