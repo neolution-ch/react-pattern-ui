@@ -24,10 +24,10 @@ const SideBarLayout = (props: SideBarLayoutProps) => {
   return (
     <>
       <nav id="nav-top" className="navbar navbar-expand navbar-dark">
-        {/* Navbar Brand*/}
+        {/* Navbar Brand */}
         <div className="navbar-brand">{brand ?? contextBrand}</div>
 
-        {/* Sidebar Toggle*/}
+        {/* Sidebar Toggle */}
         <button id="sidebar-toggle" className="btn btn-link btn-sm order-0 me-lg-0" onClick={() => toggleSidebar()}>
           <FontAwesomeIcon icon={faBars} size="2x" />
         </button>
