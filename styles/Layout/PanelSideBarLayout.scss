@@ -120,6 +120,7 @@ section.content:first-of-type {
   margin-top: $topnav-base-height;
   margin-left: #{$sidenav-base-width + $toggle-base-width};
   min-height: calc(100vh - #{$topnav-base-height});
+  transition: #{margin $sidebar-transition};
 }
 
 #side-nav.panel-layout {
@@ -234,6 +235,11 @@ section.content:first-of-type {
     > #side-nav-toggle {
       transition: $sidebar-transition;
       left: #{$tile-size + $slim-scrollbar-base-width};
+    }
+
+    > section.content:first-of-type {
+      transition: #{margin $sidebar-transition};
+      margin-left: #{$tile-size + $toggle-base-width};
     }
   }
 }
