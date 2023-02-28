@@ -1,9 +1,21 @@
 import { createContext, PropsWithChildren, ReactNode, useContext } from "react";
 
 export interface PanelSideBarLayoutProviderProps {
+  /**
+   * The footer content.
+   */
   footer?: ReactNode;
+  /**
+   * The brand content shown on the top navigation bar.
+   */
   brand?: ReactNode;
+  /**
+   * The user dropdown toggle content.
+   */
   userDropDownMenuToggle?: ReactNode;
+  /**
+   * The user dropdown menu content.
+   */
   userDropDownMenu?: ReactNode;
 }
 

@@ -10,7 +10,13 @@ type MenuItemToggleFn<TPanelItem, TMenuItem> = (panelItem: PanelItem<TPanelItem>
 
 export interface PanelSideBarContextProps<TPanelItem, TMenuItem> {
   activePanelId: string;
+  /**
+   * The global panel items.
+   */
   globalItems: PanelItem<TPanelItem>[];
+  /**
+   * The component used to render the menu item links.
+   */
   LinkRenderer: ComponentType<PanelLinkRendererProps<TMenuItem>>;
   setActivePanel: (panelId: string) => void;
   toggleMenuItem: MenuItemToggleFn<TPanelItem, TMenuItem>;
@@ -21,6 +27,9 @@ export const PanelSideBarContext = createContext<PanelSideBarContextProps<any, a
 
 export interface PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>
   extends Pick<PanelSideBarContextProps<TPanelItem, TMenuItem>, "globalItems" | "LinkRenderer"> {
+  /**
+   * The children elements.
+   */
   children: React.ReactNode;
 }
 
