@@ -28,8 +28,8 @@ export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarM
   const { children, globalItems, LinkRenderer } = props;
 
   const [activeId, setActiveId] = useState(globalItems.find((x) => x.id)?.id ?? "");
-  const [globalPanelState, setGlobalPanelState] = useState(globalItems);
-  const [localPanelItems, setLocalPanelItems] = useState([]);
+  const [globalPanelState, setGlobalPanelState] = useState<PanelItem<TPanelItem>[]>(globalItems);
+  const [localPanelItems, setLocalPanelItems] = useState<PanelItem<TPanelItem, TMenuItem>[]>([]);
 
   const setActivePanel = (panelId: string) => setActiveId(panelId);
 
@@ -50,6 +50,14 @@ export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarM
       }),
     );
 
+  const localPanelItemHandler = (items: PanelItem<TPanelItem, TMenuItem>[]) => {
+    if (items?.length > 0) {
+      const [firstLocalItem] = items;
+      setActivePanel(firstLocalItem.id);
+    }
+    setLocalPanelItems(items);
+  };
+
   return (
     <PanelSideBarContext.Provider
       value={{
@@ -58,7 +66,7 @@ export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarM
         toggleMenuItem: toggleMenuItem,
         setActivePanel: setActivePanel,
         activePanelId: activeId,
-        setLocalPanelItems,
+        setLocalPanelItems: localPanelItemHandler,
       }}
     >
       {children}
