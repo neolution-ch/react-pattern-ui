@@ -9,8 +9,17 @@ import { PanelSideBarToggle } from "./PanelSideBar/PanelSideBarToggle";
 import { PanelItem } from "./PanelSideBar/Definitions/PanelSideBarMenuItem";
 
 export interface PanelSideBarLayoutProps extends PropsWithChildren {
+  /**
+   * Local panel items to display.
+   */
   localItems?: PanelItem[];
+  /**
+   * The brand content shown on the top navigation bar.
+   */
   brand?: ReactNode;
+  /**
+   * The footer content.
+   */
   footer?: ReactNode;
 }
 
@@ -46,7 +55,7 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
       <section className={classNames({ toggled: !isOpen })}>
         <PanelSideBar localItems={localItems} />
         <PanelSideBarToggle onClick={toggleSidebar} toggled={!isOpen} />
-        <PanelSideBarLayoutContent footer={contextFooter ?? footer}>{children}</PanelSideBarLayoutContent>
+        <PanelSideBarLayoutContent footer={footer ?? contextFooter}>{children}</PanelSideBarLayoutContent>
       </section>
     </>
   );
