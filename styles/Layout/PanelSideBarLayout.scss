@@ -168,8 +168,6 @@ section.content:first-of-type {
       }
 
       li.nav-item {
-        padding-inline: 0.5rem;
-        padding-block: 0.5rem;
         color: $sidenav-light-color;
 
         &::marker {
@@ -185,6 +183,11 @@ section.content:first-of-type {
           right: 0.3rem;
           @include chevron-down();
         }
+
+        &.active {
+          background-color: $sidenav-light-active-bg-color;
+          color: $sidenav-light-active-color;
+        }
       }
 
       li::marker {
@@ -195,6 +198,7 @@ section.content:first-of-type {
         display: flex;
         align-items: center;
         color: inherit;
+        padding: 0.5rem;
 
         > svg {
           margin-right: 0.5rem;

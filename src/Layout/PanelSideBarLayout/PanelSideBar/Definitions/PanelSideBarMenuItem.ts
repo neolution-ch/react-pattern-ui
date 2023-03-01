@@ -6,6 +6,10 @@ export type PanelItem<TPanelItem = Record<string, unknown>, TMenuItem = Record<s
    */
   id: string;
   /**
+   * The panel icon.
+   */
+  icon: IconProp;
+  /**
    * The panel menu items.
    */
   items: PanelMenuItem<TMenuItem>[];
@@ -13,10 +17,6 @@ export type PanelItem<TPanelItem = Record<string, unknown>, TMenuItem = Record<s
    * Whether the panel is disabled.
    */
   disabled?: boolean;
-  /**
-   * The panel icon.
-   */
-  icon: IconProp;
   /**
    * The panel title.
    */
@@ -33,19 +33,19 @@ export type PanelMenuItem<T = Record<string, unknown>> = T & {
    */
   title: string;
   /**
-   * The menu item icon.
+   * The menu item children items.
    */
-  icon?: IconProp;
-  /**
-   * Whether the item is expanded.
-   */
-  expanded?: boolean;
+  children?: Omit<PanelMenuItem<T>, "children">[];
   /**
    * Whether the item should be displayed.
    */
   display?: boolean;
   /**
-   * The menu item children items.
+   * Whether the item is expanded.
    */
-  children?: Omit<PanelMenuItem<T>, "children">[];
+  expanded?: boolean;
+  /**
+   * The menu item icon.
+   */
+  icon?: IconProp;
 };
