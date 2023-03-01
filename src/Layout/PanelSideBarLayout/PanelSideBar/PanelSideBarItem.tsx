@@ -11,10 +11,11 @@ export interface PanelSideBarItemProps {
   LinkRenderer: ComponentType<LinkRendererProps>;
   onClick: (menuItem: PanelMenuItem<unknown>) => void;
   depth?: number;
+  activeId?: string;
 }
 
 export const PanelSideBarItem = (props: PanelSideBarItemProps) => {
-  const { depth = 0, item, LinkRenderer, onClick } = props;
+  const { activeId, depth = 0, item, LinkRenderer, onClick } = props;
 
   const hasChildren = !!item.children?.length;
   const isOpen = item.expanded === true;
@@ -27,7 +28,7 @@ export const PanelSideBarItem = (props: PanelSideBarItemProps) => {
     <>
       <NavItem
         onClick={() => onClick(item)}
-        className={classNames({ "menu-open": isOpen })}
+        className={classNames({ "menu-open": isOpen, active: item.id === activeId })}
         style={{ paddingLeft: depth ? `${depth + 1}rem` : undefined }}
       >
         {hasChildren ? (
@@ -58,6 +59,7 @@ export const PanelSideBarItem = (props: PanelSideBarItemProps) => {
               LinkRenderer={LinkRenderer}
               onClick={() => onClick(childItem)}
               depth={depth + 1}
+              activeId={activeId}
             />
           ))}
         </Collapse>

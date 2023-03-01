@@ -13,7 +13,8 @@ interface PanelSideBarProps {
 export const PanelSideBar = (props: PanelSideBarProps) => {
   const { localItems = [] } = props;
 
-  const { activePanelId, globalItems, LinkRenderer, setActivePanel, setLocalPanelItems, toggleMenuItem } = usePanelSideBarContext();
+  const { activeMenuId, activePanelId, globalItems, LinkRenderer, setActivePanel, setLocalPanelItems, toggleMenuItem } =
+    usePanelSideBarContext();
 
   const activePanel: PanelItem = globalItems.find((x) => x.id === activePanelId);
 
@@ -41,7 +42,13 @@ export const PanelSideBar = (props: PanelSideBarProps) => {
 
       <div className="side-nav__items">
         {activePanel?.items?.map((item, i) => (
-          <PanelSideBarItem key={i} item={item} LinkRenderer={LinkRenderer} onClick={(menuItem) => toggleMenuItem(activePanel, menuItem)} />
+          <PanelSideBarItem
+            key={i}
+            item={item}
+            LinkRenderer={LinkRenderer}
+            onClick={(menuItem) => toggleMenuItem(activePanel, menuItem)}
+            activeId={activeMenuId}
+          />
         ))}
       </div>
     </nav>
