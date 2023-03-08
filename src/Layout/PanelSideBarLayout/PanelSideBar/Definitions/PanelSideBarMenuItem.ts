@@ -2,13 +2,13 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 export type PanelItem<TPanelItem = Record<string, unknown>, TMenuItem = Record<string, unknown>> = TPanelItem & {
   /**
-   * The panel item identifier.
-   */
-  id: string;
-  /**
    * The panel icon.
    */
   icon: IconProp;
+  /**
+   * The panel item identifier.
+   */
+  id: string;
   /**
    * The panel menu items.
    */
@@ -32,6 +32,10 @@ export type PanelMenuItem<T = Record<string, unknown>> = T & {
    * The menu item title.
    */
   title: string;
+  /**
+   * Whether the item is active.
+   */
+  active?: boolean;
   /**
    * The menu item children items.
    */

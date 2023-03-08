@@ -6,10 +6,9 @@ export interface PanelLinkRendererProps<T> {
   children: ReactNode;
 }
 
-type MenuItemToggleFn<TPanelItem, TMenuItem> = (panelItem: PanelItem<TPanelItem>, menuItem: PanelMenuItem<TMenuItem>) => void;
+export type MenuItemToggleFn<TMenuItem> = (menuItem: PanelMenuItem<TMenuItem>) => void;
 
 export interface PanelSideBarContextProps<TPanelItem, TMenuItem> {
-  activeMenuId: string;
   activePanelId: string;
   /**
    * The global panel items.
@@ -20,8 +19,8 @@ export interface PanelSideBarContextProps<TPanelItem, TMenuItem> {
    */
   LinkRenderer: ComponentType<PanelLinkRendererProps<TMenuItem>>;
   setActivePanel: (panelId: string) => void;
-  toggleMenuItem: MenuItemToggleFn<TPanelItem, TMenuItem>;
-  setLocalPanelItems: (panelItems: PanelItem<TPanelItem, TMenuItem>) => void;
+  toggledMenuItemIds: string[];
+  toggleMenuItem: MenuItemToggleFn<TMenuItem>;
 }
 
 export const PanelSideBarContext = createContext<PanelSideBarContextProps<any, any> | null>(null);
@@ -38,55 +37,31 @@ export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarM
   const { children, globalItems, LinkRenderer } = props;
 
   const getFirstPanelId = () => globalItems.find((x) => x.id)?.id ?? "";
-  const getFirstMenuItemId = () => {
-    const firstPanel = globalItems.find((x) => x.id);
-    return firstPanel?.items?.find((x) => x.id)?.id ?? "";
-  };
-
   const [activePanelId, setActivePanelId] = useState(getFirstPanelId());
-  const [activeMenuId, setActiveMenuId] = useState(getFirstMenuItemId());
-  const [globalPanelState, setGlobalPanelState] = useState<PanelItem<TPanelItem, TMenuItem>[]>(globalItems);
-  const [localPanelItems, setLocalPanelItems] = useState<PanelItem<TPanelItem, TMenuItem>[]>([]);
+  const [toggledMenuItemIds, setToggledMenuItemIds] = useState<string[]>([]);
+
+  const toggleMenuItem: MenuItemToggleFn<TMenuItem> = (menuItem) => {
+    setToggledMenuItemIds((prev) => {
+      const idExists = !!prev.find((id) => id == menuItem.id);
+
+      if (idExists) {
+        return prev.filter((id) => id !== menuItem.id);
+      }
+
+      return [...prev, menuItem.id];
+    });
+  };
 
   const setActivePanel = (panelId: string) => setActivePanelId(panelId);
-
-  const toggleMenuItem: MenuItemToggleFn<TPanelItem, TMenuItem> = (panelItem, menuItem) => {
-    setGlobalPanelState((prev) =>
-      prev.map((x) => {
-        const panel: PanelItem<TPanelItem, TMenuItem> = JSON.parse(JSON.stringify(x));
-
-        if (panel.id === panelItem.id) {
-          let panelMenuItem = panel.items?.find((item) => item.id === menuItem.id);
-
-          if (panelMenuItem?.id === menuItem.id) {
-            panelMenuItem.expanded = !panelMenuItem.expanded;
-          }
-        }
-
-        return panel;
-      }),
-    );
-
-    if (!menuItem.children && globalPanelState.map((x) => x.id).includes(panelItem.id)) setActiveMenuId(menuItem.id);
-  };
-
-  const localPanelItemHandler = (items: PanelItem<TPanelItem, TMenuItem>[]) => {
-    if (items?.length > 0) {
-      const [firstLocalItem] = items;
-      setActivePanel(firstLocalItem.id);
-    }
-    setLocalPanelItems(items);
-  };
 
   return (
     <PanelSideBarContext.Provider
       value={{
-        activeMenuId,
         activePanelId,
-        globalItems: [...globalPanelState, ...(localPanelItems ?? [])],
+        globalItems,
         LinkRenderer,
         setActivePanel,
-        setLocalPanelItems: localPanelItemHandler,
+        toggledMenuItemIds,
         toggleMenuItem,
       }}
     >

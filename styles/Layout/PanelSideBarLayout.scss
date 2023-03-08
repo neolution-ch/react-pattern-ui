@@ -28,20 +28,24 @@ $sidenav-light-link-active-color: $light;
 $topnav-dark-toggler-color: fade-out($light, 0.5);
 $topnav-light-toggler-color: $gray-900;
 
+@mixin chevron-common {
+  border: none;
+  display: block;
+  position: absolute;
+  right: 1rem;
+  transition: ease-in-out 0.2s;
+  width: 0.4rem;
+  $svg-attributes: "fill='white' strike='white'";
+  content: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'><path d='M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z' #{$svg-attributes}/></svg>");
+}
+
 @mixin chevron-left {
-  margin-left: 0;
-  border-top: 0.3em solid transparent;
-  border-right: 0.3em solid;
-  border-bottom: 0.3em solid transparent;
-  border-left: 0;
+  @include chevron-common();
 }
 
 @mixin chevron-down {
-  margin-left: 0.3em;
-  border-top: 0.3em solid;
-  border-right: 0.3em solid transparent;
-  border-bottom: 0;
-  border-left: 0.3em solid transparent;
+  @include chevron-common();
+  transform: rotate(-90deg);
 }
 
 @mixin slim-scrollbar {
@@ -179,36 +183,34 @@ section.content:first-of-type {
           background-color: $primary-hover;
         }
 
-        &.menu-open .nav-link::after {
-          right: 0.3rem;
+        &.menu-open .nav-link.dropdown-toggle::after {
           @include chevron-down();
         }
 
-        &.active {
+        &.active,
+        .active {
           background-color: $sidenav-light-active-bg-color;
           color: $sidenav-light-active-color;
+        }
+
+        .nav-link {
+          display: flex;
+          align-items: center;
+          color: inherit;
+          padding: 0.5rem;
+
+          > svg {
+            margin-right: 0.5rem;
+          }
+
+          &.dropdown-toggle::after {
+            @include chevron-left();
+          }
         }
       }
 
       li::marker {
         content: none;
-      }
-
-      .nav-link {
-        display: flex;
-        align-items: center;
-        color: inherit;
-        padding: 0.5rem;
-
-        > svg {
-          margin-right: 0.5rem;
-        }
-
-        &::after {
-          position: absolute;
-          right: 0;
-          @include chevron-left();
-        }
       }
     }
   }
@@ -221,11 +223,19 @@ section.content:first-of-type {
   justify-content: center;
   width: 0;
   bottom: 0;
-  box-shadow: 0 0 0.125rem 0.0625rem rgba($color: $black, $alpha: 0.75);
+  border: none;
+  border-left: 3px solid $primary-hover;
+  border-radius: 0;
+  background-color: $primary;
   top: $topnav-base-height;
   left: $sidenav-base-width;
   z-index: $zindex-fixed;
   transition: $sidebar-transition;
+
+  &:focus,
+  &:hover {
+    background-color: $primary-hover;
+  }
 }
 
 @include media-breakpoint-up(md) {
@@ -238,12 +248,16 @@ section.content:first-of-type {
 
     > #side-nav-toggle {
       transition: $sidebar-transition;
-      left: #{$tile-size + $slim-scrollbar-base-width};
+      left: #{$tile-size};
     }
 
     > section.content:first-of-type {
       transition: #{margin $sidebar-transition};
       margin-left: #{$tile-size + $toggle-base-width};
+
+      .dropdown-toggle::after {
+        display: none;
+      }
     }
   }
 }

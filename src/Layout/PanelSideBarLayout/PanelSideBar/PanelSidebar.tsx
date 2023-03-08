@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
-import { useEffect } from "react";
 import { Button } from "reactstrap";
 import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import { PanelItem } from "./Definitions/PanelSideBarMenuItem";
@@ -13,18 +12,15 @@ interface PanelSideBarProps {
 export const PanelSideBar = (props: PanelSideBarProps) => {
   const { localItems = [] } = props;
 
-  const { activeMenuId, activePanelId, globalItems, LinkRenderer, setActivePanel, setLocalPanelItems, toggleMenuItem } =
-    usePanelSideBarContext();
+  const { activePanelId, globalItems, LinkRenderer, setActivePanel, toggledMenuItemIds, toggleMenuItem } = usePanelSideBarContext();
 
   const activePanel: PanelItem = globalItems.find((x) => x.id === activePanelId);
-
-  useEffect(() => {
-    setLocalPanelItems(localItems);
-  }, [localItems]);
+  const localActivePanel: PanelItem | undefined = localItems?.find((x) => x.id === activePanelId);
 
   const panelItemsRenderer = (items: PanelItem[]) =>
     items?.map(({ disabled, icon, id, title }) => (
       <Button
+        key={id}
         color="primary"
         outline
         className={classNames("tile", { active: activePanelId === id })}
@@ -38,17 +34,24 @@ export const PanelSideBar = (props: PanelSideBarProps) => {
 
   return (
     <nav id="side-nav" className="panel-layout">
-      <div className="side-nav__tiles">{panelItemsRenderer(globalItems)}</div>
+      <div className="side-nav__tiles">
+        {panelItemsRenderer(globalItems)}
+        {panelItemsRenderer(localItems)}
+      </div>
 
       <div className="side-nav__items">
-        {activePanel?.items?.map((item, i) => (
+        {activePanel?.items?.map((item) => (
           <PanelSideBarItem
-            key={i}
+            key={item.id}
             item={item}
             LinkRenderer={LinkRenderer}
-            onClick={(menuItem) => toggleMenuItem(activePanel, menuItem)}
-            activeId={activeMenuId}
+            onClick={(menuItem) => toggleMenuItem(menuItem)}
+            toggledItemIds={toggledMenuItemIds}
           />
+        ))}
+
+        {localActivePanel?.items?.map((item) => (
+          <PanelSideBarItem key={item.id} item={item} LinkRenderer={LinkRenderer} toggledItemIds={toggledMenuItemIds} />
         ))}
       </div>
     </nav>
