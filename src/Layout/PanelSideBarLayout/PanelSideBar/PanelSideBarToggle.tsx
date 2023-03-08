@@ -11,7 +11,7 @@ export const PanelSideBarToggle = (props: PanelSideBarToggleProps) => {
 
   return (
     <Button {...buttonProps} id="side-nav-toggle" color="primary">
-      <FontAwesomeIcon icon={toggled ? faAngleLeft : faAngleRight} />
+      <FontAwesomeIcon icon={toggled ? faAngleRight : faAngleLeft} />
     </Button>
   );
 };

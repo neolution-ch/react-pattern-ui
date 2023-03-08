@@ -9,16 +9,17 @@ import { PanelMenuItem } from "./Definitions/PanelSideBarMenuItem";
 export interface PanelSideBarItemProps {
   item: PanelMenuItem<unknown>;
   LinkRenderer: ComponentType<LinkRendererProps>;
-  onClick: (menuItem: PanelMenuItem<unknown>) => void;
+  onClick?: (menuItem: PanelMenuItem<unknown>) => void;
   depth?: number;
-  activeId?: string;
+  active?: boolean;
+  toggledItemIds: string[];
 }
 
-export const PanelSideBarItem = (props: PanelSideBarItemProps) => {
-  const { activeId, depth = 0, item, LinkRenderer, onClick } = props;
+const PanelSideBarItem = (props: PanelSideBarItemProps) => {
+  const { depth = 0, item, LinkRenderer, onClick, toggledItemIds = [] } = props;
 
   const hasChildren = !!item.children?.length;
-  const isOpen = item.expanded === true;
+  const isOpen = toggledItemIds?.includes(item.id) || item.expanded;
 
   if (item.display === false) {
     return null;
@@ -27,8 +28,8 @@ export const PanelSideBarItem = (props: PanelSideBarItemProps) => {
   return (
     <>
       <NavItem
-        onClick={() => onClick(item)}
-        className={classNames({ "menu-open": isOpen, active: item.id === activeId })}
+        onClick={() => onClick && onClick(item)}
+        className={classNames({ "menu-open": isOpen, active: item.active })}
         style={{ paddingLeft: depth ? `${depth + 1}rem` : undefined }}
       >
         {hasChildren ? (
@@ -57,9 +58,10 @@ export const PanelSideBarItem = (props: PanelSideBarItemProps) => {
               key={childItem.id}
               item={childItem}
               LinkRenderer={LinkRenderer}
-              onClick={() => onClick(childItem)}
+              onClick={() => onClick && onClick(childItem)}
               depth={depth + 1}
-              activeId={activeId}
+              active={item.active}
+              toggledItemIds={toggledItemIds}
             />
           ))}
         </Collapse>
@@ -67,3 +69,5 @@ export const PanelSideBarItem = (props: PanelSideBarItemProps) => {
     </>
   );
 };
+
+export { PanelSideBarItem };
