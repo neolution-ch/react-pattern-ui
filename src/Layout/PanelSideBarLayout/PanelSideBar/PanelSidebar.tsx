@@ -4,7 +4,7 @@ import { Button } from "reactstrap";
 import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import { PanelItem } from "./Definitions/PanelSideBarMenuItem";
 import { PanelSideBarItem } from "./PanelSideBarItem";
-
+import { useState } from "react";
 interface PanelSideBarProps {
   localItems?: PanelItem[];
 }
@@ -12,7 +12,17 @@ interface PanelSideBarProps {
 export const PanelSideBar = (props: PanelSideBarProps) => {
   const { localItems = [] } = props;
 
-  const { activePanelId, globalItems, LinkRenderer, setActivePanel, toggledMenuItemIds, toggleMenuItem } = usePanelSideBarContext();
+  const { globalItems, LinkRenderer, toggledMenuItemIds, toggleMenuItem } = usePanelSideBarContext();
+
+  let initialActivePanel: string;
+  if (localItems.length > 0) {
+    const [firstLocalItem] = localItems;
+    initialActivePanel = firstLocalItem.id;
+  } else {
+    initialActivePanel = globalItems.find((x) => x.id)?.id ?? "";
+  }
+
+  const [activePanelId, setActivePanelId] = useState<string>(initialActivePanel);
 
   const activePanel: PanelItem = globalItems.find((x) => x.id === activePanelId);
   const localActivePanel: PanelItem | undefined = localItems?.find((x) => x.id === activePanelId);
@@ -24,7 +34,7 @@ export const PanelSideBar = (props: PanelSideBarProps) => {
         color="primary"
         outline
         className={classNames("tile", { active: activePanelId === id })}
-        onClick={() => setActivePanel(id)}
+        onClick={() => setActivePanelId(id)}
         title={title}
         disabled={disabled}
       >
