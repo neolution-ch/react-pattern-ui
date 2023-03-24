@@ -34,7 +34,6 @@ export interface PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>
 export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>) => {
   const { children, globalItems, LinkRenderer } = props;
 
-    console.log("I can push");
   const [toggledMenuItemIds, setToggledMenuItemIds] = useState<string[]>([]);
 
   const toggleMenuItem: MenuItemToggleFn<TMenuItem> = (menuItem) => {
