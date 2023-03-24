@@ -30,7 +30,6 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
   const toggleSidebar = () => setIsOpen((prev) => !prev);
 
   const { brand: contextBrand, footer: contextFooter, userDropDownMenu, userDropDownMenuToggle } = usePanelSideBarLayoutContext();
-  console.log("Test");
 
   return (
     <>
