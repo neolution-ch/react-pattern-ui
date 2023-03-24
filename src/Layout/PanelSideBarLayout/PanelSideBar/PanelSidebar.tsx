@@ -15,7 +15,7 @@ export const PanelSideBar = (props: PanelSideBarProps) => {
   const { globalItems, LinkRenderer, toggledMenuItemIds, toggleMenuItem } = usePanelSideBarContext();
 
   let initialActivePanel: string;
-  if (localItems.length > 0) {
+  if (localItems?.length > 0) {
     const [firstLocalItem] = localItems;
     initialActivePanel = firstLocalItem.id;
   } else {
