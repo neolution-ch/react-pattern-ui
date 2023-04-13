@@ -35,7 +35,7 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
         {hasChildren ? (
           <div className={classNames({ dropend: !isOpen })}>
             <a role="button" className={classNames("nav-link", { "dropdown-toggle": hasChildren })}>
-              {item.icon && <FontAwesomeIcon icon={item.icon as IconProp} fixedWidth />}
+              {item.icon && <FontAwesomeIcon className="me-2" icon={item.icon as IconProp} />}
               <div className="text-justify">{item.title}</div>
             </a>
           </div>
