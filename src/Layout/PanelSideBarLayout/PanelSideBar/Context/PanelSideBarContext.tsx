@@ -9,6 +9,7 @@ export interface PanelLinkRendererProps<T> {
 export type MenuItemToggleFn<TMenuItem> = (menuItem: PanelMenuItem<TMenuItem>) => void;
 
 export interface PanelSideBarContextProps<TPanelItem, TMenuItem> {
+  activePanelId: string;
   /**
    * The global panel items.
    */
@@ -16,6 +17,7 @@ export interface PanelSideBarContextProps<TPanelItem, TMenuItem> {
   /**
    * The component used to render the menu item links.
    */
+  setActivePanel: (panelId: string) => void;
   LinkRenderer: ComponentType<PanelLinkRendererProps<TMenuItem>>;
   toggledMenuItemIds: string[];
   toggleMenuItem: MenuItemToggleFn<TMenuItem>;
@@ -34,7 +36,12 @@ export interface PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>
 export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>) => {
   const { children, globalItems, LinkRenderer } = props;
 
+  const getFirstPanelId = () => globalItems.find((x) => x.id)?.id ?? "";
+  const [activePanelId, setActivePanelId] = useState(getFirstPanelId());
+
   const [toggledMenuItemIds, setToggledMenuItemIds] = useState<string[]>([]);
+
+  const setActivePanel = (panelId: string) => setActivePanelId(panelId);
 
   const toggleMenuItem: MenuItemToggleFn<TMenuItem> = (menuItem) => {
     setToggledMenuItemIds((prev) => {
@@ -51,8 +58,10 @@ export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarM
   return (
     <PanelSideBarContext.Provider
       value={{
+        activePanelId,
         globalItems,
         LinkRenderer,
+        setActivePanel,
         toggledMenuItemIds,
         toggleMenuItem,
       }}

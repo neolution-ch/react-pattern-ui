@@ -12,20 +12,20 @@ interface PanelSideBarProps {
 export const PanelSideBar = (props: PanelSideBarProps) => {
   const { localItems = [] } = props;
 
-  const { globalItems, LinkRenderer, toggledMenuItemIds, toggleMenuItem } = usePanelSideBarContext();
+  let localMenuId: string | null = null;
 
-  let initialActivePanel: string;
   if (localItems?.length > 0) {
     const [firstLocalItem] = localItems;
-    initialActivePanel = firstLocalItem.id;
-  } else {
-    initialActivePanel = globalItems.find((x) => x.id)?.id ?? "";
+    localMenuId = firstLocalItem.id;
   }
 
-  const [activePanelId, setActivePanelId] = useState<string>(initialActivePanel);
+  const [localItemId, setLocalItemId] = useState<string | null>(localMenuId);
 
-  const activePanel: PanelItem = globalItems.find((x) => x.id === activePanelId);
-  const localActivePanel: PanelItem | undefined = localItems?.find((x) => x.id === activePanelId);
+  const { activePanelId, globalItems, LinkRenderer, setActivePanel, toggledMenuItemIds, toggleMenuItem } = usePanelSideBarContext();
+
+  const localActivePanelId = localItemId ?? activePanelId;
+  const activePanel: PanelItem = globalItems.find((x) => x.id === localActivePanelId);
+  const localActivePanel: PanelItem | undefined = localItems?.find((x) => x.id === localActivePanelId);
 
   const panelItemsRenderer = (items: PanelItem[]) =>
     items?.map(({ disabled, icon, id, title }) => (
@@ -33,8 +33,11 @@ export const PanelSideBar = (props: PanelSideBarProps) => {
         key={id}
         color="primary"
         outline
-        className={classNames("tile", { active: activePanelId === id })}
-        onClick={() => setActivePanelId(id)}
+        className={classNames("tile", { active: localActivePanelId === id })}
+        onClick={() => {
+          setLocalItemId(null);
+          setActivePanel(id);
+        }}
         title={title}
         disabled={disabled}
       >
