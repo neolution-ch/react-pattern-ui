@@ -130,7 +130,7 @@ section.content:first-of-type {
 #side-nav.panel-layout {
   position: fixed;
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   overflow-y: auto;
   overflow-x: hidden;
   bottom: 0;
