@@ -19,7 +19,7 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
   const { depth = 0, item, LinkRenderer, onClick, toggledItemIds = [] } = props;
 
   const hasChildren = !!item.children?.length;
-  const isOpen = toggledItemIds?.includes(item.id) || item.expanded;
+  const isOpen = toggledItemIds?.includes(item.id);
 
   if (item.display === false) {
     return null;
