@@ -42,8 +42,10 @@ export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarM
   const [toggledMenuItemIds, setToggledMenuItemIds] = useState<string[]>([]);
 
   useEffect(() => {
-    globalItems.forEach(section => section.items.filter(i => i.expanded).forEach(e => setToggledMenuItemIds(prev => [...prev, e.id])));
-  }, [])
+    globalItems.forEach((section) =>
+      section.items.filter((i) => i.expanded).forEach((e) => setToggledMenuItemIds((prev) => [...prev, e.id])),
+    );
+  }, []);
 
   const setActivePanel = (panelId: string) => setActivePanelId(panelId);
 
