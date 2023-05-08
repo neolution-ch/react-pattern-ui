@@ -1,4 +1,4 @@
-import React, { ComponentType, createContext, ReactNode, useContext, useEffect, useState } from "react";
+import React, { ComponentType, createContext, ReactNode, useContext, useState } from "react";
 import { PanelItem, PanelMenuItem } from "../Definitions/PanelSideBarMenuItem";
 
 export interface PanelLinkRendererProps<T> {
@@ -40,12 +40,6 @@ export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarM
   const [activePanelId, setActivePanelId] = useState(getFirstPanelId());
 
   const [toggledMenuItemIds, setToggledMenuItemIds] = useState<string[]>([]);
-
-  useEffect(() => {
-    globalItems.forEach((section) =>
-      section.items.filter((i) => i.expanded).forEach((e) => setToggledMenuItemIds((prev) => [...prev, e.id])),
-    );
-  }, []);
 
   const setActivePanel = (panelId: string) => setActivePanelId(panelId);
 
