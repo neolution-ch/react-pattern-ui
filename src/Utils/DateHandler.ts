@@ -25,6 +25,7 @@ export class DateHandler {
       .replace("MM", this.padNumber(date.getMonth() + 1, 2))
       .replace("dd", this.padNumber(date.getDate(), 2))
       .replace("hh", this.padNumber(date.getHours(), 2))
+      .replace("HH", this.padNumber(date.getHours(), 2))
       .replace("mm", this.padNumber(date.getMinutes(), 2))
       .replace("ss", this.padNumber(date.getSeconds(), 2));
   }
