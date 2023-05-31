@@ -20,7 +20,7 @@ export interface PanelSideBarLayoutProviderProps {
   /**
    * The other menu content.
    */
-  topBarCustomItems?: JSX.Element[];
+  topBarCustomItems?: ReactNode[];
 }
 
 const PanelSideBarLayoutContext = createContext<PanelSideBarLayoutProviderProps | null>(null);
