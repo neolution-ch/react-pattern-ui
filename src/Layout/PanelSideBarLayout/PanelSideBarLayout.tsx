@@ -29,7 +29,13 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggleSidebar = () => setIsOpen((prev) => !prev);
 
-  const { brand: contextBrand, footer: contextFooter, userDropDownMenu, userDropDownMenuToggle } = usePanelSideBarLayoutContext();
+  const {
+    brand: contextBrand,
+    footer: contextFooter,
+    userDropDownMenu,
+    userDropDownMenuToggle,
+    topBarCustomItems = [],
+  } = usePanelSideBarLayoutContext();
 
   return (
     <>
@@ -38,7 +44,11 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
         <div className="navbar-brand">{brand ?? contextBrand}</div>
 
         {/* <NavbarUser /> */}
-        <Nav className="navbar-user">
+        <Nav className="navbar-user" vertical>
+          {/*Other Custom Menu*/}
+          {topBarCustomItems?.map((item) => (
+            <NavItem>{item}</NavItem>
+          ))}
           <NavItem>
             <UncontrolledDropdown direction="start">
               <DropdownToggle nav className="user-dropdown">

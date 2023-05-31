@@ -109,8 +109,9 @@ $topnav-light-toggler-color: $gray-900;
     align-items: center;
     justify-content: center;
     align-self: flex-end;
-    margin: 0 1rem;
+    margin: 0 3rem;
     margin-left: auto;
+    margin-right: 3rem;
 
     .user-dropdown {
       font-weight: bold;
@@ -240,6 +241,7 @@ section.content:first-of-type {
 
 @include media-breakpoint-up(md) {
   $toggled-width: #{$tile-size + $slim-scrollbar-base-width};
+
   section.toggled {
     > #side-nav {
       transition: $sidebar-transition;
