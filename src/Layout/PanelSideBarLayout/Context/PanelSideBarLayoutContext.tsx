@@ -17,15 +17,19 @@ export interface PanelSideBarLayoutProviderProps {
    * The user dropdown menu content.
    */
   userDropDownMenu?: ReactNode;
+  /**
+   * The other menu content.
+   */
+  topBarCustomItems?: JSX.Element[];
 }
 
 const PanelSideBarLayoutContext = createContext<PanelSideBarLayoutProviderProps | null>(null);
 
 export const PanelSideBarLayoutProvider = (props: PropsWithChildren<PanelSideBarLayoutProviderProps>) => {
-  const { brand = null, children, footer = null, userDropDownMenu, userDropDownMenuToggle } = props;
+  const { brand = null, children, footer = null, userDropDownMenu, userDropDownMenuToggle, topBarCustomItems } = props;
 
   return (
-    <PanelSideBarLayoutContext.Provider value={{ brand, footer, userDropDownMenu, userDropDownMenuToggle }}>
+    <PanelSideBarLayoutContext.Provider value={{ brand, footer, userDropDownMenu, userDropDownMenuToggle, topBarCustomItems }}>
       {children}
     </PanelSideBarLayoutContext.Provider>
   );
