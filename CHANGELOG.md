@@ -7,47 +7,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- possibility to display CurrentItemPerPage in Pagination dropdown and to be re-selected after one change
+
 ## [2.1.1] - 2022-12-09
 
--   Added styling for button groups
+- Added styling for button groups
 
 ## [2.1.0] - 2022-12-01
 
 ### Added
 
--   Added new layout components: `AuthenticationLayout`, `SideBarLayout`
+- Added new layout components: `AuthenticationLayout`, `SideBarLayout`
 
 ### Changed
 
--   Adjusted exports to be more consistent
+- Adjusted exports to be more consistent
 
 ## [2.0.2] - 2022-04-14
 
 ### Fixed
 
--   Fix added for missing react import aftger microbundling
+- Fix added for missing react import aftger microbundling
 
 ## [2.0.1] - 2022-04-12
 
 ### Fixed
 
--   Package doesn't use 'h()' anymore, replaced with 'React.createElement' instead
+- Package doesn't use 'h()' anymore, replaced with 'React.createElement' instead
 
 ## [2.0.0] - 2022-04-07
 
 ### Added
 
--   created package :tada:
--   added tests
+- created package :tada:
+- added tests
 
-[Unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/2.1.1...HEAD
-
+[unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/2.1.1...HEAD
 [2.1.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.1.0...2.1.1
-
 [2.1.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.2...2.1.0
-
 [2.0.2]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.1...2.0.2
-
 [2.0.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.0...2.0.1
-
 [2.0.0]: https://github.com/neolution-ch/react-pattern-ui/compare/45cbeb76034667019da84605082679900f506d75...2.0.0
