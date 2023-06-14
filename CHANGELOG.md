@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 2023-06-14
+
 ### Added
 
 - possibility to display CurrentItemPerPage in Pagination dropdown and to be re-selected after one change
@@ -44,9 +46,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - created package :tada:
 - added tests
 
-[unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/2.1.1...HEAD
+[unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/2.2.0...HEAD
 [2.1.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.2...2.1.0
 [2.0.2]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/neolution-ch/react-pattern-ui/compare/45cbeb76034667019da84605082679900f506d75...2.0.0
+[2.2.0]: https://github.com/neolution-ch/react-pattern-ui/releases/tag/2.2.0
