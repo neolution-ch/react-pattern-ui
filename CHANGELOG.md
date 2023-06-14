@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- possibility to display CurrentItemPerPage in Pagination dropdown and to be re-selected after one change
+
 ## [2.1.1] - 2022-12-09
 
 -   Added styling for button groups

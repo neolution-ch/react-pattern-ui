@@ -26,7 +26,7 @@ function Paging({
   currentRecordCount,
   pagingPossible = true,
   translations,
-  possiblePageItemCounts = [25, 50, 100, 200],
+  possiblePageItemCounts,
   maxPagesShown = 7,
   showControls = true,
   setItemsPerPage,
@@ -34,6 +34,13 @@ function Paging({
 }: PagingProps) {
   const maxPage = Math.ceil(totalRecords / currentItemsPerPage);
   const firstPageShown = Math.max(0, Math.min(currentPage - Math.ceil(maxPagesShown / 2), maxPage - maxPagesShown));
+
+  const possibleItemsPerPage = possiblePageItemCounts ?? [25, 50, 100, 200];
+
+  if (!possibleItemsPerPage.includes(currentItemsPerPage)) {
+    possibleItemsPerPage.concat(currentItemsPerPage).sort((a, b) => a-b);
+  }
+
   return (
     <Row style={{ marginBottom: "20px" }}>
       <Col xs={6}>
@@ -44,7 +51,7 @@ function Paging({
             </DropdownToggle>
             <DropdownMenu>
               <DropdownItem header>{translations.itemsPerPageDropdown}</DropdownItem>
-              {possiblePageItemCounts.map((pageItemCount) => (
+              {possibleItemsPerPage.map((pageItemCount) => (
                 <DropdownItem key={`pageItemCount_${pageItemCount}`} onClick={() => setItemsPerPage(pageItemCount)}>
                   {pageItemCount}
                 </DropdownItem>
