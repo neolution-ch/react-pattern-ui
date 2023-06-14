@@ -38,7 +38,7 @@ function Paging({
   const possibleItemsPerPage = possiblePageItemCounts ?? [25, 50, 100, 200];
 
   if (!possibleItemsPerPage.includes(currentItemsPerPage)) {
-    possibleItemsPerPage.concat(currentItemsPerPage).sort((a, b) => a-b);
+    possibleItemsPerPage.concat(currentItemsPerPage).sort((a, b) => a - b);
   }
 
   return (
