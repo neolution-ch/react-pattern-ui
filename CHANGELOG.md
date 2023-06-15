@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- CurrentItemPerPage in pagination logic and avoid duplicates
+
 ## [2.2.0] - 2023-06-14
 
 ### Added

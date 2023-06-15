@@ -1,3 +1,4 @@
+/*eslint max-lines: ["error", 210]*/
 import { render, waitFor, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
@@ -48,6 +49,14 @@ describe("Paging", () => {
               >
                 Items per page
               </h6>
+              <button
+                class="dropdown-item"
+                role="menuitem"
+                tabindex="0"
+                type="button"
+              >
+                10
+              </button>
               <button
                 class="dropdown-item"
                 role="menuitem"
