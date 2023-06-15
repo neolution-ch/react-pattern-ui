@@ -54,6 +54,14 @@ describe("Paging", () => {
                 tabindex="0"
                 type="button"
               >
+                10
+              </button>
+              <button
+                class="dropdown-item"
+                role="menuitem"
+                tabindex="0"
+                type="button"
+              >
                 25
               </button>
               <button
