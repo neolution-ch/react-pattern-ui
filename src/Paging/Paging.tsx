@@ -35,11 +35,9 @@ function Paging({
   const maxPage = Math.ceil(totalRecords / currentItemsPerPage);
   const firstPageShown = Math.max(0, Math.min(currentPage - Math.ceil(maxPagesShown / 2), maxPage - maxPagesShown));
 
-  const possibleItemsPerPage = possiblePageItemCounts ?? [25, 50, 100, 200];
-
-  if (!possibleItemsPerPage.includes(currentItemsPerPage)) {
-    possibleItemsPerPage.concat(currentItemsPerPage).sort((a, b) => a - b);
-  }
+  const possibleItemsPerPage = [...(possiblePageItemCounts ?? [25, 50, 100, 200]), currentItemsPerPage]
+    .filter((value, index, array) => array.indexOf(value) == index)
+    .sort((a, b) => a - b);
 
   return (
     <Row style={{ marginBottom: "20px" }}>
