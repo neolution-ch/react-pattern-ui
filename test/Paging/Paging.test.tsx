@@ -1,3 +1,4 @@
+/*eslint max-lines: ["error", 210]*/
 import { render, waitFor, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
