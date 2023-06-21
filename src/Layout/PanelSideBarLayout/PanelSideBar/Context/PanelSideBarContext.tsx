@@ -36,10 +36,13 @@ export interface PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>
 export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>) => {
   const { children, globalItems, LinkRenderer } = props;
 
-  const getFirstPanelId = () => globalItems.find((x) => x.id)?.id ?? "";
-  const [activePanelId, setActivePanelId] = useState(getFirstPanelId());
+  const firstActivePanel = globalItems.find((x) => x.items?.find((y) => y.active)) ?? globalItems.find((x) => x.id);
 
-  const [toggledMenuItemIds, setToggledMenuItemIds] = useState<string[]>([]);
+  const getActivePanelId = () => firstActivePanel?.id ?? "";
+
+  const [activePanelId, setActivePanelId] = useState(getActivePanelId());
+
+  const [toggledMenuItemIds, setToggledMenuItemIds] = useState<string[]>([firstActivePanel?.items?.find((x) => x.active)?.id ?? ""]);
 
   const setActivePanel = (panelId: string) => setActivePanelId(panelId);
 
