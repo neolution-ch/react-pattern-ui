@@ -11,6 +11,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - PanelLayout
 
+## [2.2.1] - 2023-06-15
+
+### Fixed
+
+- CurrentItemPerPage in pagination logic and avoid duplicates
+
+## [2.2.0] - 2023-06-14
+
+### Added
+
+- possibility to display CurrentItemPerPage in Pagination dropdown and to be re-selected after one change
+
+
 ## [2.1.1] - 2022-12-09
 
 - Added styling for button groups
@@ -44,9 +57,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - created package :tada:
 - added tests
 
-[unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/2.1.1...HEAD
+[unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/2.2.1...HEAD
 [2.1.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.2...2.1.0
 [2.0.2]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/neolution-ch/react-pattern-ui/compare/45cbeb76034667019da84605082679900f506d75...2.0.0
+[2.2.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.2.0...2.2.1
+[2.2.0]: https://github.com/neolution-ch/react-pattern-ui/releases/tag/2.2.0
