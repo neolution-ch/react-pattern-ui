@@ -42,13 +42,16 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
       <nav id="nav-top" className="panel-layout navbar navbar-expand">
         {/* Navbar Brand */}
         <div className="navbar-brand">{brand ?? contextBrand}</div>
-
-        {/* <NavbarUser /> */}
-        <Nav className="navbar-user" vertical>
+        <Nav className="navbar-user" vertical style={{ marginRight: 48 + topBarCustomItems.length * 32 }}>
           {/*Other Custom Menu*/}
-          {topBarCustomItems?.map((item) => (
-            <NavItem>{item}</NavItem>
-          ))}
+          <div className="navbar-custom">
+            {topBarCustomItems?.map((item, index) => (
+              <NavItem key={index} className="navbar-custom-item">
+                {item}
+              </NavItem>
+            ))}
+          </div>
+          {/* <NavbarUser /> */}
           <NavItem>
             <UncontrolledDropdown direction="start">
               <DropdownToggle nav className="user-dropdown">
