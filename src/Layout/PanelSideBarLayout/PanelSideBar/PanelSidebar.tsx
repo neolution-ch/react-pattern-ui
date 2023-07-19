@@ -28,8 +28,8 @@ export const PanelSideBar = (props: PanelSideBarProps) => {
   const localActivePanel: PanelItem | undefined = localItems?.find((x) => x.id === localActivePanelId);
 
   const panelItemsRenderer = (items: PanelItem[]) =>
-    items?.map(({ disabled, icon, onClick, id, title }) => (  
-        <Button
+    items?.map(({ disabled, icon, onClick, id, title }) => (
+      <Button
         key={id}
         color="primary"
         outline
@@ -41,7 +41,6 @@ export const PanelSideBar = (props: PanelSideBarProps) => {
             setLocalItemId(null);
             setActivePanel(id);
           }
-
         }}
         title={title}
         disabled={disabled}
