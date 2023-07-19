@@ -28,15 +28,20 @@ export const PanelSideBar = (props: PanelSideBarProps) => {
   const localActivePanel: PanelItem | undefined = localItems?.find((x) => x.id === localActivePanelId);
 
   const panelItemsRenderer = (items: PanelItem[]) =>
-    items?.map(({ disabled, icon, id, title }) => (
-      <Button
+    items?.map(({ disabled, icon, onClick, id, title }) => (  
+        <Button
         key={id}
         color="primary"
         outline
         className={classNames("tile", { active: localActivePanelId === id })}
         onClick={() => {
-          setLocalItemId(null);
-          setActivePanel(id);
+          if (onClick) {
+            onClick();
+          } else {
+            setLocalItemId(null);
+            setActivePanel(id);
+          }
+
         }}
         title={title}
         disabled={disabled}
