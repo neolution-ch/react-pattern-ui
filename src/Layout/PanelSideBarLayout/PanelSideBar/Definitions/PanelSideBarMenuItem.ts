@@ -9,6 +9,12 @@ export type PanelItem<TPanelItem = Record<string, unknown>, TMenuItem = Record<s
    * The panel item identifier.
    */
   id: string;
+
+  /**
+   * The custom onClick that prevents all others default action.
+   */
+  onClick?(): void;
+
   /**
    * The panel menu items.
    */

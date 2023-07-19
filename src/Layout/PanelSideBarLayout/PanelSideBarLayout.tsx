@@ -21,10 +21,14 @@ export interface PanelSideBarLayoutProps extends PropsWithChildren {
    * The footer content.
    */
   footer?: ReactNode;
+  /**
+   * The collapsible option to choose.
+   */
+  collapsible?: boolean;
 }
 
 export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
-  const { brand, children, footer, localItems = [] } = props;
+  const { brand, children, footer, localItems = [], collapsible = true } = props;
 
   const [isOpen, setIsOpen] = useState(true);
   const toggleSidebar = () => setIsOpen((prev) => !prev);
@@ -64,7 +68,7 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
 
       <section className={classNames({ toggled: !isOpen })}>
         <PanelSideBar localItems={localItems} />
-        <PanelSideBarToggle onClick={toggleSidebar} toggled={!isOpen} />
+        {collapsible === true && <PanelSideBarToggle onClick={toggleSidebar} toggled={!isOpen} />}
         <PanelSideBarLayoutContent footer={footer ?? contextFooter}>{children}</PanelSideBarLayoutContent>
       </section>
     </>
