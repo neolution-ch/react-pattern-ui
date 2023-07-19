@@ -109,9 +109,16 @@ $topnav-light-toggler-color: $gray-900;
     align-items: center;
     justify-content: center;
     align-self: flex-end;
-    margin: 0 3rem;
     margin-left: auto;
-    margin-right: 3rem;
+
+    .navbar-custom {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .navbar-custom-item {
+      margin-left: 1em;
+    }
 
     .user-dropdown {
       font-weight: bold;
