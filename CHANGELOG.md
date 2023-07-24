@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Changed from `microbundle` to `rollup` for building the package
+- Updated some dependencies to the latest possible version
+
 ## [2.2.1] - 2023-06-15
 
 ### Fixed
