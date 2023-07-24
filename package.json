@@ -29,7 +29,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "yarn clean-dist && yarn build-lib && yarn copy-sass",
+    "build-lib": "rollup -c",
     "clean-dist": "shx rm -rf dist",
     "copy-sass": "shx cp -r styles dist/scss",
     "lint": "eslint \"**/*.{ts,tsx}\" --cache --max-warnings 0",
