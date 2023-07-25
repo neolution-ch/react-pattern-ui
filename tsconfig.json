@@ -20,5 +20,5 @@
     "rootDir": "src"
   },
   "include": ["src", "test"],
-  "exclude": ["node_modules", "dist", "example", "scss"]
+  "exclude": ["node_modules", "dist", "example"]
 }
