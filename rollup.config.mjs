@@ -3,22 +3,18 @@ import nodeResolve from "@rollup/plugin-node-resolve";
 import external from "rollup-plugin-peer-deps-external";
 import terser from "@rollup/plugin-terser";
 import typescript from "rollup-plugin-typescript2";
-import css from "rollup-plugin-import-css";
 import sass from "rollup-plugin-sass";
 
 const input = "src/index.ts";
 
 const plugins = [
-  sass(),
-  css({
-    output: "dist/index.css",
-  }),
+  sass({ output: true }),
   external({
     includeDependencies: true,
   }),
   typescript({
     clean: true,
-    exclude: ["**/__tests__", "**/*.test.ts", "**/stories/**/*"],
+    exclude: ["**/__tests__", "**/*.test.ts", "**/stories/**/*", "**/*test.tsx, **/scss/**"],
   }),
   commonjs({
     include: /\/node_modules\//,
@@ -38,7 +34,7 @@ export default [
     output: {
       file: "dist/index.js",
       format: "cjs",
-      name: "ReactDataTable",
+      name: "ReactPatternUI",
       sourcemap: true,
       globals: { react: "React" },
       exports: "named",
@@ -52,7 +48,7 @@ export default [
     output: {
       file: "dist/index.modern.js",
       format: "esm",
-      name: "ReactDataTable",
+      name: "ReactPatternUI",
       sourcemap: true,
       globals: { react: "React" },
       exports: "named",
@@ -65,7 +61,7 @@ export default [
     output: {
       file: "dist/index.umd.js",
       format: "umd",
-      name: "ReactDataTable",
+      name: "ReactPatternUI",
       sourcemap: true,
       globals: { react: "React" },
       exports: "named",

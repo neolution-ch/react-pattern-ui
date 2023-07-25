@@ -40,7 +40,6 @@
     "start": "rollup -c -w",
     "start-all": "concurrently \"yarn start\" \"yarn start-yalc\"",
     "start-yalc": "yarn nodemon --watch dist -x \"yarn yalc push\"",
-    "test": "cross-env DEBUG_PRINT_LIMIT=100 jest",
     "tsc": "tsc"
   },
   "dependencies": {
@@ -55,11 +54,6 @@
     "@rollup/plugin-commonjs": "^24.1.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-terser": "^0.4.1",
-    "@testing-library/dom": "^8.13.0",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^14.0.4",
-    "@types/jest": "^27.4.1",
     "@types/node": "^18.16.3",
     "@types/react": "^18.2.5",
     "@types/react-dom": "^18.2.3",
@@ -72,7 +66,6 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-import": "^2.27.5",
-    "jest": "^27.5.1",
     "nodemon": "^2.0.22",
     "prettier": "^2.8.8",
     "react": "^18.2.0",
@@ -86,7 +79,6 @@
     "rollup-plugin-typescript2": "^0.34.1",
     "sass": "^1.56.1",
     "shx": "^0.3.4",
-    "ts-jest": "^27.1.4",
     "typescript": "^5.0.4",
     "yalc": "^1.0.0-pre.53"
   },

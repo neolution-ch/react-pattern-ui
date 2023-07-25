@@ -2,27 +2,104 @@ name: CI
 
 on:
   workflow_dispatch:
-  #push:
-  #branches: [main]
   pull_request:
     branches: [main, develop]
+    types: [opened, synchronize, ready_for_review]
+
+# cancel running actions for current PR if new commits were pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build:
+  depandabot-modify-changelog:
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
 
+      - run: |
+          insertText="### dependabot: \\\#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}"
+
+          # check if file doesn't contain the text already
+          if ! grep -q "$insertText" CHANGELOG.md; then
+            echo "Changelog entry not found, adding it"
+            sed -i "/## \[Unreleased\]/a \
+            $insertText" CHANGELOG.md
+          else
+            echo "Changelog entry already exists, skipping"
+            exit 0
+          fi
+
+      - name: initialize mandatory git config
+        run: |
+          git config user.name "GitHub Changelog Bot"
+          git config user.email changelog-bot@neolution.ch
+
+      - run: npx prettier --write CHANGELOG.md
+
+      - name: commit and push
+        run: |
+          git add CHANGELOG.md
+          git commit -m "Add changelog entry for ${{ github.event.pull_request.title }}"
+          git push
+
+  check-changelog:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v37
+
+      - name: Check if changelog was touched
+        run: |
+          changelogFound=$(echo ${{ steps.changed-files.outputs.all_changed_files }} | grep -ow "CHANGELOG.md" | wc -w)
+          if [ $changelogFound -eq 0 ]; then
+            echo '### :boom: Please update the changelog accordingly (https://keepachangelog.com)' >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+  ci:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x, 18.x]
+        node-version: [14.x, 16.x]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: "yarn"
-      - run: yarn
+
+      - run: yarn --frozen-lockfile
+      - run: yarn lint
       - run: yarn build
       - run: yarn prettier-check
-      - run: yarn lint
-      - run: yarn test
+
+      # Run cypress tests
+      - run: yarn --frozen-lockfile
+        working-directory: ./cypress
+      - run: yarn cypress run --component
+        working-directory: ./cypress
+
+      # Upload screenshots/videos
+      - name: Upload snapshots
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-snapshots-${{ matrix.node-version }}
+          path: |
+            ./cypress/cypress/screenshots
+            ./cypress/cypress/videos
