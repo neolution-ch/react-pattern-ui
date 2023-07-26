@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 import { DateHandler } from "react-pattern-ui";
 
-describe("DeleteAction.cy.tsx", () => {
+describe("DateHandler.cy.tsx", () => {
   it("get date string", async () => {
     expect(DateHandler.getDateString("2022-10-15")).to.eq("15.10.2022");
   });
