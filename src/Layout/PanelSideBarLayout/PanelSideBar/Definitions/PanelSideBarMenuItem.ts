@@ -1,4 +1,5 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { ReactNode } from "react";
 
 export type PanelItem<TPanelItem = Record<string, unknown>, TMenuItem = Record<string, unknown>> = TPanelItem & {
   /**
@@ -37,7 +38,7 @@ export type PanelMenuItem<T = Record<string, unknown>> = T & {
   /**
    * The menu item title.
    */
-  title: string;
+  title: ReactNode;
   /**
    * Whether the item is active.
    */
