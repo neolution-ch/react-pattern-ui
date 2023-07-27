@@ -1,0 +1,33 @@
+{
+  "name": "cypress",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "cy": "cypress",
+    "cyo": "yarn cy open",
+    "cyr": "yarn cy run --component",
+    "dev": "next dev",
+    "lint": "eslint \"**/*.{ts,tsx}\" --cache --max-warnings 0",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@types/node": "18.11.9",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.8",
+    "eslint": "8.27.0",
+    "eslint-config-next": "13.0.2",
+    "next": "13.0.2",
+    "react": "link:../node_modules/react",
+    "react-dom": "link:../node_modules/react-dom",
+    "react-pattern-ui": "link:../dist",
+    "typescript": "4.8.4"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "cypress": "^11.0.0"
+  }
+}

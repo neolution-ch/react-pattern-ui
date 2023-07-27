@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { PropsWithChildren, ReactNode } from "react";
-import "../../styles/Layout/AuthenticationLayout.scss";
+import "../../../styles/Layout/AuthenticationLayout.scss";
 
 interface AuthenticationLayoutProps {
   className?: string;
