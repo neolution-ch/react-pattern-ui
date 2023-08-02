@@ -1,5 +1,3 @@
 # ignore artifacts
 dist
 node_modules
-# todo
-jest.config.cjs
