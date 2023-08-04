@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added support to "react" version "^18.0.0" in peerDependencies
+- Added support to "react-dom" version "^18.0.0" in peerDependencies
+- Added support to "reactstrap" version "^9.0.0" in peerDependencies
+- Added support to "@fortawesome/react-fontawesome" version "^0.2.0" in peerDependencies
+
+### Fixed
+
+- Fixed export for CommonJS
+
 ## [2.3.0] - 2023-07-28
 
 ### Fixed
