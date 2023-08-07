@@ -15,7 +15,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.modern.js",
       "require": "./dist/index.js"
-    }
+    },
+    "./css": "./dist/index.css"
   },
   "main": "dist/index.js",
   "umd:main": "dist/index.umd.js",
