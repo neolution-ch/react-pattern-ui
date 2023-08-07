@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added `main.css` to the export in the package.json
+- Added `index.css` to the export in the package.json
 
 ## [2.4.0] - 2023-08-04
 
