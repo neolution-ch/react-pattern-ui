@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { PropsWithChildren, ReactNode, useState } from "react";
 import { DropdownMenu, DropdownToggle, Nav, NavItem, UncontrolledDropdown } from "reactstrap";
-import "../../../styles/Layout/PanelSideBarLayout.scss";
+import "../../../../styles/Layout/PanelSideBarLayout.scss";
 import { PanelSideBar } from "./PanelSideBar/PanelSidebar";
 import { PanelSideBarLayoutContent } from "./PanelSideBarLayoutContent";
 import { usePanelSideBarLayoutContext } from "./Context/PanelSideBarLayoutContext";
