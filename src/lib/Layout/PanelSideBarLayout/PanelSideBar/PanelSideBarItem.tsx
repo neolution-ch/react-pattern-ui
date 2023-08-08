@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import { ComponentType } from "react";
 import { Collapse, NavItem } from "reactstrap";
-import { LinkRendererProps } from "src/SideBar/SideBarMenuContext";
+import { LinkRendererProps } from "src/lib/SideBar/SideBarMenuContext";
 import { PanelMenuItem } from "./Definitions/PanelSideBarMenuItem";
 
 export interface PanelSideBarItemProps {
