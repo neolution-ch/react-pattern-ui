@@ -14,7 +14,7 @@
 // ***********************************************************
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "react-pattern-ui/index.css";
+import "react-pattern-ui/styles.css";
 
 // Import commands.js using ES2015 syntax:
 import "./commands";
