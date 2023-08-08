@@ -8,7 +8,7 @@ import sass from "rollup-plugin-sass";
 const input = "src/index.ts";
 
 const plugins = [
-  sass({ output: true }),
+  sass({ output: "dist/styles.css" }),
   external({
     includeDependencies: true,
   }),
