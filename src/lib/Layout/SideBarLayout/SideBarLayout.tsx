@@ -25,7 +25,7 @@ const SideBarLayout = (props: SideBarLayoutProps) => {
 
   return (
     <>
-      <nav id="nav-top" className={`navbar navbar-expand navbar-${theme}`}>
+      <nav id="nav-top" className={`navbar navbar-expand navbar-${chosenTheme}`}>
         {/* Navbar Brand*/}
         <div className="navbar-brand">{brand ?? contextBrand}</div>
 
