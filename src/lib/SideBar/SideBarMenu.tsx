@@ -1,12 +1,18 @@
 import { useSideBarMenuContext } from "./SideBarMenuContext";
 import { SideBarMenuItem } from "./SideBarMenuItem";
 
-const SideBarMenu = () => {
+interface SideBarMenuProps {
+  theme: "dark" | "light";
+}
+
+const SideBarMenu = ({ theme }: SideBarMenuProps) => {
   const { items } = useSideBarMenuContext();
+
+  const sidenavClass = theme == "dark" ? "sb-sidenav-dark" : "";
 
   return (
     <div id="layout-sidenav__nav">
-      <nav className="sb-sidenav accordion sb-sidenav-dark">
+      <nav className={`sb-sidenav accordion ${sidenavClass}`}>
         <div className="sb-sidenav-menu">
           <div className="nav">
             {items?.map((x, i) => (

@@ -1,6 +1,7 @@
 import { createContext, PropsWithChildren, ReactNode, useContext } from "react";
 
 interface SideBarLayoutProviderProps {
+  theme: "dark" | "light";
   footer?: ReactNode;
   brand?: ReactNode;
   userDropDownMenuToggle?: ReactNode;
@@ -10,10 +11,9 @@ interface SideBarLayoutProviderProps {
 const SideBarLayoutContext = createContext<SideBarLayoutProviderProps | null>(null);
 
 const SideBarLayoutProvider = (props: PropsWithChildren<SideBarLayoutProviderProps>) => {
-  const { brand = null, children, footer = null, userDropDownMenu, userDropDownMenuToggle } = props;
-
+  const { brand = null, children, footer = null, theme, userDropDownMenu, userDropDownMenuToggle } = props;
   return (
-    <SideBarLayoutContext.Provider value={{ brand, footer, userDropDownMenu, userDropDownMenuToggle }}>
+    <SideBarLayoutContext.Provider value={{ brand, footer, theme, userDropDownMenu, userDropDownMenuToggle }}>
       {children}
     </SideBarLayoutContext.Provider>
   );
