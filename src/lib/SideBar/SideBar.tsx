@@ -19,7 +19,7 @@ const SideBar: FC<SideBarProps> = ({ isOpen, toggle, theme }) => (
       </div>
     </div>
     <div className="side-menu">
-      <SideBarMenu theme={theme}></SideBarMenu> 
+      <SideBarMenu theme={theme}></SideBarMenu>
     </div>
   </div>
 );
