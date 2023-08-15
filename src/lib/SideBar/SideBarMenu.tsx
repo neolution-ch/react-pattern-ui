@@ -8,11 +8,9 @@ interface SideBarMenuProps {
 const SideBarMenu = ({ theme }: SideBarMenuProps) => {
   const { items } = useSideBarMenuContext();
 
-  const sidenavClass = theme == "dark" ? "sb-sidenav-dark" : "";
-
   return (
     <div id="layout-sidenav__nav">
-      <nav className={`sb-sidenav accordion ${sidenavClass}`}>
+      <nav className={`sb-sidenav accordion sb-sidenav-${theme}`}>
         <div className="sb-sidenav-menu">
           <div className="nav">
             {items?.map((x, i) => (

@@ -21,7 +21,7 @@ const SideBarLayout = (props: SideBarLayoutProps) => {
   const toggleSidebar = () => setIsOpen((prev) => !prev);
 
   const { brand: contextBrand, theme: contextTheme, userDropDownMenu, userDropDownMenuToggle } = useSideBarLayoutContext();
-  const chosenTheme = theme ?? contextTheme ?? "dark";
+  const chosenTheme = theme ?? contextTheme;
 
   return (
     <>
