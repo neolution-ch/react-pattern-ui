@@ -5,9 +5,10 @@ import SideBarMenu from "./SideBarMenu";
 interface SideBarProps {
   isOpen: boolean;
   toggle: () => void;
+  theme: "dark" | "light";
 }
 
-const SideBar: FC<SideBarProps> = ({ isOpen, toggle }) => (
+const SideBar: FC<SideBarProps> = ({ isOpen, toggle, theme }) => (
   <div className={classNames("sidebar", { "is-open": isOpen })}>
     <div className="sidebar-header">
       <span color="info" onClick={toggle} style={{ color: "#fff" }}>
@@ -18,7 +19,7 @@ const SideBar: FC<SideBarProps> = ({ isOpen, toggle }) => (
       </div>
     </div>
     <div className="side-menu">
-      <SideBarMenu></SideBarMenu>
+      <SideBarMenu theme={theme}></SideBarMenu>
     </div>
   </div>
 );

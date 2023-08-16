@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added an option to enable the light theme. It can be provided explicitly every time when using the `SideBarMenu` component, or as a default in a SideBarLayoutProvider
+
 ## [2.5.0] - 2023-08-08
 
 ### Added
