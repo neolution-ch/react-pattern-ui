@@ -17,7 +17,7 @@ export interface ISideBarMenuItem {
   display?: boolean;
 
   /**
-   * more classes that can be added by the user
+   * classes that can be added by the user
    */
-  additionalClasses?: string[];
+  className?: string;
 }
