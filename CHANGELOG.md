@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed a problem where menu-open would be added to menu items without children
+- Menu styling is now using different colors for hovering and normal state
+
+### Added
+
+- Added an option to provide additional classes to a menu item
+
 ## [2.6.0] - 2023-08-16
 
 ### Added
