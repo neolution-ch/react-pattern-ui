@@ -5,7 +5,7 @@ export interface ISideBarMenuItem {
   title: string;
   icon?: IconProp;
   children?: ISideBarMenuItem[];
-  
+
   /**
    * Whether the item is expanded.
    */
@@ -19,5 +19,5 @@ export interface ISideBarMenuItem {
   /**
    * more classes that can be added by the user
    */
-  additionalClasses?: string[];  
+  additionalClasses?: string[];
 }
