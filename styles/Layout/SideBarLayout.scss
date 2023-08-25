@@ -34,8 +34,8 @@ $sidenav-dark-footer-bg: $gray-800;
 $sidenav-light-bg: $gray-100;
 $sidenav-light-color: $gray-900;
 $sidenav-light-heading-color: $gray-500;
-$sidenav-light-link-color: $sidenav-light-color;
-$sidenav-light-link-active-color: $primary;
+$sidenav-light-link-color: $gray-600;
+$sidenav-light-link-active-color: $black;
 $sidenav-light-icon-color: $gray-500;
 $sidenav-light-footer-bg: $gray-200;
 
@@ -380,5 +380,26 @@ $topnav-light-toggler-color: $gray-900;
 
   .sb-sidenav-footer {
     background-color: $sidenav-dark-footer-bg;
+  }
+}
+
+.sb-sidenav-light {
+  .sb-sidenav-menu {
+    .nav {
+      .nav-item .nav-link {
+        color: $sidenav-light-link-color;
+
+        &:hover {
+          color: $sidenav-light-link-active-color;
+        }
+      }
+
+      .nav-item.menu-open .nav-link {
+        &::after,
+        div {
+          color: $sidenav-light-link-active-color;
+        }
+      }
+    }
   }
 }

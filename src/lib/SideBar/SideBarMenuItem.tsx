@@ -20,9 +20,14 @@ const SideBarMenuItem = ({ item, depth = 0 }: SideBarMenuItemProps) => {
     return null;
   }
 
+  const divClasses = item.additionalClasses ?? [];
+  if (isOpen) {
+    divClasses.push("menu-open");
+  }
+
   return (
     <>
-      <div>
+      <div className={`${divClasses.join(" ")}`}>
         <NavItem
           onClick={() => toggleItem(item.id)}
           className={classNames({ "menu-open": isOpen })}
