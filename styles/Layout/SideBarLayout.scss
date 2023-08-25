@@ -66,7 +66,10 @@ $topnav-light-toggler-color: $gray-900;
     z-index: $zindex-sidenav;
     // Mobile first transform - by default the sidenav will be moved off-canvas
     transform: translateX(-$sidenav-base-width);
-    box-shadow: 0 0 0.5rem 0.125rem rgba($color: $gray-500, $alpha: 0.75);
+
+    @include media-breakpoint-up(lg) {
+      box-shadow: 0 0 0.5rem 0.125rem rgba($color: $gray-500, $alpha: 0.75);
+    }
   }
 
   &__content {
