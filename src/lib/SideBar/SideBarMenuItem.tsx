@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ISideBarMenuItem } from "./ISideBarMenuItem";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { NavItem, Collapse } from "reactstrap";
+import { Collapse } from "reactstrap";
 import { useSideBarMenuContext } from "./SideBarMenuContext";
 
 interface SideBarMenuItemProps {
@@ -22,10 +22,10 @@ const SideBarMenuItem = ({ item, depth = 0 }: SideBarMenuItemProps) => {
 
   return (
     <>
-      <div className={classNames(item.className, {"menu-open": isOpen})}>
-        <NavItem
+      <div className={classNames(item.className, { "menu-open": isOpen, active: item.isActive })}>
+        <div
           onClick={() => toggleItem(item.id)}
-          className={classNames({ "menu-open": isOpen })}
+          className={classNames("nav-item", { "menu-open": isOpen })}
           style={{ paddingLeft: `${0.5 * depth}rem` }}
         >
           {hasChildren ? (
@@ -49,7 +49,7 @@ const SideBarMenuItem = ({ item, depth = 0 }: SideBarMenuItemProps) => {
               </LinkRenderer>
             </>
           )}
-        </NavItem>
+        </div>
         {hasChildren && (
           <Collapse isOpen={isOpen} navbar className={classNames("items-menu", { "mb-1": isOpen })}>
             {item.children?.map((item, index) => (

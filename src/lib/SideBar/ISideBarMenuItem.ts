@@ -20,4 +20,9 @@ export interface ISideBarMenuItem {
    * classes that can be added by the user
    */
   className?: string;
+
+  /**
+   * adds the active class to the element
+   */
+  isActive?: boolean;
 }

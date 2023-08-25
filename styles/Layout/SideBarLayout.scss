@@ -335,6 +335,26 @@ $topnav-light-toggler-color: $gray-900;
         color: $sidenav-dark-link-active-color;
       }
     }
+
+    div.active {
+      position: relative;
+
+      .nav-item::before {
+        content: " ";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background-color: $primary;
+      }
+
+      .nav-item .nav-link {
+        color: $sidenav-dark-link-active-color;
+        font-weight: 600;
+      }
+    }
+
   }
   .sb-sidenav-menu {
     &::-webkit-scrollbar {
@@ -398,6 +418,24 @@ $topnav-light-toggler-color: $gray-900;
         &::after,
         div {
           color: $sidenav-light-link-active-color;
+        }
+      }
+      div.active {
+        position: relative;
+
+        .nav-item::before {
+          content: " ";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 3px;
+          height: 100%;
+          background-color: $primary;
+        }
+
+        .nav-item .nav-link {
+          color: $sidenav-light-link-active-color;
+          font-weight: 600;
         }
       }
     }
