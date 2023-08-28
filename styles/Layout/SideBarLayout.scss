@@ -261,6 +261,21 @@ $topnav-light-toggler-color: $gray-900;
         text-transform: uppercase;
       }
 
+      .nav-item {
+        &.nesting-level-1 {
+          padding-left: 1rem;
+        }
+        &.nesting-level-2 {
+          padding-left: 2rem;
+        }
+        &.nesting-level-3 {
+          padding-left: 3rem;
+        }
+        &.nesting-level-4 {
+          padding-left: 4rem;
+        }
+      }
+
       .nav-item.menu-open .nav-link {
         &::after {
           @include chevron-down();
