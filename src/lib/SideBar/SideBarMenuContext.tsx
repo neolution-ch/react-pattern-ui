@@ -24,7 +24,7 @@ const SideBarMenuProvider = (props: SideBarMenuProviderProps) => {
   const [itemState, setItemState] = useState(items);
 
   const toggleItemInternal = (item: ISideBarMenuItem, id: string) => {
-    if (item.id === id) {
+    if (item.id === id && (item.children?.length ?? 0) > 0) {
       item.expanded = !item.expanded;
     }
 
