@@ -72,6 +72,7 @@ const getSidebarItems = (active?: boolean, disabled?: boolean): TSideBarMenuItem
 ];
 
 describe("PanelSidebar.cy.tsx", () => {
+
     it("icon and titles rendered correctly", () => {
         const sidebarItems = getSidebarItems();
         cy.mount(PanelSidebar(sidebarItems));
