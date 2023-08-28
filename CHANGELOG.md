@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Removed sidebar drop shadow on screens where it's closed by default (small/medium size screens) in order to avoid having a shadow visible to the left of the screen even when the menu is closed on mobile/tablet
 - Fixed a problem where menu-open would be added to menu items without children
 - Menu styling is now using different colors for hovering and normal state
 
