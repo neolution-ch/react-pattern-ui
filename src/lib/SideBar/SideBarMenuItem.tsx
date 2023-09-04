@@ -23,11 +23,7 @@ const SideBarMenuItem = ({ item, depth = 0 }: SideBarMenuItemProps) => {
   return (
     <>
       <div className={classNames(item.className, { "menu-open": isOpen, active: item.isActive })}>
-        <div
-          onClick={() => toggleItem(item.id)}
-          className={classNames("nav-item", { "menu-open": isOpen })}
-          style={{ paddingLeft: `${0.5 * depth}rem` }}
-        >
+        <div onClick={() => toggleItem(item.id)} className={classNames({ "menu-open": isOpen }, `nesting-level-${depth}`, "nav-item")}>
           {hasChildren ? (
             <>
               <div className={classNames({ dropend: !isOpen })}>
