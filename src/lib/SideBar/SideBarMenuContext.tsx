@@ -23,7 +23,7 @@ const SideBarMenuProvider = (props: SideBarMenuProviderProps) => {
   const { children, items, LinkRenderer } = props;
 
   const preExpandedMenuItemIds = items.filter((x) => x.expanded).map((x) => x.id);
-  const [expandedMenuItemIds, setExpandedMenuItemIds] = useState<string[]>(preExpandedMenuItemIds);
+  const [expandedMenuItemIds, setExpandedMenuItemIds] = useState(preExpandedMenuItemIds);
 
   const toggleItem = (id: string) => {
     // either add or remove the toggled id from the list of open menus
