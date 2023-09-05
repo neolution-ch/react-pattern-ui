@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- the sidebar now only keeps minimal state of opened menu items instead of all of the items. This fixes a problem where the sidebar would not be re-rendered if the currently active item changed.
+
 ## [2.7.0] - 2023-08-29
 
 ### Fixed
