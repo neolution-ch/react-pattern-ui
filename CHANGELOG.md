@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.8.0] - 2023-09-05
+
 ### Fixed
 
 - the sidebar now only keeps minimal state of opened menu items instead of all of the items. This fixes a problem where the sidebar would not be re-rendered if the currently active item changed.
@@ -107,12 +109,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - created package :tada:
 - added tests
 
-[unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/2.7.0...HEAD
+[unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/2.8.0...HEAD
 [2.1.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.2...2.1.0
 [2.0.2]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/neolution-ch/react-pattern-ui/compare/45cbeb76034667019da84605082679900f506d75...2.0.0
+[2.8.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.7.0...2.8.0
 [2.7.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.6.0...2.7.0
 [2.6.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.5.0...2.6.0
 [2.5.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.4.0...2.5.0
