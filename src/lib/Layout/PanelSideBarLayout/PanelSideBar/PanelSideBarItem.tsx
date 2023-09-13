@@ -4,47 +4,47 @@ import classNames from "classnames";
 import { ComponentType } from "react";
 import { Collapse, NavItem } from "reactstrap";
 import { LinkRendererProps } from "src/lib/SideBar/SideBarMenuContext";
-import { PanelMenuItem } from "./Definitions/PanelSideBarMenuItem";
+import {PanelItem} from "src/lib/Layout/PanelSideBarLayout/PanelSideBar/Definitions/PanelSideBarMenuItem";
 
 export interface PanelSideBarItemProps {
-  item: PanelMenuItem<unknown>;
+  children: PanelItem<unknown>;
   LinkRenderer: ComponentType<LinkRendererProps>;
-  onClick?: (menuItem: PanelMenuItem<unknown>) => void;
+  onClick?: (menuItem: PanelItem<unknown>) => void;
   depth?: number;
   active?: boolean;
   toggledItemIds: string[];
 }
 
 const PanelSideBarItem = (props: PanelSideBarItemProps) => {
-  const { depth = 0, item, LinkRenderer, onClick, toggledItemIds = [] } = props;
+  const { depth = 0, children, LinkRenderer, onClick, toggledItemIds = [] } = props;
 
-  const hasChildren = !!item.children?.length;
-  const isOpen = toggledItemIds?.includes(item.id) || item.expanded;
+  const hasChildren = !!children.children?.length;
+  const isOpen = toggledItemIds?.includes(children.id) || children.expanded;
 
-  if (item.display === false) {
+  if (children.display === false) {
     return null;
   }
 
   return (
     <>
       <NavItem
-        onClick={() => onClick && onClick(item)}
-        className={classNames({ "menu-open": isOpen, active: item.active })}
+        onClick={() => onClick && onClick(children)}
+        className={classNames({ "menu-open": isOpen, active: children.active })}
         style={{ paddingLeft: depth ? `${depth + 1}rem` : undefined }}
       >
         {hasChildren ? (
           <div className={classNames({ dropend: !isOpen })}>
             <a role="button" className={classNames("nav-link", { "dropdown-toggle": hasChildren })}>
-              {item.icon && <FontAwesomeIcon className="me-2" icon={item.icon as IconProp} />}
-              <div className="text-justify">{item.title}</div>
+              {children.icon && <FontAwesomeIcon className="me-2" icon={children.icon as IconProp} />}
+              <div className="text-justify">{children.title}</div>
             </a>
           </div>
         ) : (
           <>
-            <LinkRenderer item={item}>
+            <LinkRenderer item={children}>
               <span className="nav-link">
-                {item.icon && <FontAwesomeIcon icon={item.icon as IconProp} className="me-2" />}
-                {item.title}
+                {children.icon && <FontAwesomeIcon icon={children.icon as IconProp} className="me-2" />}
+                {children.title}
               </span>
             </LinkRenderer>
           </>
@@ -53,14 +53,14 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
 
       {hasChildren && (
         <Collapse isOpen={isOpen} navbar className={classNames("items-menu", { "mb-1": isOpen })}>
-          {item.children?.map((childItem) => (
+          {children.children?.map((childItem) => (
             <PanelSideBarItem
               key={childItem.id}
-              item={childItem}
+              children={childItem}
               LinkRenderer={LinkRenderer}
               onClick={() => onClick && onClick(childItem)}
               depth={depth + 1}
-              active={item.active}
+              active={children.active}
               toggledItemIds={toggledItemIds}
             />
           ))}

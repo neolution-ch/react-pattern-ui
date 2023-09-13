@@ -1,12 +1,12 @@
 import React, { ComponentType, createContext, ReactNode, useContext, useState } from "react";
-import { PanelItem, PanelMenuItem } from "../Definitions/PanelSideBarMenuItem";
+import { PanelItem } from "../Definitions/PanelSideBarMenuItem";
 
 export interface PanelLinkRendererProps<T> {
-  item: PanelMenuItem<T>;
+  item: PanelItem<T>;
   children: ReactNode;
 }
 
-export type MenuItemToggleFn<TMenuItem> = (menuItem: PanelMenuItem<TMenuItem>) => void;
+export type MenuItemToggleFn<TMenuItem> = (menuItem: PanelItem<TMenuItem>) => void;
 
 export interface PanelSideBarContextProps<TPanelItem, TMenuItem> {
   activePanelId: string;
@@ -36,13 +36,13 @@ export interface PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>
 export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>) => {
   const { children, globalItems, LinkRenderer } = props;
 
-  const firstActivePanel = globalItems.find((x) => x.items?.find((y) => y.active)) ?? globalItems.find((x) => x.id);
+  const firstActivePanel = globalItems.find((x) => x.children?.find((y) => y.active)) ?? globalItems.find((x) => x.id);
 
   const getActivePanelId = () => firstActivePanel?.id ?? "";
 
   const [activePanelId, setActivePanelId] = useState(getActivePanelId());
 
-  const [toggledMenuItemIds, setToggledMenuItemIds] = useState<string[]>([firstActivePanel?.items?.find((x) => x.active)?.id ?? ""]);
+  const [toggledMenuItemIds, setToggledMenuItemIds] = useState<string[]>([firstActivePanel?.children?.find((x) => x.active)?.id ?? ""]);
 
   const setActivePanel = (panelId: string) => setActivePanelId(panelId);
 

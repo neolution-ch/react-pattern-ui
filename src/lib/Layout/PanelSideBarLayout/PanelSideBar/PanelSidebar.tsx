@@ -42,10 +42,10 @@ export const PanelSideBar = (props: PanelSideBarProps) => {
             setActivePanel(id);
           }
         }}
-        title={title}
+        title={title as string}
         disabled={disabled}
       >
-        <FontAwesomeIcon icon={icon} size="lg" fixedWidth />
+          {icon && <FontAwesomeIcon icon={icon} size="lg" fixedWidth />}
       </Button>
     ));
 
@@ -57,18 +57,18 @@ export const PanelSideBar = (props: PanelSideBarProps) => {
       </div>
 
       <div className="side-nav__items">
-        {activePanel?.items?.map((item) => (
+        {activePanel?.children?.map((item) => (
           <PanelSideBarItem
             key={item.id}
-            item={item}
+            children={item}
             LinkRenderer={LinkRenderer}
             onClick={(menuItem) => toggleMenuItem(menuItem)}
             toggledItemIds={toggledMenuItemIds}
           />
         ))}
 
-        {localActivePanel?.items?.map((item) => (
-          <PanelSideBarItem key={item.id} item={item} LinkRenderer={LinkRenderer} toggledItemIds={toggledMenuItemIds} />
+        {localActivePanel?.children?.map((item) => (
+          <PanelSideBarItem key={item.id} children={item} LinkRenderer={LinkRenderer} toggledItemIds={toggledMenuItemIds} />
         ))}
       </div>
     </nav>
