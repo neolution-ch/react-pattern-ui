@@ -21,12 +21,32 @@ export interface PanelSideBarContextProps<TPanelItem, TMenuItem> {
   LinkRenderer: ComponentType<PanelLinkRendererProps<TMenuItem>>;
   toggledMenuItemIds: string[];
   toggleMenuItem: MenuItemToggleFn<TMenuItem>;
+  /**
+   * The footer content.
+   */
+  footer?: ReactNode;
+  /**
+   * The brand content shown on the top navigation bar.
+   */
+  brand?: ReactNode;
+  /**
+   * The user dropdown toggle content.
+   */
+  userDropDownMenuToggle?: ReactNode;
+  /**
+   * The user dropdown menu content.
+   */
+  userDropDownMenu?: ReactNode;
+  /**
+   * The other menu content.
+   */
+  topBarCustomItems?: ReactNode[];
 }
 
 export const PanelSideBarContext = createContext<PanelSideBarContextProps<any, any> | null>(null);
 
 export interface PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>
-  extends Pick<PanelSideBarContextProps<TPanelItem, TMenuItem>, "globalItems" | "LinkRenderer"> {
+  extends Pick<PanelSideBarContextProps<TPanelItem, TMenuItem>, "globalItems" | "LinkRenderer" | "brand" | "footer" | "userDropDownMenu" | "userDropDownMenuToggle" | "topBarCustomItems"> {
   /**
    * The children elements.
    */
@@ -34,7 +54,7 @@ export interface PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>
 }
 
 export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>) => {
-  const { children, globalItems, LinkRenderer } = props;
+  const { children, globalItems, LinkRenderer, brand = null, footer = null, userDropDownMenu, userDropDownMenuToggle, topBarCustomItems } = props;
 
   //const firstActivePanel = globalItems.find((x) => x.children?.find((y) => y.active)) ?? globalItems.find((x) => x.id);
 
@@ -71,6 +91,11 @@ export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarM
         setActivePanel,
         toggledMenuItemIds,
         toggleMenuItem,
+        footer,
+        userDropDownMenu,
+        userDropDownMenuToggle,
+        topBarCustomItems,
+        brand
       }}
     >
       {children}

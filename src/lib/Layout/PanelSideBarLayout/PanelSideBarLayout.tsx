@@ -4,9 +4,9 @@ import { DropdownMenu, DropdownToggle, Nav, NavItem, UncontrolledDropdown } from
 import "../../../../styles/Layout/PanelSideBarLayout.scss";
 import { PanelSideBar } from "./PanelSideBar/PanelSidebar";
 import { PanelSideBarLayoutContent } from "./PanelSideBarLayoutContent";
-import { usePanelSideBarLayoutContext } from "./Context/PanelSideBarLayoutContext";
 import { PanelSideBarToggle } from "./PanelSideBar/PanelSideBarToggle";
 import { PanelItem } from "./PanelSideBar/Definitions/PanelSideBarMenuItem";
+import {usePanelSideBarContext} from "src/lib/Layout/PanelSideBarLayout/PanelSideBar/Context/PanelSideBarContext";
 
 export interface PanelSideBarLayoutProps extends PropsWithChildren {
   /**
@@ -39,7 +39,7 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
     userDropDownMenu,
     userDropDownMenuToggle,
     topBarCustomItems = [],
-  } = usePanelSideBarLayoutContext();
+  } = usePanelSideBarContext();
 
   return (
     <>
