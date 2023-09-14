@@ -27,7 +27,7 @@ export type PanelItem<TPanelItem = Record<string, unknown>, TMenuItem = Record<s
   /**
    * The panel title.
    */
-  title: string | ReactNode;
+  title: ReactNode;
   /**
    * Whether the item should be displayed.
    */

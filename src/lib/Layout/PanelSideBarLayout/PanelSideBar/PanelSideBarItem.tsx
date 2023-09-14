@@ -1,7 +1,7 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
-import { ComponentType } from "react";
+import {ComponentType, useState} from "react";
 import { Collapse, NavItem } from "reactstrap";
 import { LinkRendererProps } from "src/lib/SideBar/SideBarMenuContext";
 import {PanelItem} from "src/lib/Layout/PanelSideBarLayout/PanelSideBar/Definitions/PanelSideBarMenuItem";
@@ -19,8 +19,7 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
   const { depth = 0, children, LinkRenderer, onClick, toggledItemIds = [] } = props;
 
   const hasChildren = !!children.children?.length;
-  const isOpen = toggledItemIds?.includes(children.id) || children.expanded;
-
+  const [isOpen, setIsOpen] = useState(toggledItemIds?.includes(children.id) || children.expanded);
   if (children.display === false) {
     return null;
   }
@@ -33,8 +32,8 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
         style={{ paddingLeft: depth ? `${depth + 1}rem` : undefined }}
       >
         {hasChildren ? (
-          <div className={classNames({ dropend: !isOpen })}>
-            <a role="button" className={classNames("nav-link", { "dropdown-toggle": hasChildren })}>
+          <div>
+            <a role="button" className={classNames("nav-link", { "dropdown-toggle": hasChildren })} onClick={() => setIsOpen(!isOpen)}>
               {children.icon && <FontAwesomeIcon className="me-2" icon={children.icon as IconProp} />}
               <div className="text-justify">{children.title}</div>
             </a>

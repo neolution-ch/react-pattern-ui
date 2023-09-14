@@ -42,7 +42,7 @@ export const PanelSideBar = (props: PanelSideBarProps) => {
             setActivePanel(id);
           }
         }}
-        title={title as string}
+        title={typeof title == "string" ? String(title) : ""}
         disabled={disabled}
       >
           {icon && <FontAwesomeIcon icon={icon} size="lg" fixedWidth />}
