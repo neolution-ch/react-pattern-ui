@@ -28,7 +28,7 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
     <>
       <NavItem
         onClick={() => onClick && onClick(children)}
-        className={classNames({ "menu-open": isOpen, active: children.active })}
+        className={classNames({ "menu-open": isOpen, active: children?.children ? children.children?.find(s => s.active) : children.active })}
         style={{ paddingLeft: depth ? `${depth + 1}rem` : undefined }}
       >
         {hasChildren ? (
