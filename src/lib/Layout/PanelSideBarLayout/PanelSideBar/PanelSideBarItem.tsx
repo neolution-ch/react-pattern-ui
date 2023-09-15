@@ -1,4 +1,3 @@
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import {ComponentType, useState} from "react";
@@ -16,50 +15,50 @@ export interface PanelSideBarItemProps {
 }
 
 const PanelSideBarItem = (props: PanelSideBarItemProps) => {
-  const { depth = 0, children, LinkRenderer, onClick, toggledItemIds = [] } = props;
+  const { depth = 0, children: item, LinkRenderer, onClick, toggledItemIds = [] } = props;
 
-  const hasChildren = !!children.children?.length;
-  const [isOpen, setIsOpen] = useState(toggledItemIds?.includes(children.id) || children.expanded);
-  if (children.display === false) {
+  const hasitem = !!item.children?.length;
+  const [isOpen, setIsOpen] = useState(toggledItemIds?.includes(item.id) || item.expanded);
+  if (item.display === false) {
     return null;
   }
 
   return (
     <>
       <NavItem
-        onClick={() => onClick && onClick(children)}
-        className={classNames({ "menu-open": isOpen, active: children?.children ? children.children?.find(s => s.active) : children.active })}
+        onClick={() => onClick && onClick(item)}
+        className={classNames({ "menu-open": isOpen, active: item?.children ? item.children?.find(s => s.active) : item.active })}
         style={{ paddingLeft: depth ? `${depth + 1}rem` : undefined }}
       >
-        {hasChildren ? (
+        {hasitem ? (
           <div>
-            <a role="button" className={classNames("nav-link", { "dropdown-toggle": hasChildren })} onClick={() => setIsOpen(!isOpen)}>
-              {children.icon && <FontAwesomeIcon className="me-2" icon={children.icon as IconProp} />}
-              <div className="text-justify">{children.title}</div>
+            <a role="button" className={classNames("nav-link", { "dropdown-toggle": hasitem })} onClick={() => setIsOpen(!isOpen)}>
+              {item.icon && <FontAwesomeIcon className="me-2" icon={item.icon} />}
+              <div className="text-justify">{item.title}</div>
             </a>
           </div>
         ) : (
           <>
-            <LinkRenderer item={children}>
+            <LinkRenderer item={item}>
               <span className="nav-link">
-                {children.icon && <FontAwesomeIcon icon={children.icon as IconProp} className="me-2" />}
-                {children.title}
+                {item.icon && <FontAwesomeIcon icon={item.icon} className="me-2" />}
+                {item.title}
               </span>
             </LinkRenderer>
           </>
         )}
       </NavItem>
 
-      {hasChildren && (
-        <Collapse isOpen={isOpen} navbar className={classNames("items-menu", { "mb-1": isOpen })}>
-          {children.children?.map((childItem) => (
+      {hasitem && (
+        <Collapse isOpen={isOpen} navbar className={classNames("item-menu", { "mb-1": isOpen })}>
+          {item.children?.map((childItem) => (
             <PanelSideBarItem
               key={childItem.id}
               children={childItem}
               LinkRenderer={LinkRenderer}
               onClick={() => onClick && onClick(childItem)}
               depth={depth + 1}
-              active={children.active}
+              active={item.active}
               toggledItemIds={toggledItemIds}
             />
           ))}
