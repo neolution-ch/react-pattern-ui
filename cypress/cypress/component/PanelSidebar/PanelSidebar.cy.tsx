@@ -119,7 +119,10 @@ describe("PanelSidebar.cy.tsx", () => {
 
         // Check are disabled and page content not doesn't change
         cy.get("button[title=Home]").should("have.attr", "disabled");
+        cy.get("button[title=Home]").click({ force: true });
+        cy.get("#pageContent").invoke("text").should("equal", "Cypress");
         cy.get("button[title=Settings]").should("have.attr", "disabled");
+        cy.get("button[title=Settings]").click({ force: true })
         cy.get("#pageContent").invoke("text").should("equal", "Cypress");
     });
 
