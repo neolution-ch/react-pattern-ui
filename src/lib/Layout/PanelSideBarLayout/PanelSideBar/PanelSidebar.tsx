@@ -8,6 +8,7 @@ import { useState } from "react";
 
 export const PanelSideBar = () => {
   const { activePanelId, globalItems, localItems, LinkRenderer, setActivePanel, toggledMenuItemIds, toggleMenuItem } = usePanelSideBarContext();
+  const panelItems = localItems.concat(globalItems);
 
   if (globalItems.find(x => !x.icon) || localItems.find(x => !x.icon)) {
       throw new Error("Outer panel icon is required");
@@ -22,10 +23,8 @@ export const PanelSideBar = () => {
 
   const [localItemId, setLocalItemId] = useState<string | null>(localMenuId);
 
-
   const localActivePanelId = localItemId ?? activePanelId;
-  const activePanel: PanelItem = globalItems.find((x) => x.id === localActivePanelId);
-  const localActivePanel: PanelItem | undefined = localItems?.find((x) => x.id === localActivePanelId);
+  const activePanel: PanelItem | undefined = panelItems.find((x) => x.id === localActivePanelId);
 
   const panelItemsRenderer = (items: PanelItem[]) =>
     items?.map(({ disabled, icon, onClick, id, title }) => (
@@ -65,10 +64,6 @@ export const PanelSideBar = () => {
             onClick={(menuItem) => toggleMenuItem(menuItem)}
             toggledItemIds={toggledMenuItemIds}
           />
-        ))}
-
-        {localActivePanel?.children?.map((item) => (
-          <PanelSideBarItem key={item.id} children={item} LinkRenderer={LinkRenderer} toggledItemIds={toggledMenuItemIds} />
         ))}
       </div>
     </nav>
