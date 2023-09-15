@@ -9,6 +9,10 @@ import { useState } from "react";
 export const PanelSideBar = () => {
   const { activePanelId, globalItems, localItems, LinkRenderer, setActivePanel, toggledMenuItemIds, toggleMenuItem } = usePanelSideBarContext();
 
+  if (globalItems.find(x => !x.icon) || localItems.find(x => !x.icon)) {
+      throw new Error("Outer panel icon is required");
+  }
+
   let localMenuId: string | null = null;
 
   if (localItems?.length > 0) {
