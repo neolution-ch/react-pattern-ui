@@ -15,6 +15,10 @@ export interface PanelSideBarContextProps<TPanelItem, TMenuItem> {
    */
   globalItems: PanelItem<TPanelItem, TMenuItem>[];
   /**
+   * The local panel items.
+   */
+  localItems: PanelItem[];
+  /**
    * The component used to render the menu item links.
    */
   setActivePanel: (panelId: string) => void;
@@ -46,7 +50,7 @@ export interface PanelSideBarContextProps<TPanelItem, TMenuItem> {
 export const PanelSideBarContext = createContext<PanelSideBarContextProps<any, any> | null>(null);
 
 export interface PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>
-  extends Pick<PanelSideBarContextProps<TPanelItem, TMenuItem>, "globalItems" | "LinkRenderer" | "brand" | "footer" | "userDropDownMenu" | "userDropDownMenuToggle" | "topBarCustomItems"> {
+  extends Pick<PanelSideBarContextProps<TPanelItem, TMenuItem>, "globalItems" | "LinkRenderer" | "brand" | "footer" | "userDropDownMenu" | "userDropDownMenuToggle" | "topBarCustomItems" | "localItems"> {
   /**
    * The children elements.
    */
@@ -54,9 +58,7 @@ export interface PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>
 }
 
 export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>) => {
-  const { children, globalItems, LinkRenderer, brand = null, footer = null, userDropDownMenu, userDropDownMenuToggle, topBarCustomItems } = props;
-
-  //const firstActivePanel = globalItems.find((x) => x.children?.find((y) => y.active)) ?? globalItems.find((x) => x.id);
+  const { children, globalItems, localItems, LinkRenderer, brand = null, footer = null, userDropDownMenu, userDropDownMenuToggle, topBarCustomItems } = props;
 
   const firstActivePanel = globalItems.find(x => x.children
       ?.find(y => y.children ? y.children.find(s => s.active) : y.active));
@@ -87,6 +89,7 @@ export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarM
       value={{
         activePanelId,
         globalItems,
+        localItems,
         LinkRenderer,
         setActivePanel,
         toggledMenuItemIds,

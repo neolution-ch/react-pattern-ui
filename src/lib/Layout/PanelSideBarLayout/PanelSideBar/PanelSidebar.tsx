@@ -5,12 +5,9 @@ import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import { PanelItem } from "./Definitions/PanelSideBarMenuItem";
 import { PanelSideBarItem } from "./PanelSideBarItem";
 import { useState } from "react";
-interface PanelSideBarProps {
-  localItems?: PanelItem[];
-}
 
-export const PanelSideBar = (props: PanelSideBarProps) => {
-  const { localItems = [] } = props;
+export const PanelSideBar = () => {
+  const { activePanelId, globalItems, localItems, LinkRenderer, setActivePanel, toggledMenuItemIds, toggleMenuItem } = usePanelSideBarContext();
 
   let localMenuId: string | null = null;
 
@@ -21,7 +18,6 @@ export const PanelSideBar = (props: PanelSideBarProps) => {
 
   const [localItemId, setLocalItemId] = useState<string | null>(localMenuId);
 
-  const { activePanelId, globalItems, LinkRenderer, setActivePanel, toggledMenuItemIds, toggleMenuItem } = usePanelSideBarContext();
 
   const localActivePanelId = localItemId ?? activePanelId;
   const activePanel: PanelItem = globalItems.find((x) => x.id === localActivePanelId);
