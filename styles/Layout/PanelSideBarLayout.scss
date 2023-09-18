@@ -246,7 +246,7 @@ section.content:first-of-type {
   }
 }
 
-@include media-breakpoint-up(md) {
+@include media-breakpoint-up(xs) {
   $toggled-width: #{$tile-size + $slim-scrollbar-base-width};
 
   section.toggled {
