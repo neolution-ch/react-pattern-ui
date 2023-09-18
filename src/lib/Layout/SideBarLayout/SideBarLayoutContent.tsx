@@ -1,12 +1,12 @@
 import { FC, PropsWithChildren, ReactNode } from "react";
-import { useSideBarLayoutContext } from "./SideBarLayoutContext";
+import {usePanelSideBarContext} from "src/lib/Layout/PanelSideBarLayout/PanelSideBar/Context/PanelSideBarContext";
 
 interface SideBarLayoutContentProps {
   footer?: ReactNode;
 }
 
 const SideBarLayoutContent: FC<PropsWithChildren<SideBarLayoutContentProps>> = ({ children, footer }) => {
-  const { footer: contextFooter } = useSideBarLayoutContext();
+  const { footer: contextFooter } = usePanelSideBarContext();
 
   return (
     <article id="layout-sidenav__content">

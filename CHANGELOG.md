@@ -11,9 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - PanelSidebar cypress test and toggle it on any screen size
 
+### Merged
+
+- Merged `PaneMenulItem` into `PanelItem`
+
 ### Removed
 
 - `DateHandler` utils as it belongs to another package and will be replaced in the future
+- Removed `SideBarLayoutContext` as can be replaced by `PanelSideBarLayoutContext`
 
 ### Fixed
 

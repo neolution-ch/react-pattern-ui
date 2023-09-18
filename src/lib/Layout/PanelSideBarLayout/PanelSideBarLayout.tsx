@@ -4,15 +4,10 @@ import { DropdownMenu, DropdownToggle, Nav, NavItem, UncontrolledDropdown } from
 import "../../../../styles/Layout/PanelSideBarLayout.scss";
 import { PanelSideBar } from "./PanelSideBar/PanelSidebar";
 import { PanelSideBarLayoutContent } from "./PanelSideBarLayoutContent";
-import { usePanelSideBarLayoutContext } from "./Context/PanelSideBarLayoutContext";
 import { PanelSideBarToggle } from "./PanelSideBar/PanelSideBarToggle";
-import { PanelItem } from "./PanelSideBar/Definitions/PanelSideBarMenuItem";
+import {usePanelSideBarContext} from "src/lib/Layout/PanelSideBarLayout/PanelSideBar/Context/PanelSideBarContext";
 
 export interface PanelSideBarLayoutProps extends PropsWithChildren {
-  /**
-   * Local panel items to display.
-   */
-  localItems?: PanelItem[];
   /**
    * The brand content shown on the top navigation bar.
    */
@@ -28,7 +23,7 @@ export interface PanelSideBarLayoutProps extends PropsWithChildren {
 }
 
 export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
-  const { brand, children, footer, localItems = [], collapsible = true } = props;
+  const { brand, children, footer, collapsible = true } = props;
 
   const [isOpen, setIsOpen] = useState(true);
   const toggleSidebar = () => setIsOpen((prev) => !prev);
@@ -39,7 +34,7 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
     userDropDownMenu,
     userDropDownMenuToggle,
     topBarCustomItems = [],
-  } = usePanelSideBarLayoutContext();
+  } = usePanelSideBarContext();
 
   return (
     <>
@@ -70,7 +65,7 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
       </nav>
 
       <section className={classNames({ toggled: !isOpen })}>
-        <PanelSideBar localItems={localItems} />
+        <PanelSideBar />
         {collapsible === true && <PanelSideBarToggle onClick={toggleSidebar} toggled={!isOpen} />}
         <PanelSideBarLayoutContent footer={footer ?? contextFooter}>{children}</PanelSideBarLayoutContent>
       </section>

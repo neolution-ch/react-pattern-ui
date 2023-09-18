@@ -1,11 +1,11 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { ReactNode } from "react";
+import {ReactNode} from "react";
 
 export type PanelItem<TPanelItem = Record<string, unknown>, TMenuItem = Record<string, unknown>> = TPanelItem & {
   /**
    * The panel icon.
    */
-  icon: IconProp;
+  icon?: IconProp;
   /**
    * The panel item identifier.
    */
@@ -19,7 +19,7 @@ export type PanelItem<TPanelItem = Record<string, unknown>, TMenuItem = Record<s
   /**
    * The panel menu items.
    */
-  items: PanelMenuItem<TMenuItem>[];
+  children?: PanelItem<TMenuItem>[];
   /**
    * Whether the panel is disabled.
    */
@@ -27,26 +27,7 @@ export type PanelItem<TPanelItem = Record<string, unknown>, TMenuItem = Record<s
   /**
    * The panel title.
    */
-  title?: string;
-};
-
-export type PanelMenuItem<T = Record<string, unknown>> = T & {
-  /**
-   * The menu item identifier.
-   */
-  id: string;
-  /**
-   * The menu item title.
-   */
   title: ReactNode;
-  /**
-   * Whether the item is active.
-   */
-  active?: boolean;
-  /**
-   * The menu item children items.
-   */
-  children?: Omit<PanelMenuItem<T>, "children">[];
   /**
    * Whether the item should be displayed.
    */
@@ -56,7 +37,7 @@ export type PanelMenuItem<T = Record<string, unknown>> = T & {
    */
   expanded?: boolean;
   /**
-   * The menu item icon.
+   * Whether the item is active.
    */
-  icon?: IconProp;
+  active?: boolean;
 };

@@ -6,7 +6,7 @@ import { DropdownMenu, DropdownToggle, Nav, NavItem, UncontrolledDropdown } from
 import SideBarMenu from "src/lib/SideBar/SideBarMenu";
 import "../../../../styles/Layout/SideBarLayout.scss";
 import { SideBarLayoutContent } from "./SideBarLayoutContent";
-import { useSideBarLayoutContext } from "./SideBarLayoutContext";
+import {usePanelSideBarContext} from "src/lib/Layout/PanelSideBarLayout/PanelSideBar/Context/PanelSideBarContext";
 
 interface SideBarLayoutProps extends PropsWithChildren {
   brand?: ReactNode;
@@ -19,7 +19,7 @@ const SideBarLayout = (props: SideBarLayoutProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggleSidebar = () => setIsOpen((prev) => !prev);
 
-  const { brand: contextBrand, userDropDownMenu, userDropDownMenuToggle } = useSideBarLayoutContext();
+  const { brand: contextBrand, userDropDownMenu, userDropDownMenuToggle } = usePanelSideBarContext();
 
   return (
     <>
