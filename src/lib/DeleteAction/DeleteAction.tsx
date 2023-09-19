@@ -6,6 +6,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 interface DeleteActionProps {
   title?: string;
   text?: string;
+  buttonText?: string;
   deleteButtonText?: string;
   cancelButtonText?: string;
   iconOnly?: boolean;
@@ -15,6 +16,7 @@ interface DeleteActionProps {
 function DeleteAction({
   title = "Delete Entry",
   text = "Are you sure to Delete this Entry?",
+  buttonText = "Delete",
   deleteButtonText = "Delete",
   cancelButtonText = "Cancel",
   iconOnly = false,
@@ -29,8 +31,9 @@ function DeleteAction({
       {iconOnly ? (
         <FontAwesomeIcon icon={faTrash} style={{ marginRight: "5px", cursor: "pointer" }} onClick={toggle} />
       ) : (
-        <Button color="danger" close onClick={toggle}>
-          <FontAwesomeIcon icon={faTrash} />
+        <Button color="danger" onClick={toggle}>
+          <FontAwesomeIcon style={{ marginRight: "5px" }} icon={faTrash} />
+          {buttonText}
         </Button>
       )}
       <Modal isOpen={showModal} toggle={toggle}>
