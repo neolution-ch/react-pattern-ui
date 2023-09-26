@@ -4,27 +4,16 @@ import { Button } from "reactstrap";
 import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import { PanelItem } from "./Definitions/PanelSideBarMenuItem";
 import { PanelSideBarItem } from "./PanelSideBarItem";
-import { useState } from "react";
 
 export const PanelSideBar = () => {
-  const { activePanelId, globalItems, localItems, LinkRenderer, setActivePanel, toggledMenuItemIds, toggleMenuItem } = usePanelSideBarContext();
+  const { activePanelId, globalItems, localItems = [], LinkRenderer, setActivePanel, toggledMenuItemIds, toggleMenuItem } = usePanelSideBarContext();
   const panelItems = localItems.concat(globalItems);
 
   if (globalItems.find(x => !x.icon) || localItems.find(x => !x.icon)) {
       throw new Error("Outer panel icon is required");
   }
 
-  let localMenuId: string | null = null;
-
-  if (localItems?.length > 0) {
-    const [firstLocalItem] = localItems;
-    localMenuId = firstLocalItem.id;
-  }
-
-  const [localItemId, setLocalItemId] = useState<string | null>(localMenuId);
-
-  const localActivePanelId = localItemId ?? activePanelId;
-  const activePanel: PanelItem | undefined = panelItems.find((x) => x.id === localActivePanelId);
+  const activePanel: PanelItem | undefined = panelItems.find((x) => x.id === activePanelId);
 
   const panelItemsRenderer = (items: PanelItem[]) =>
     items?.map(({ disabled, icon, onClick, id, title }) => (
@@ -32,12 +21,11 @@ export const PanelSideBar = () => {
         key={id}
         color="primary"
         outline
-        className={classNames("tile", { active: localActivePanelId === id })}
+        className={classNames("tile", { active: activePanelId === id })}
         onClick={() => {
           if (onClick) {
             onClick();
           } else {
-            setLocalItemId(null);
             setActivePanel(id);
           }
         }}
