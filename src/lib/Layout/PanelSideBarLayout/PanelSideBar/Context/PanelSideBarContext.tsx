@@ -17,7 +17,7 @@ export interface PanelSideBarContextProps<TPanelItem, TMenuItem> {
   /**
    * The local panel items.
    */
-  localItems: PanelItem[];
+  localItems?: PanelItem[];
   /**
    * The component used to render the menu item links.
    */
@@ -58,12 +58,12 @@ export interface PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>
 }
 
 export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>) => {
-  const { children, globalItems, localItems, LinkRenderer, brand = null, footer = null, userDropDownMenu, userDropDownMenuToggle, topBarCustomItems } = props;
+  const { children, globalItems, localItems = [], LinkRenderer, brand = null, footer = null, userDropDownMenu, userDropDownMenuToggle, topBarCustomItems } = props;
 
   const firstActivePanel = globalItems.find(x => x.children
-      ?.find(y => y.children ? y.children.find(s => s.active) : y.active));
+      ?.find(y => y.children ? y.children.find(s => s.active) : y.active) ?? x.id);
 
-  const getActivePanelId = () => firstActivePanel?.id ?? "";
+  const getActivePanelId = () => localItems?.at(0)?.id ?? firstActivePanel?.id ?? "";
 
   const [activePanelId, setActivePanelId] = useState(getActivePanelId());
 
@@ -98,7 +98,7 @@ export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarM
         userDropDownMenu,
         userDropDownMenuToggle,
         topBarCustomItems,
-        brand
+        brand,
       }}
     >
       {children}
