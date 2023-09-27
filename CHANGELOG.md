@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed row size and overflow behaviour for Paging component so that it does not always show a horizontal scrollbar regardless of the available width
+- The paging text will now occupy the whole row in case there are no page buttons to be rendered
+
 ## [2.8.1] - 2023-09-19
 
 ### Fixed
