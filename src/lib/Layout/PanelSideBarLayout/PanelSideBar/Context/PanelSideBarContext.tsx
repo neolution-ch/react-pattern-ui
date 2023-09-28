@@ -61,7 +61,7 @@ export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarM
   const { children, globalItems, localItems = [], LinkRenderer, brand = null, footer = null, userDropDownMenu, userDropDownMenuToggle, topBarCustomItems } = props;
 
   const activePanel = globalItems.find(x => x.children?.find(y => y.children ? y.children.find(s => s.active) : y.active));
-  const firstActivePanel = activePanel ? activePanel : globalItems.find(x => x.id);
+  const firstActivePanel = activePanel ?? globalItems.find(x => x.id);
 
   const getActivePanelId = () => localItems?.at(0)?.id ?? firstActivePanel?.id ?? "";
 
