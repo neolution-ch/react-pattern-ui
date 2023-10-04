@@ -5,7 +5,7 @@ import "../../../../styles/Layout/PanelSideBarLayout.scss";
 import { PanelSideBar } from "./PanelSideBar/PanelSidebar";
 import { PanelSideBarLayoutContent } from "./PanelSideBarLayoutContent";
 import { PanelSideBarToggle } from "./PanelSideBar/PanelSideBarToggle";
-import {usePanelSideBarContext} from "src/lib/Layout/PanelSideBarLayout/PanelSideBar/Context/PanelSideBarContext";
+import { usePanelSideBarContext } from "src/lib/Layout/PanelSideBarLayout/PanelSideBar/Context/PanelSideBarContext";
 
 export interface PanelSideBarLayoutProps extends PropsWithChildren {
   /**
@@ -33,7 +33,8 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
     footer: contextFooter,
     userDropDownMenu,
     userDropDownMenuToggle,
-    topBarCustomItems = [],
+    topBarRightCustomItems = [],
+    topBarLeftCustomItems = [],
   } = usePanelSideBarContext();
 
   return (
@@ -41,15 +42,21 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
       <nav id="nav-top" className="panel-layout navbar navbar-expand">
         {/* Navbar Brand */}
         <div className="navbar-brand">{brand ?? contextBrand}</div>
-        <Nav className="navbar-user" vertical style={{ marginRight: 48 + topBarCustomItems.length * 32 }}>
-          {/*Other Custom Menu*/}
-          <div className="navbar-custom">
-            {topBarCustomItems?.map((item, index) => (
-              <NavItem key={index} className="navbar-custom-item">
-                {item}
-              </NavItem>
-            ))}
-          </div>
+        <Nav className="navbar-user flex-row justify-content-start align-items-center" style={{ marginLeft: 35 }}>
+          {/*Left Custom Menu*/}
+          {topBarLeftCustomItems?.map((item, index) => (
+            <NavItem key={index} className="navbar-custom-item">
+              {item}
+            </NavItem>
+          ))}
+        </Nav>
+        <Nav className="navbar-user flex-row justify-content-end align-items-center" style={{ marginRight: 48 }}>
+          {/*Right Custom Menu*/}
+          {topBarRightCustomItems?.map((item, index) => (
+            <NavItem key={index} className="navbar-custom-item">
+              {item}
+            </NavItem>
+          ))}
           {/* <NavbarUser /> */}
           <NavItem>
             <UncontrolledDropdown direction="start">

@@ -94,7 +94,7 @@ $topnav-light-toggler-color: $gray-900;
   .navbar-user {
     display: flex;
     height: $usernav-base-height;
-    width: $usernav-base-height;
+    width: 100%;
     border: 1px solid $topnav-dark-toggler-color;
     border-radius: $usernav-base-height;
     background-color: $sidenav-light-link-active-color;
@@ -106,15 +106,6 @@ $topnav-light-toggler-color: $gray-900;
       rgba($color: $sidenav-light-color, $alpha: 0.75) 70%,
       rgba($color: $sidenav-light-link-active-color, $alpha: 1) 82%
     );
-    align-items: center;
-    justify-content: center;
-    align-self: flex-end;
-    margin-left: auto;
-
-    .navbar-custom {
-      display: flex;
-      flex-direction: row;
-    }
 
     .navbar-custom-item {
       margin-left: 1em;
