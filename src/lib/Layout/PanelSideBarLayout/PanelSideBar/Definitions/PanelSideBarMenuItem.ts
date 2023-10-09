@@ -40,4 +40,8 @@ export type PanelItem<TPanelItem = Record<string, unknown>, TMenuItem = Record<s
    * Whether the item is active.
    */
   active?: boolean;
+  /**
+   * Whether collapse only with icon.
+   */
+  collapseIconOnly?: boolean;
 };

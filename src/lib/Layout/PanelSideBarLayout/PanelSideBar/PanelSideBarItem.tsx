@@ -12,12 +12,14 @@ export interface PanelSideBarItemProps {
   depth?: number;
   active?: boolean;
   toggledItemIds: string[];
+  toggledSidebar: boolean;
 }
 
 const PanelSideBarItem = (props: PanelSideBarItemProps) => {
-  const { depth = 0, children: item, LinkRenderer, onClick, toggledItemIds = [] } = props;
+  const { depth = 0, children: item, LinkRenderer, onClick, toggledItemIds = [], toggledSidebar } = props;
 
   const hasitem = !!item.children?.length;
+  const collapseIconOnly = item.collapseIconOnly || item.children?.find(x => x.collapseIconOnly)
   const [isOpen, setIsOpen] = useState(toggledItemIds?.includes(item.id) || item.expanded);
   if (item.display === false) {
     return null;
@@ -32,14 +34,19 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
       >
         {hasitem ? (
           <Row>
-            <Col lg={10} xs={10}>
-              <a role="button" className={classNames("nav-link")}>
-              {item.icon && <FontAwesomeIcon className="me-2" icon={item.icon} />}
-              <div className="text-justify">{item.title}</div>
-            </a>
+            {/* Dropdown label/link */}
+            <Col lg={10} xs={10} onClick={() => !collapseIconOnly && setIsOpen(!isOpen)}>
+              <LinkRenderer item={item}>
+                <span className="nav-link">
+                  {item.icon && <FontAwesomeIcon icon={item.icon} className="me-2" />}
+                  {item.title}
+                </span>
+              </LinkRenderer>
             </Col>
+            {/* Dropdown icon */}
             <Col lg={2} xs={2} onClick={() => setIsOpen(!isOpen)} role="button">
-              <div style={{alignItems: "normal"}} className={classNames("nav-link", { "dropdown-toggle": hasitem })}></div>
+              <div style={{alignItems: "normal", display: toggledSidebar ? "block" : "none"}}
+                   className={classNames("nav-link", { "dropdown-toggle": hasitem })} />
             </Col>
           </Row>
         ) : (
@@ -65,6 +72,7 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
               depth={depth + 1}
               active={item.active}
               toggledItemIds={toggledItemIds}
+              toggledSidebar={toggledSidebar}
             />
           ))}
         </Collapse>
