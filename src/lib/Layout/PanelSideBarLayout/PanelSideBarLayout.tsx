@@ -28,6 +28,8 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggleSidebar = () => setIsOpen((prev) => !prev);
 
+  const [isUserOpen, setIsUserOpen] = useState(false);
+
   const {
     brand: contextBrand,
     footer: contextFooter,
@@ -59,8 +61,8 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
           ))}
           {/* <NavbarUser /> */}
           <NavItem>
-            <UncontrolledDropdown direction="start">
-              <DropdownToggle nav className="user-dropdown">
+            <UncontrolledDropdown direction="start" isOpen={isUserOpen}>
+              <DropdownToggle nav className="user-dropdown" onClick={() => setIsUserOpen(!isUserOpen)}>
                 {userDropDownMenuToggle}
               </DropdownToggle>
               <div>
