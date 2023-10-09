@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import {ComponentType, useState} from "react";
-import { Collapse, NavItem } from "reactstrap";
+import {Collapse, NavItem, Row, Col} from "reactstrap";
 import { LinkRendererProps } from "src/lib/SideBar/SideBarMenuContext";
 import {PanelItem} from "src/lib/Layout/PanelSideBarLayout/PanelSideBar/Definitions/PanelSideBarMenuItem";
 
@@ -31,12 +31,17 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
         style={{ paddingLeft: depth ? `${depth + 1}rem` : undefined }}
       >
         {hasitem ? (
-          <div>
-            <a role="button" className={classNames("nav-link", { "dropdown-toggle": hasitem })} onClick={() => setIsOpen(!isOpen)}>
+          <Row>
+            <Col lg={10} xs={10}>
+              <a role="button" className={classNames("nav-link")}>
               {item.icon && <FontAwesomeIcon className="me-2" icon={item.icon} />}
               <div className="text-justify">{item.title}</div>
             </a>
-          </div>
+            </Col>
+            <Col lg={2} xs={2} onClick={() => setIsOpen(!isOpen)} role="button">
+              <div style={{alignItems: "normal"}} className={classNames("nav-link", { "dropdown-toggle": hasitem })}></div>
+            </Col>
+          </Row>
         ) : (
           <>
             <LinkRenderer item={item}>
