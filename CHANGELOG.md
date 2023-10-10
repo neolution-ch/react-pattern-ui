@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `collapseIconOnly` to `PanelItem` in order to collapse `PanelSideBarItem` only by clicking on chevron icon and label can work as link
 
+- PanelLayout
+
 ### Merged
 
 - Merged `PaneMenulItem` into `PanelItem`
@@ -26,9 +28,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed PanelSideBarLayout topBarCustomItems displaying
 
-### Added
-
-- PanelLayout
 
 ## [2.5.0] - 2023-08-08
 
