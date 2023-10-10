@@ -9,11 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `collapseIconOnly` to `PanelItem` in order to collapse `PanelSideBarItem` only by clicking on chevron icon and label can work as link
-
-### Added
-
 - PanelSidebar cypress test and toggle it on any screen size
+
+- `collapseIconOnly` to `PanelItem` in order to collapse `PanelSideBarItem` only by clicking on chevron icon and label can work as link
 
 ### Merged
 
