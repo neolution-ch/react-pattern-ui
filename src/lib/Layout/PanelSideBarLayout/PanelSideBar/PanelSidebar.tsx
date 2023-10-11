@@ -5,7 +5,12 @@ import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import { PanelItem } from "./Definitions/PanelSideBarMenuItem";
 import { PanelSideBarItem } from "./PanelSideBarItem";
 
-export const PanelSideBar = () => {
+interface PanelSidebarProps {
+    toggledSidebar: boolean;
+}
+
+export const PanelSideBar = (props: PanelSidebarProps) => {
+  const { toggledSidebar } = props;
   const { activePanelId, globalItems, localItems = [], LinkRenderer, setActivePanel, toggledMenuItemIds, toggleMenuItem } = usePanelSideBarContext();
   const panelItems = localItems.concat(globalItems);
 
@@ -51,6 +56,7 @@ export const PanelSideBar = () => {
             LinkRenderer={LinkRenderer}
             onClick={(menuItem) => toggleMenuItem(menuItem)}
             toggledItemIds={toggledMenuItemIds}
+            toggledSidebar={toggledSidebar}
           />
         ))}
       </div>

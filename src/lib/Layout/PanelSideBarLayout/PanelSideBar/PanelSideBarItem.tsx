@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import {ComponentType, useState} from "react";
-import { Collapse, NavItem } from "reactstrap";
+import {Collapse, NavItem } from "reactstrap";
 import { LinkRendererProps } from "src/lib/SideBar/SideBarMenuContext";
 import {PanelItem} from "src/lib/Layout/PanelSideBarLayout/PanelSideBar/Definitions/PanelSideBarMenuItem";
 
@@ -12,10 +12,11 @@ export interface PanelSideBarItemProps {
   depth?: number;
   active?: boolean;
   toggledItemIds: string[];
+  toggledSidebar: boolean;
 }
 
 const PanelSideBarItem = (props: PanelSideBarItemProps) => {
-  const { depth = 0, children: item, LinkRenderer, onClick, toggledItemIds = [] } = props;
+  const { depth = 0, children: item, LinkRenderer, onClick, toggledItemIds = [], toggledSidebar } = props;
 
   const hasitem = !!item.children?.length;
   const [isOpen, setIsOpen] = useState(toggledItemIds?.includes(item.id) || item.expanded);
@@ -27,16 +28,27 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
     <>
       <NavItem
         onClick={() => onClick && onClick(item)}
-        className={classNames({ "menu-open": isOpen, active: item?.children ? item.children?.find(s => s.active) : item.active })}
+        className={classNames({ "menu-open": isOpen, active: item.children?.find(s => s.active) || item.active })}
         style={{ paddingLeft: depth ? `${depth + 1}rem` : undefined }}
       >
         {hasitem ? (
-          <div>
-            <a role="button" className={classNames("nav-link", { "dropdown-toggle": hasitem })} onClick={() => setIsOpen(!isOpen)}>
-              {item.icon && <FontAwesomeIcon className="me-2" icon={item.icon} />}
-              <div className="text-justify">{item.title}</div>
-            </a>
-          </div>
+            <div className="d-flex flex-row">
+              {item.collapseIconOnly && <LinkRenderer item={item}>
+                <span className="nav-link">
+                  {item.icon && <FontAwesomeIcon icon={item.icon} className="me-2" />}
+                  {item.title}
+                </span>
+              </LinkRenderer>}
+
+              <a role="button" className={classNames("nav-link", {"w-100": !item.collapseIconOnly}, { "dropdown-toggle": hasitem })} onClick={() => setIsOpen(!isOpen)}>
+                {!item.collapseIconOnly &&
+                    <span>
+                      {item.icon && <FontAwesomeIcon className="me-2" icon={item.icon} />}
+                      <div className="text-justify">{item.title}</div>
+                    </span>
+                }
+              </a>
+            </div>
         ) : (
           <>
             <LinkRenderer item={item}>
@@ -60,6 +72,7 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
               depth={depth + 1}
               active={item.active}
               toggledItemIds={toggledItemIds}
+              toggledSidebar={toggledSidebar}
             />
           ))}
         </Collapse>
