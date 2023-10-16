@@ -44,32 +44,34 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
       <nav id="nav-top" className="panel-layout navbar navbar-expand">
         {/* Navbar Brand */}
         <div className="navbar-brand">{brand ?? contextBrand}</div>
-        <Nav className="navbar-user flex-row justify-content-start align-items-center" style={{ marginLeft: 35 }}>
-          {/*Left Custom Menu*/}
-          {topBarLeftCustomItems?.map((item, index) => (
-            <NavItem key={index} className="navbar-custom-item">
-              {item}
+        <Nav tag="div" className="navbar-user flex-row justify-content-between" style={{ marginLeft: 35, marginRight: 48 }}>
+          <span className="d-flex flex-row justify-content-start align-items-center">
+            {/*Left Custom Menu*/}
+            {topBarLeftCustomItems?.map((item, index) => (
+              <NavItem tag="div" key={index} className="navbar-custom-item">
+                {item}
+              </NavItem>
+            ))}
+          </span>
+          <span className="d-flex flex-row justify-content-end align-items-center">
+            {/*Right Custom Menu*/}
+            {topBarRightCustomItems?.map((item, index) => (
+              <NavItem tag="div" key={index} className="navbar-custom-item">
+                {item}
+              </NavItem>
+            ))}
+            {/*Navbar user*/}
+            <NavItem tag="div">
+              <UncontrolledDropdown direction="start" isOpen={isUserOpen}>
+                <DropdownToggle nav className="user-dropdown" onClick={() => setIsUserOpen(!isUserOpen)}>
+                  {userDropDownMenuToggle}
+                </DropdownToggle>
+                <div>
+                  <DropdownMenu end>{userDropDownMenu}</DropdownMenu>
+                </div>
+              </UncontrolledDropdown>
             </NavItem>
-          ))}
-        </Nav>
-        <Nav className="navbar-user flex-row justify-content-end align-items-center" style={{ marginRight: 48 }}>
-          {/*Right Custom Menu*/}
-          {topBarRightCustomItems?.map((item, index) => (
-            <NavItem key={index} className="navbar-custom-item">
-              {item}
-            </NavItem>
-          ))}
-          {/* <NavbarUser /> */}
-          <NavItem>
-            <UncontrolledDropdown direction="start" isOpen={isUserOpen}>
-              <DropdownToggle nav className="user-dropdown" onClick={() => setIsUserOpen(!isUserOpen)}>
-                {userDropDownMenuToggle}
-              </DropdownToggle>
-              <div>
-                <DropdownMenu end>{userDropDownMenu}</DropdownMenu>
-              </div>
-            </UncontrolledDropdown>
-          </NavItem>
+          </span>
         </Nav>
       </nav>
 
