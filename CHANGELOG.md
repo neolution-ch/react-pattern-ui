@@ -21,10 +21,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `DateHandler` utils as it belongs to another package and will be replaced in the future
 - Removed `SideBarLayoutContext` as can be replaced by `PanelSideBarLayoutContext`
+- Removed `TMenuItem` from `PanelItem.ts` 
 
 ### Fixed
 
 - Fixed PanelSideBarLayout topBarCustomItems displaying
+- `PanelSideBarMenuItem.ts` renamed to `PanelItem.ts`
 
 ## [2.5.0] - 2023-08-08
 
