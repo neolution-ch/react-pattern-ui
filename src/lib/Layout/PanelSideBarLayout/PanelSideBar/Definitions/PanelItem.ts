@@ -1,7 +1,7 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import {ReactNode} from "react";
 
-export type PanelItem<TPanelItem = Record<string, unknown>, TMenuItem = Record<string, unknown>> = TPanelItem & {
+export type PanelItem<TPanelItem = Record<string, unknown>> = TPanelItem & {
   /**
    * The panel icon.
    */
@@ -19,7 +19,7 @@ export type PanelItem<TPanelItem = Record<string, unknown>, TMenuItem = Record<s
   /**
    * The panel menu items.
    */
-  children?: PanelItem<TMenuItem>[];
+  children?: PanelItem<TPanelItem>[];
   /**
    * Whether the panel is disabled.
    */

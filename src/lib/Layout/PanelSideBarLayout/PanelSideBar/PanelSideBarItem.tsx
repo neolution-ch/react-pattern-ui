@@ -3,7 +3,7 @@ import classNames from "classnames";
 import {ComponentType, useState} from "react";
 import {Collapse, NavItem } from "reactstrap";
 import { LinkRendererProps } from "src/lib/SideBar/SideBarMenuContext";
-import {PanelItem} from "src/lib/Layout/PanelSideBarLayout/PanelSideBar/Definitions/PanelSideBarMenuItem";
+import {PanelItem} from "./../PanelSideBar/Definitions/PanelItem";
 
 export interface PanelSideBarItemProps {
   children: PanelItem<unknown>;
