@@ -44,7 +44,7 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
                 {!item.collapseIconOnly &&
                     <span>
                       {item.icon && <FontAwesomeIcon className="me-2" icon={item.icon} />}
-                      <div className="text-justify">{item.title}</div>
+                      {item.title}
                     </span>
                 }
               </a>
