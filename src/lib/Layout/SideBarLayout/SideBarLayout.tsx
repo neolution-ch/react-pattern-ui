@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { PropsWithChildren, ReactNode, useState } from "react";
 import { DropdownMenu, DropdownToggle, Nav, NavItem, UncontrolledDropdown } from "reactstrap";
 import SideBarMenu from "src/lib/SideBar/SideBarMenu";
-import "styles/Layout/SideBarLayout.scss";
+import "./../../../../styles/Layout/SideBarLayout.scss";
 import { SideBarLayoutContent } from "./SideBarLayoutContent";
 import { usePanelSideBarContext } from "src/lib/Layout/PanelSideBarLayout/PanelSideBar/Context/PanelSideBarContext";
 

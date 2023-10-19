@@ -1,5 +1,5 @@
 import React from "react";
-import { PanelSideBarLayoutProvider, PanelSideBarProvider, PanelSideBarLayout, PanelItem, PanelLinkRendererProps } from "react-pattern-ui";
+import { PanelSideBarProvider, PanelSideBarLayout, PanelItem, PanelLinkRendererProps } from "react-pattern-ui";
 import { faBars, faCogs } from "@fortawesome/free-solid-svg-icons";
 
 type CustomPanelItem<TLocalPanelIds = ""> = {
@@ -9,28 +9,27 @@ type CustomPanelItem<TLocalPanelIds = ""> = {
 type TSideBarMenuItem<TLocalPanelIds = ""> = PanelItem<CustomPanelItem<TLocalPanelIds>>;
 
 const PanelSidebar = (items: TSideBarMenuItem[]) => (
-  <PanelSideBarLayoutProvider>
-    <PanelSideBarProvider
-      globalItems={items}
-      LinkRenderer={(elem: PanelLinkRendererProps<Record<string, unknown>>) => (
-        <div
-          id={elem.item.id}
-          onClick={() => {
-            const pageContent = document.getElementById("pageContent");
-            if (pageContent) {
-              pageContent.innerText = elem.item.id;
-            }
-          }}
-        >
-          <>{elem.item.title}</>
-        </div>
-      )}
-    >
-      <PanelSideBarLayout>
-        <div id="pageContent">Cypress</div>
-      </PanelSideBarLayout>
-    </PanelSideBarProvider>
-  </PanelSideBarLayoutProvider>
+  <PanelSideBarProvider
+    theme="dark"
+    globalItems={items}
+    LinkRenderer={(elem: PanelLinkRendererProps<Record<string, unknown>>) => (
+      <div
+        id={elem.item.id}
+        onClick={() => {
+          const pageContent = document.getElementById("pageContent");
+          if (pageContent) {
+            pageContent.innerText = elem.item.id;
+          }
+        }}
+      >
+        <>{elem.item.title}</>
+      </div>
+    )}
+  >
+    <PanelSideBarLayout>
+      <div id="pageContent">Cypress</div>
+    </PanelSideBarLayout>
+  </PanelSideBarProvider>
 );
 
 const getSidebarItems = (active?: boolean, disabled?: boolean): TSideBarMenuItem[] => [
@@ -39,7 +38,7 @@ const getSidebarItems = (active?: boolean, disabled?: boolean): TSideBarMenuItem
     title: "Home",
     icon: faBars,
     disabled,
-    items: [
+    children: [
       {
         title: "Home",
         id: "home",
@@ -52,7 +51,7 @@ const getSidebarItems = (active?: boolean, disabled?: boolean): TSideBarMenuItem
     title: "Settings",
     icon: faCogs,
     disabled,
-    items: [
+    children: [
       {
         title: "Settings",
         id: "settings",
