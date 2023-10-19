@@ -6,16 +6,24 @@ import { PanelItem } from "./Definitions/PanelItem";
 import { PanelSideBarItem } from "./PanelSideBarItem";
 
 interface PanelSidebarProps {
-    toggledSidebar: boolean;
+  toggledSidebar: boolean;
 }
 
 export const PanelSideBar = (props: PanelSidebarProps) => {
   const { toggledSidebar } = props;
-  const { activePanelId, globalItems, localItems = [], LinkRenderer, setActivePanel, toggledMenuItemIds, toggleMenuItem } = usePanelSideBarContext();
+  const {
+    activePanelId,
+    globalItems,
+    localItems = [],
+    LinkRenderer,
+    setActivePanel,
+    toggledMenuItemIds,
+    toggleMenuItem,
+  } = usePanelSideBarContext();
   const panelItems = localItems.concat(globalItems);
 
-  if (globalItems.find(x => !x.icon) || localItems.find(x => !x.icon)) {
-      throw new Error("Outer panel icon is required");
+  if (globalItems.find((x) => !x.icon) || localItems.find((x) => !x.icon)) {
+    throw new Error("Outer panel icon is required");
   }
 
   const activePanel: PanelItem | undefined = panelItems.find((x) => x.id === activePanelId);
@@ -37,7 +45,7 @@ export const PanelSideBar = (props: PanelSidebarProps) => {
         title={typeof title == "string" ? String(title) : ""}
         disabled={disabled}
       >
-          {icon && <FontAwesomeIcon icon={icon} size="lg" fixedWidth />}
+        {icon && <FontAwesomeIcon icon={icon} size="lg" fixedWidth />}
       </Button>
     ));
 
