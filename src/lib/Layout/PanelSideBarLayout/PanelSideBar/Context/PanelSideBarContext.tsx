@@ -1,19 +1,19 @@
 import React, { ComponentType, createContext, ReactNode, useContext, useState } from "react";
-import { PanelItem } from "../Definitions/PanelSideBarMenuItem";
+import { PanelItem } from "../Definitions/PanelItem";
 
 export interface PanelLinkRendererProps<T> {
   item: PanelItem<T>;
   children: ReactNode;
 }
 
-export type MenuItemToggleFn<TMenuItem> = (menuItem: PanelItem<TMenuItem>) => void;
+export type MenuItemToggleFn<TPanelItem> = (menuItem: PanelItem<TPanelItem>) => void;
 
-export interface PanelSideBarContextProps<TPanelItem, TMenuItem> {
+export interface PanelSideBarContextProps<TPanelItem> {
   activePanelId: string;
   /**
    * The global panel items.
    */
-  globalItems: PanelItem<TPanelItem, TMenuItem>[];
+  globalItems: PanelItem<TPanelItem>[];
   /**
    * The local panel items.
    */
@@ -22,9 +22,9 @@ export interface PanelSideBarContextProps<TPanelItem, TMenuItem> {
    * The component used to render the menu item links.
    */
   setActivePanel: (panelId: string) => void;
-  LinkRenderer: ComponentType<PanelLinkRendererProps<TMenuItem>>;
+  LinkRenderer: ComponentType<PanelLinkRendererProps<TPanelItem>>;
   toggledMenuItemIds: string[];
-  toggleMenuItem: MenuItemToggleFn<TMenuItem>;
+  toggleMenuItem: MenuItemToggleFn<TPanelItem>;
   /**
    * The footer content.
    */
@@ -51,11 +51,11 @@ export interface PanelSideBarContextProps<TPanelItem, TMenuItem> {
   topBarLeftCustomItems?: ReactNode[];
 }
 
-export const PanelSideBarContext = createContext<PanelSideBarContextProps<any, any> | null>(null);
+export const PanelSideBarContext = createContext<PanelSideBarContextProps<any> | null>(null);
 
-export interface PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>
+export interface PanelSideBarMenuProviderProps<TPanelItem>
   extends Pick<
-    PanelSideBarContextProps<TPanelItem, TMenuItem>,
+    PanelSideBarContextProps<TPanelItem>,
     "globalItems" | "LinkRenderer" | "brand" | "footer" | "userDropDownMenu" | "userDropDownMenuToggle" | "topBarRightCustomItems" | "topBarLeftCustomItems" | "localItems"
   > {
   /**
@@ -64,7 +64,7 @@ export interface PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>
   children: React.ReactNode;
 }
 
-export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarMenuProviderProps<TPanelItem, TMenuItem>) => {
+export const PanelSideBarProvider = <TPanelItem, >(props: PanelSideBarMenuProviderProps<TPanelItem>) => {
   const {
     children,
     globalItems,
@@ -94,7 +94,7 @@ export const PanelSideBarProvider = <TPanelItem, TMenuItem>(props: PanelSideBarM
 
   const setActivePanel = (panelId: string) => setActivePanelId(panelId);
 
-  const toggleMenuItem: MenuItemToggleFn<TMenuItem> = (menuItem) => {
+  const toggleMenuItem: MenuItemToggleFn<TPanelItem> = (menuItem) => {
     setToggledMenuItemIds((prev) => {
       const idExists = !!prev.find((id) => id == menuItem.id);
 
