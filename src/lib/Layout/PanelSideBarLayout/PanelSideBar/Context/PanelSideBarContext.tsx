@@ -49,6 +49,10 @@ export interface PanelSideBarContextProps<TPanelItem> {
    * The menu content on the left.
    */
   topBarLeftCustomItems?: ReactNode[];
+  /**
+   * The context theme
+   */
+  theme: "dark" | "light";
 }
 
 export const PanelSideBarContext = createContext<PanelSideBarContextProps<any> | null>(null);
@@ -56,7 +60,16 @@ export const PanelSideBarContext = createContext<PanelSideBarContextProps<any> |
 export interface PanelSideBarMenuProviderProps<TPanelItem>
   extends Pick<
     PanelSideBarContextProps<TPanelItem>,
-    "globalItems" | "LinkRenderer" | "brand" | "footer" | "userDropDownMenu" | "userDropDownMenuToggle" | "topBarRightCustomItems" | "topBarLeftCustomItems" | "localItems"
+    | "globalItems"
+    | "LinkRenderer"
+    | "brand"
+    | "footer"
+    | "userDropDownMenu"
+    | "userDropDownMenuToggle"
+    | "topBarRightCustomItems"
+    | "topBarLeftCustomItems"
+    | "localItems"
+    | "theme"
   > {
   /**
    * The children elements.
@@ -64,7 +77,7 @@ export interface PanelSideBarMenuProviderProps<TPanelItem>
   children: React.ReactNode;
 }
 
-export const PanelSideBarProvider = <TPanelItem, >(props: PanelSideBarMenuProviderProps<TPanelItem>) => {
+export const PanelSideBarProvider = <TPanelItem,>(props: PanelSideBarMenuProviderProps<TPanelItem>) => {
   const {
     children,
     globalItems,
@@ -76,6 +89,7 @@ export const PanelSideBarProvider = <TPanelItem, >(props: PanelSideBarMenuProvid
     userDropDownMenuToggle,
     topBarRightCustomItems,
     topBarLeftCustomItems,
+    theme,
   } = props;
 
   const activePanel = globalItems.find((x) => x.children?.find((y) => (y.children ? y.children.find((s) => s.active) : y.active)));
@@ -122,6 +136,7 @@ export const PanelSideBarProvider = <TPanelItem, >(props: PanelSideBarMenuProvid
         topBarRightCustomItems,
         topBarLeftCustomItems,
         brand,
+        theme,
       }}
     >
       {children}

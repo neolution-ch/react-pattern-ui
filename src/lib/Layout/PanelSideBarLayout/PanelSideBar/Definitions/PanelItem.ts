@@ -1,5 +1,5 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import {ReactNode} from "react";
+import { ReactNode } from "react";
 
 export type PanelItem<TPanelItem = Record<string, unknown>> = TPanelItem & {
   /**
