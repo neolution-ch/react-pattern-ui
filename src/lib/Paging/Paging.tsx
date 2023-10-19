@@ -45,7 +45,7 @@ function Paging({
   );
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid paging">
       <Row style={{ marginBottom: "20px" }}>
         <Col xs={pagingPossible && currentItemsPerPage < totalRecords ? 6 : 12} style={{ paddingLeft: 0 }}>
           {pagingPossible && (
