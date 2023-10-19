@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ISideBarMenuItem } from "./ISideBarMenuItem";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { NavItem, Collapse } from "reactstrap";
+import { Collapse } from "reactstrap";
 import { useSideBarMenuContext } from "./SideBarMenuContext";
 
 interface SideBarMenuItemProps {
@@ -11,10 +11,10 @@ interface SideBarMenuItemProps {
 }
 
 const SideBarMenuItem = ({ item, depth = 0 }: SideBarMenuItemProps) => {
-  const { toggleItem, LinkRenderer } = useSideBarMenuContext();
+  const { toggleItem, LinkRenderer, expandedMenuItemIds } = useSideBarMenuContext();
 
   const hasChildren = (item.children?.length || 0) > 0;
-  const isOpen = item?.expanded === true;
+  const isOpen = item.expanded ?? expandedMenuItemIds.includes(item.id);
 
   if (item.display === false) {
     return null;
@@ -22,12 +22,8 @@ const SideBarMenuItem = ({ item, depth = 0 }: SideBarMenuItemProps) => {
 
   return (
     <>
-      <div>
-        <NavItem
-          onClick={() => toggleItem(item.id)}
-          className={classNames({ "menu-open": isOpen })}
-          style={{ paddingLeft: `${0.5 * depth}rem` }}
-        >
+      <div className={classNames(item.className, { "menu-open": isOpen, active: item.isActive })}>
+        <div onClick={() => toggleItem(item.id)} className={classNames({ "menu-open": isOpen }, `nesting-level-${depth}`, "nav-item")}>
           {hasChildren ? (
             <>
               <div className={classNames({ dropend: !isOpen })}>
@@ -49,7 +45,7 @@ const SideBarMenuItem = ({ item, depth = 0 }: SideBarMenuItemProps) => {
               </LinkRenderer>
             </>
           )}
-        </NavItem>
+        </div>
         {hasChildren && (
           <Collapse isOpen={isOpen} navbar className={classNames("items-menu", { "mb-1": isOpen })}>
             {item.children?.map((item, index) => (

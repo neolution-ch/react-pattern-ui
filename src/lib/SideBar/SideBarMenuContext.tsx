@@ -10,6 +10,7 @@ interface SideBarMenuContextProps {
   items: ISideBarMenuItem[];
   LinkRenderer: ComponentType<LinkRendererProps>;
   toggleItem: (id: string) => void;
+  expandedMenuItemIds: string[];
 }
 
 const SideBarMenuContext = createContext<SideBarMenuContextProps | null>(null);
@@ -21,25 +22,19 @@ interface SideBarMenuProviderProps extends Pick<SideBarMenuContextProps, "items"
 const SideBarMenuProvider = (props: SideBarMenuProviderProps) => {
   const { children, items, LinkRenderer } = props;
 
-  const [itemState, setItemState] = useState(items);
-
-  const toggleItemInternal = (item: ISideBarMenuItem, id: string) => {
-    if (item.id === id) {
-      item.expanded = !item.expanded;
-    }
-
-    if (item.children) {
-      item.children = item.children.map((child) => toggleItemInternal(child, id));
-    }
-
-    return item;
-  };
+  const preExpandedMenuItemIds = items.filter((x) => x.expanded).map((x) => x.id);
+  const [expandedMenuItemIds, setExpandedMenuItemIds] = useState(preExpandedMenuItemIds);
 
   const toggleItem = (id: string) => {
-    setItemState((prev) => prev.map((item) => toggleItemInternal(item, id)));
+    // either add or remove the toggled id from the list of open menus
+    setExpandedMenuItemIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
   };
 
-  return <SideBarMenuContext.Provider value={{ items: itemState, LinkRenderer, toggleItem }}>{children}</SideBarMenuContext.Provider>;
+  return (
+    <SideBarMenuContext.Provider value={{ items: items, LinkRenderer, toggleItem, expandedMenuItemIds }}>
+      {children}
+    </SideBarMenuContext.Provider>
+  );
 };
 
 const useSideBarMenuContext = () => {
@@ -49,5 +44,4 @@ const useSideBarMenuContext = () => {
   }
   return context;
 };
-
 export { SideBarMenuProvider, useSideBarMenuContext, LinkRendererProps };

@@ -21,12 +21,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `DateHandler` utils as it belongs to another package and will be replaced in the future
 - Removed `SideBarLayoutContext` as can be replaced by `PanelSideBarLayoutContext`
-- Removed `TMenuItem` from `PanelItem.ts` 
+- Removed `TMenuItem` from `PanelItem.ts`
 
 ### Fixed
 
 - Fixed PanelSideBarLayout topBarCustomItems displaying
 - `PanelSideBarMenuItem.ts` renamed to `PanelItem.ts`
+
+## [2.9.0] - 2023-10-02
+
+### Fixed
+
+- Fixed row size and overflow behaviour for Paging component so that it does not always show a horizontal scrollbar regardless of the available width
+- The paging text will now occupy the whole row in case there are no page buttons to be rendered
+
+## [2.8.1] - 2023-09-19
+
+### Fixed
+
+- the `DeleteAction` component now correctly displays the delete button, and supports custom text.
+
+## [2.8.0] - 2023-09-05
+
+### Fixed
+
+- the sidebar now only keeps minimal state of opened menu items instead of all of the items. This fixes a problem where the sidebar would not be re-rendered if the currently active item changed.
+
+## [2.7.0] - 2023-08-29
+
+### Fixed
+
+- Removed sidebar drop shadow on screens where it's closed by default (small/medium size screens) in order to avoid having a shadow visible to the left of the screen even when the menu is closed on mobile/tablet
+- Fixed a problem where menu-open would be added to menu items without children
+- Menu styling is now using different colors for hovering and normal state
+- Indentation of menu items is now using classes. This lets the user overwrite the indentation with custom styles when required
+
+### Added
+
+- Added an option to provide additional classes to a menu item
+- Added an option to set the "active" class on menu items from the outside
+
+## [2.6.0] - 2023-08-16
+
+### Added
+
+- Added an option to enable the light theme. It can be provided explicitly every time when using the `SideBarMenu` component, or as a default in a SideBarLayoutProvider
 
 ## [2.5.0] - 2023-08-08
 
@@ -104,12 +143,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - created package :tada:
 - added tests
 
-[unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/2.5.0...HEAD
+[unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/2.9.0...HEAD
 [2.1.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.2...2.1.0
 [2.0.2]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/neolution-ch/react-pattern-ui/compare/45cbeb76034667019da84605082679900f506d75...2.0.0
+[2.9.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.8.1...2.9.0
+[2.8.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.8.0...2.8.1
+[2.8.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.7.0...2.8.0
+[2.7.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.6.0...2.7.0
+[2.6.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.5.0...2.6.0
 [2.5.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.4.0...2.5.0
 [2.4.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.2.1...2.3.0
