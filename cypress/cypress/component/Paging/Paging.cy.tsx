@@ -64,5 +64,8 @@ describe("Paging.cy.tsx", () => {
         cy.get("@setCurrentPage").should("be.calledWith", pages);
       },
     );
+
+    // Check pagination class set
+    cy.get("[data-cy-root] > .container-fluid").should("have.class", "paging");
   });
 });

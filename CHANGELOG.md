@@ -16,6 +16,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `DateHandler` utils as it belongs to another package and will be replaced in the future
 
+## [2.10.0] - 2023-10-20
+
+### Added
+
+- `paging` class to `Paging` in order to customize pagination
+
 ## [2.9.0] - 2023-10-02
 
 ### Fixed
@@ -131,12 +137,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - created package :tada:
 - added tests
 
-[unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/2.9.0...HEAD
+[unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/2.10.0...HEAD
 [2.1.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.2...2.1.0
 [2.0.2]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/neolution-ch/react-pattern-ui/compare/45cbeb76034667019da84605082679900f506d75...2.0.0
+[2.10.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.9.0...2.10.0
 [2.9.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.8.1...2.9.0
 [2.8.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.8.0...2.8.1
 [2.8.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.7.0...2.8.0
