@@ -9,24 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- PanelSidebar cypress test and toggle it on any screen size
+- `PanelSidebar` is new sidebar with custom side panels and a new `PanelSideBarLayoutContext`, also for older sidebar
 - `collapseIconOnly` to `PanelItem` in order to collapse `PanelSideBarItem` only by clicking on chevron icon and label can work as link
-- PanelLayout
-
-### Merged
-
-- Merged `PaneMenulItem` into `PanelItem`
 
 ### Removed
 
 - `DateHandler` utils as it belongs to another package and will be replaced in the future
-- Removed `SideBarLayoutContext` as can be replaced by `PanelSideBarLayoutContext`
-- Removed `TMenuItem` from `PanelItem.ts`
-
-### Fixed
-
-- Fixed PanelSideBarLayout topBarCustomItems displaying
-- `PanelSideBarMenuItem.ts` renamed to `PanelItem.ts`
 
 ## [2.9.0] - 2023-10-02
 
