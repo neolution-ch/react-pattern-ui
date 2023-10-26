@@ -4,9 +4,9 @@ import classNames from "classnames";
 import { PropsWithChildren, ReactNode, useState } from "react";
 import { DropdownMenu, DropdownToggle, Nav, NavItem, UncontrolledDropdown } from "reactstrap";
 import SideBarMenu from "src/lib/SideBar/SideBarMenu";
-import "./../../../../styles/Layout/SideBarLayout.scss";
+import "../../../../styles/Layout/SideBarLayout.scss";
 import { SideBarLayoutContent } from "./SideBarLayoutContent";
-import { usePanelSideBarContext } from "src/lib/Layout/PanelSideBarLayout/PanelSideBar/Context/PanelSideBarContext";
+import { useSideBarLayoutContext } from "./SideBarLayoutContext";
 
 interface SideBarLayoutProps extends PropsWithChildren {
   brand?: ReactNode;
@@ -20,7 +20,7 @@ const SideBarLayout = (props: SideBarLayoutProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggleSidebar = () => setIsOpen((prev) => !prev);
 
-  const { brand: contextBrand, theme: contextTheme, userDropDownMenu, userDropDownMenuToggle } = usePanelSideBarContext();
+  const { brand: contextBrand, theme: contextTheme, userDropDownMenu, userDropDownMenuToggle } = useSideBarLayoutContext();
   const chosenTheme = theme ?? contextTheme;
 
   return (
@@ -29,7 +29,7 @@ const SideBarLayout = (props: SideBarLayoutProps) => {
         {/* Navbar Brand*/}
         <div className="navbar-brand">{brand ?? contextBrand}</div>
 
-        {/* Sidebar Toggle */}
+        {/* Sidebar Toggle*/}
         <button id="sidebar-toggle" className="btn btn-link btn-sm order-0 me-lg-0" onClick={() => toggleSidebar()}>
           <FontAwesomeIcon icon={faBars} size="2x" />
         </button>

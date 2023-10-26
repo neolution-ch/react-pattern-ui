@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `PanelSidebar` is new sidebar with custom side panels and a new `PanelSideBarLayoutContext`, also for older sidebar
+- `PanelSidebar` is new sidebar with custom side panels and a new `PanelSideBarLayoutContext`
 - `collapseIconOnly` to `PanelItem` in order to collapse `PanelSideBarItem` only by clicking on chevron icon and label can work as link
 
 ### Removed
