@@ -2,7 +2,13 @@ import React, { ComponentType, createContext, ReactNode, useContext, useState } 
 import { PanelItem } from "../Definitions/PanelItem";
 
 export interface PanelLinkRendererProps<T> {
+  /**
+   * The generic panel item.
+   */
   item: PanelItem<T>;
+  /**
+   * The panel children item.
+   */
   children: ReactNode;
 }
 
@@ -19,11 +25,21 @@ export interface PanelSideBarContextProps<TPanelItem> {
    */
   localItems?: PanelItem[];
   /**
-   * The component used to render the menu item links.
+   * The function used to set a panel as active
+   * @param panelId The panel item identifier
    */
   setActivePanel: (panelId: string) => void;
+  /**
+   * The component used to render the menu item links.
+   */
   LinkRenderer: ComponentType<PanelLinkRendererProps<TPanelItem>>;
+  /**
+   * The list of toggled menu item identifier
+   */
   toggledMenuItemIds: string[];
+  /**
+   * The function used to toggle a menu item
+   */
   toggleMenuItem: MenuItemToggleFn<TPanelItem>;
   /**
    * The footer content.
