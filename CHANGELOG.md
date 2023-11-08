@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2023-11-08
+
 ### Added
 
 - `PanelSidebar` is new sidebar with custom side panels and a new `PanelSideBarLayoutContext`
@@ -137,12 +139,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - created package :tada:
 - added tests
 
-[unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/2.10.0...HEAD
+[unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/3.0.0...HEAD
 [2.1.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.2...2.1.0
 [2.0.2]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/neolution-ch/react-pattern-ui/compare/45cbeb76034667019da84605082679900f506d75...2.0.0
+[3.0.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.10.0...3.0.0
 [2.10.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.9.0...2.10.0
 [2.9.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.8.1...2.9.0
 [2.8.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.8.0...2.8.1
