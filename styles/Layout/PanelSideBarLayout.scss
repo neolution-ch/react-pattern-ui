@@ -1,0 +1,264 @@
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../Form";
+
+$primary: #007bc5;
+$primary-hover: #0069a7;
+$light: $white;
+
+$navbar-padding-x: $navbar-padding-y;
+$sidebar-transition: 0.25s ease-in-out;
+$sidebar-items-transition: #{0.2s $sidebar-transition};
+$sidenav-base-width: 18rem;
+$sidenav-max-width: $sidenav-base-width;
+$slim-scrollbar-base-width: 0.25rem;
+$tile-size: 3rem;
+$toggle-base-width: 1rem;
+$topnav-base-height: 4rem;
+$usernav-base-height: calc(#{$topnav-base-height} - 1rem);
+
+$sidenav-light-bg: $light;
+$sidenav-light-active-color: $light;
+$sidenav-light-active-bg-color: $primary-hover;
+$sidenav-light-active-border-color: $primary;
+$sidenav-light-color: fade-out($light, 0.1);
+$sidenav-light-link-active-color: $light;
+
+$topnav-dark-toggler-color: fade-out($light, 0.5);
+$topnav-light-toggler-color: $gray-900;
+
+@mixin chevron-common {
+  border: none;
+  display: block;
+  position: absolute;
+  right: 1rem;
+  transition: ease-in-out 0.2s;
+  width: 0.4rem;
+  $svg-attributes: "fill='white' strike='white'";
+  content: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'><path d='M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z' #{$svg-attributes}/></svg>");
+}
+
+@mixin chevron-right {
+  @include chevron-common();
+}
+
+@mixin chevron-down {
+  @include chevron-common();
+  transform: rotate(90deg);
+}
+
+@mixin slim-scrollbar {
+  &::-webkit-scrollbar {
+    width: $slim-scrollbar-base-width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $primary;
+
+    &:hover {
+      background: $primary-hover;
+    }
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $gray-300;
+
+    &:hover {
+      background: $light;
+    }
+  }
+}
+
+#nav-top.panel-layout {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  padding-left: 0;
+  height: $topnav-base-height;
+  z-index: $zindex-fixed;
+  background-color: $light;
+
+  .navbar-brand {
+    max-width: $sidenav-max-width;
+    padding: $navbar-padding-x;
+    margin: 0;
+
+    img {
+      background-color: $light;
+      max-width: calc(#{$sidenav-max-width} - (#{$navbar-padding-y} * 2));
+    }
+  }
+
+  .navbar-user {
+    display: flex;
+    height: $usernav-base-height;
+    width: 100%;
+    border: 1px solid $topnav-dark-toggler-color;
+    border-radius: $usernav-base-height;
+    background-color: $sidenav-light-link-active-color;
+    background: linear-gradient(
+      60deg,
+      rgba($color: $sidenav-light-link-active-color, $alpha: 1) 0%,
+      rgba($color: $sidenav-light-link-active-color, $alpha: 1) 57%,
+      rgba($color: $sidenav-light-color, $alpha: 0.75) 65%,
+      rgba($color: $sidenav-light-color, $alpha: 0.75) 70%,
+      rgba($color: $sidenav-light-link-active-color, $alpha: 1) 82%
+    );
+
+    .navbar-custom-item {
+      margin-left: 1em;
+      width: fit-content;
+    }
+
+    .user-dropdown {
+      font-weight: bold;
+      color: $dark;
+    }
+  }
+}
+
+section.content:first-of-type {
+  padding: 1.5rem;
+  margin-top: $topnav-base-height;
+  margin-left: #{$sidenav-base-width + $toggle-base-width};
+  min-height: calc(100vh - #{$topnav-base-height});
+  transition: #{margin $sidebar-transition};
+}
+
+#side-nav.panel-layout {
+  position: fixed;
+  display: flex;
+  align-items: flex-start;
+  overflow-y: auto;
+  overflow-x: hidden;
+  bottom: 0;
+  background-color: $primary;
+  width: $sidenav-base-width;
+  top: $topnav-base-height;
+  z-index: $zindex-fixed;
+  transition: $sidebar-transition;
+
+  @include slim-scrollbar();
+
+  .side-nav {
+    &__tiles {
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+
+      .tile {
+        height: $tile-size;
+        width: $tile-size;
+        background-color: $light;
+
+        &:hover,
+        &.active {
+          color: $sidenav-light-active-color;
+          background-color: $sidenav-light-active-bg-color;
+          border-color: $sidenav-light-active-bg-color;
+        }
+      }
+    }
+
+    &__items {
+      height: 100%;
+      width: 100%;
+      transition: #{width $sidebar-transition};
+
+      a {
+        color: inherit;
+      }
+
+      li.nav-item {
+        color: $sidenav-light-color;
+
+        &::marker {
+          content: none;
+        }
+
+        &:hover {
+          color: $sidenav-light-active-color;
+          background-color: $primary-hover;
+        }
+
+        &.menu-open .nav-link.dropdown-toggle::after {
+          @include chevron-down();
+        }
+
+        &.active,
+        .active {
+          background-color: $sidenav-light-active-bg-color;
+          color: $sidenav-light-active-color;
+        }
+
+        .nav-link {
+          display: flex;
+          align-items: center;
+          color: inherit;
+          padding: 0.5rem;
+
+          > svg {
+            margin-right: 0.5rem;
+          }
+
+          &.dropdown-toggle::after {
+            @include chevron-right();
+          }
+        }
+      }
+
+      li::marker {
+        content: none;
+      }
+    }
+  }
+}
+
+#side-nav-toggle {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+  bottom: 0;
+  border: none;
+  border-left: 3px solid $primary-hover;
+  border-radius: 0;
+  background-color: $primary;
+  top: $topnav-base-height;
+  left: $sidenav-base-width;
+  z-index: $zindex-fixed;
+  transition: $sidebar-transition;
+
+  &:focus,
+  &:hover {
+    background-color: $primary-hover;
+  }
+}
+
+@include media-breakpoint-up(xs) {
+  $toggled-width: #{$tile-size + $slim-scrollbar-base-width};
+
+  section.toggled {
+    > #side-nav {
+      transition: $sidebar-transition;
+      width: #{$tile-size + $slim-scrollbar-base-width};
+    }
+
+    > #side-nav-toggle {
+      transition: $sidebar-transition;
+      left: #{$tile-size};
+    }
+
+    > section.content:first-of-type {
+      transition: #{margin $sidebar-transition};
+      margin-left: #{$tile-size + $toggle-base-width};
+
+      .dropdown-toggle::after {
+        display: none;
+      }
+    }
+  }
+}
