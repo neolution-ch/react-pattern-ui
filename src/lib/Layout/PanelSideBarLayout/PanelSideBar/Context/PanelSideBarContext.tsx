@@ -68,7 +68,7 @@ export interface PanelSideBarContextProps<TPanelItem> {
   /**
    * The context theme
    */
-  theme: "dark" | "light";
+  theme?: "light";
 }
 
 export const PanelSideBarContext = createContext<PanelSideBarContextProps<any> | null>(null);
@@ -105,7 +105,7 @@ export const PanelSideBarProvider = <TPanelItem,>(props: PanelSideBarMenuProvide
     userDropDownMenuToggle,
     topBarRightCustomItems,
     topBarLeftCustomItems,
-    theme,
+    theme = "light",
   } = props;
 
   const activePanel = globalItems.find((x) => x.children?.find((y) => (y.children ? y.children.find((s) => s.active) : y.active)));
