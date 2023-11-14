@@ -10,7 +10,6 @@ type TSideBarMenuItem<TLocalPanelIds = ""> = PanelItem<CustomPanelItem<TLocalPan
 
 const PanelSidebar = (items: TSideBarMenuItem[]) => (
   <PanelSideBarProvider
-    theme="dark"
     globalItems={items}
     LinkRenderer={(elem: PanelLinkRendererProps<Record<string, unknown>>) => (
       <div
