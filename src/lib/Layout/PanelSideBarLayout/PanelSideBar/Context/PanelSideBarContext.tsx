@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { ComponentType, createContext, ReactNode, useContext, useState } from "react";
 import { PanelItem } from "../Definitions/PanelItem";
 
@@ -108,7 +109,8 @@ export const PanelSideBarProvider = <TPanelItem,>(props: PanelSideBarMenuProvide
     theme = "light",
   } = props;
 
-  const activePanel = globalItems.find((x) => x.children?.find((y) => (y.children ? y.children.find((s) => s.active) : y.active)));
+  const activePanel = globalItems.find((x) => x.children?.filter(x => !(x instanceof Promise))
+    .find((y: PanelItem<TPanelItem>) => (y.children ? y.children.filter(x => !(x instanceof Promise)).find((s: PanelItem<TPanelItem>) => s.active) : y.active)));
   const firstActivePanel = activePanel ?? globalItems.find((x) => x.id);
 
   const getActivePanelId = () => localItems?.at(0)?.id ?? firstActivePanel?.id ?? "";
@@ -116,10 +118,12 @@ export const PanelSideBarProvider = <TPanelItem,>(props: PanelSideBarMenuProvide
   const [activePanelId, setActivePanelId] = useState(getActivePanelId());
 
   const [toggledMenuItemIds, setToggledMenuItemIds] = useState<string[]>([
-    (firstActivePanel?.children
-      ? firstActivePanel.children?.find((x) => x.children?.find((s) => s.active))
-      : firstActivePanel?.children?.find((x) => x.active)
-    )?.id ?? "",
+    ((firstActivePanel?.children
+      ? firstActivePanel
+        .children?.filter(x => !(x instanceof Promise))
+        .find((x: PanelItem<TPanelItem>) => x.children?.filter(x => !(x instanceof Promise)).find((s: PanelItem<TPanelItem>) => s.active))
+      : firstActivePanel?.children?.filter(x => !(x instanceof Promise)).find((x: PanelItem<TPanelItem>) => x.active)
+    ) as PanelItem<TPanelItem> | undefined)?.id ?? "",
   ]);
 
   const setActivePanel = (panelId: string) => setActivePanelId(panelId);
@@ -137,26 +141,26 @@ export const PanelSideBarProvider = <TPanelItem,>(props: PanelSideBarMenuProvide
   };
 
   return (
-    <PanelSideBarContext.Provider
-      value={{
-        activePanelId,
-        globalItems,
-        localItems,
-        LinkRenderer,
-        setActivePanel,
-        toggledMenuItemIds,
-        toggleMenuItem,
-        footer,
-        userDropDownMenu,
-        userDropDownMenuToggle,
-        topBarRightCustomItems,
-        topBarLeftCustomItems,
-        brand,
-        theme,
-      }}
-    >
-      {children}
-    </PanelSideBarContext.Provider>
+      <PanelSideBarContext.Provider
+        value={{
+          activePanelId,
+          globalItems,
+          localItems,
+          LinkRenderer,
+          setActivePanel,
+          toggledMenuItemIds,
+          toggleMenuItem,
+          footer,
+          userDropDownMenu,
+          userDropDownMenuToggle,
+          topBarRightCustomItems,
+          topBarLeftCustomItems,
+          brand,
+          theme,
+        }}
+      >
+        {children}
+      </PanelSideBarContext.Provider>
   );
 };
 

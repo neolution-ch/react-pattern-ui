@@ -19,7 +19,7 @@ export type PanelItem<TPanelItem = Record<string, unknown>> = TPanelItem & {
   /**
    * The panel menu items.
    */
-  children?: PanelItem<TPanelItem>[];
+  children?: PanelItem<TPanelItem>[] | Promise<PanelItem<TPanelItem>>[];
   /**
    * Whether the panel is disabled.
    */

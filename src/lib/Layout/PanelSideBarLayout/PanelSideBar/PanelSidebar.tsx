@@ -4,6 +4,8 @@ import { Button } from "reactstrap";
 import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import { PanelItem } from "./Definitions/PanelItem";
 import { PanelSideBarItem } from "./PanelSideBarItem";
+import { LoadingSkeleton } from "src/Skeleton/LoadingSkeleton";
+import { useQuery } from "react-query";
 
 interface PanelSidebarProps {
   toggledSidebar: boolean;
@@ -49,6 +51,23 @@ export const PanelSideBar = (props: PanelSidebarProps) => {
       </Button>
     ));
 
+    const LazySkeleton = (props: { promise: Promise<PanelItem<unknown>> }) => {  
+      const { data, isLoading, isSuccess } = useQuery("y", () => props.promise);
+      console.log(data);
+      return (
+        <LoadingSkeleton isLoading={isLoading} isSuccess={isLoading || isSuccess}>
+          {data && <PanelSideBarItem
+            key={data.id}
+            children={data}
+            LinkRenderer={LinkRenderer}
+            onClick={(menuItem) => toggleMenuItem(menuItem)}
+            toggledItemIds={toggledMenuItemIds}
+            toggledSidebar={toggledSidebar}
+          />
+          }
+        </LoadingSkeleton>
+      )
+    }
   return (
     <nav id="side-nav" className="panel-layout">
       <div className="side-nav__tiles">
@@ -58,6 +77,9 @@ export const PanelSideBar = (props: PanelSidebarProps) => {
 
       <div className="side-nav__items">
         {activePanel?.children?.map((item) => (
+          item instanceof Promise ?
+            <LazySkeleton promise={item} />
+            :
           <PanelSideBarItem
             key={item.id}
             children={item}
