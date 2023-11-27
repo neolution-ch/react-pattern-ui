@@ -30,9 +30,9 @@ const LoadingSkeleton = (props: LoadingSkeletonProps) => {
           <Skeleton
             key={i}
             containerClassName={`row row-cols-${cols} gx-${gutterX} gy-${gutterY}`}
-            wrapper={({ children }) => <div className="h-100">{children}</div>}
+            wrapper={({ children }) => <div className="h-100 p-1">{children}</div>}
             height={height}
-            width={"18rem"}
+            width="18rem"
             count={cols}
           />
         ))

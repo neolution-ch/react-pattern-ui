@@ -51,12 +51,13 @@ export const PanelSideBar = (props: PanelSidebarProps) => {
       </Button>
     ));
 
-    const LazySkeleton = (props: { promise: Promise<PanelItem<unknown>> }) => {  
-      const { data, isLoading, isSuccess } = useQuery("y", () => props.promise);
-      console.log(data);
-      return (
-        <LoadingSkeleton isLoading={isLoading} isSuccess={isLoading || isSuccess}>
-          {data && <PanelSideBarItem
+  const LazySkeleton = (props: { queryKey: string, query: Promise<PanelItem<unknown>> }) => {
+    const {queryKey, query} = props;
+    const { data, isLoading, isSuccess } = useQuery(queryKey, () => query,  { refetchOnWindowFocus: false, refetchOnReconnect: false });
+    return (
+      <LoadingSkeleton isLoading={isLoading} isSuccess={isLoading || isSuccess}>
+        {data && (
+          <PanelSideBarItem
             key={data.id}
             children={data}
             LinkRenderer={LinkRenderer}
@@ -64,10 +65,10 @@ export const PanelSideBar = (props: PanelSidebarProps) => {
             toggledItemIds={toggledMenuItemIds}
             toggledSidebar={toggledSidebar}
           />
-          }
-        </LoadingSkeleton>
-      )
-    }
+        )}
+      </LoadingSkeleton>
+    );
+  };
   return (
     <nav id="side-nav" className="panel-layout">
       <div className="side-nav__tiles">
@@ -76,9 +77,9 @@ export const PanelSideBar = (props: PanelSidebarProps) => {
       </div>
 
       <div className="side-nav__items">
-        {activePanel?.children?.map((item) => (
+        {activePanel?.children?.map((item, index) => (
           item instanceof Promise ?
-            <LazySkeleton promise={item} />
+            <LazySkeleton queryKey={`${activePanel.id}_${index}`} query={item} />
             :
           <PanelSideBarItem
             key={item.id}
