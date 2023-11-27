@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
-import { ComponentType, useState} from "react";
+import { ComponentType, useState } from "react";
 import { Collapse, NavItem } from "reactstrap";
 import { LinkRendererProps } from "src/lib/SideBar/SideBarMenuContext";
 import { PanelItem } from "./../PanelSideBar/Definitions/PanelItem";
@@ -23,7 +23,7 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
 
   const hasitem = !!item.children?.length;
   const [isOpen, setIsOpen] = useState(toggledItemIds?.includes(item.id) || item.expanded);
-  
+
   if (item.display === false) {
     return null;
   }
@@ -52,7 +52,7 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
             <a
               role="button"
               className={classNames("nav-link", { "w-100": !item.collapseIconOnly }, { "dropdown-toggle": hasitem })}
-              onClick={() => { setIsOpen(prev => !prev) }}
+              onClick={() => setIsOpen(!isOpen)}
             >
               {!item.collapseIconOnly && (
                 <span>
@@ -78,18 +78,16 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
         <Collapse isOpen={isOpen} navbar className={classNames("item-menu", { "mb-1": isOpen })}>
           {item.children?.map((childItem, index) =>
             childItem instanceof Promise ? (
-              <LazyLoadingSideBarItem
-                {...props}
-                queryKey={`${item.id}_${index}`}
-                query={childItem}
-                active={item.active}
-              />
+              <LazyLoadingSideBarItem {...props} queryKey={`${item.id}_${index}`} query={childItem} active={item.active} />
             ) : (
               <PanelSideBarItem
                 key={childItem.id}
                 children={childItem}
                 LinkRenderer={LinkRenderer}
-                  onClick={() => { console.log("clicking me"); onClick && onClick(childItem) }}
+                onClick={() => {
+                  console.log("clicking me");
+                  onClick && onClick(childItem);
+                }}
                 depth={depth + 1}
                 active={item.active}
                 toggledItemIds={toggledItemIds}
