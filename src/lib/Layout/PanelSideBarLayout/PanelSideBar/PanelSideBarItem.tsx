@@ -1,13 +1,12 @@
 // @ts-nocheck
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
-import { ComponentType, useState, useMemo} from "react";
+import { ComponentType, useState} from "react";
 import { Collapse, NavItem } from "reactstrap";
 import { LinkRendererProps } from "src/lib/SideBar/SideBarMenuContext";
 import { PanelItem } from "./../PanelSideBar/Definitions/PanelItem";
-import { LoadingSkeleton } from "src/Skeleton/LoadingSkeleton";
-import { useQuery } from "react-query";
 import { ISideBarMenuItem } from "src/lib/SideBar/ISideBarMenuItem";
+import { LazyLoadingSideBarItem } from "./LazyLoadingSideBarItem";
 
 export interface PanelSideBarItemProps {
   children: PanelItem<unknown>;
@@ -19,45 +18,16 @@ export interface PanelSideBarItemProps {
   toggledSidebar: boolean;
 }
 
-// eslint-disable-next-line complexity
 const PanelSideBarItem = (props: PanelSideBarItemProps) => {
   const { depth = 0, children: item, LinkRenderer, onClick, toggledItemIds = [], toggledSidebar } = props;
 
-  // Temporary to avoid double  render
-  const item2 = useMemo(() => item, []);
+  const hasitem = !!item.children?.length;
+  const [isOpen, setIsOpen] = useState(toggledItemIds?.includes(item.id) || item.expanded);
   
-  if (item2.display === false) {
-    return null;
-  }
   if (item.display === false) {
     return null;
   }
-  const hasitem = !!item.children?.length;
-  const [isOpen, setIsOpen] = useState(toggledItemIds?.includes(item.id) || item.expanded);
 
-  const LazySkeleton = (props: { queryKey: string, query: Promise<PanelItem<unknown>> }) => {
-    const { query, queryKey } = props;
-    const { data, isLoading, isSuccess } = useQuery(queryKey, () => query, { refetchOnWindowFocus: false, refetchOnReconnect: false});
-   
-    return (
-      <LoadingSkeleton isLoading={isLoading} isSuccess={isLoading || isSuccess}>
-        {data && (
-          <PanelSideBarItem
-            key={data.id}
-            children={data}
-            LinkRenderer={LinkRenderer}
-            onClick={() => onClick && onClick(data)}
-            depth={depth + 1}
-            active={item.active}
-            toggledItemIds={toggledItemIds}
-            toggledSidebar={toggledSidebar}
-          />
-        )}
-      </LoadingSkeleton>
-    );
-  };
-
-  console.log(hasitem);
   return (
     <>
       <NavItem
@@ -82,7 +52,7 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
             <a
               role="button"
               className={classNames("nav-link", { "w-100": !item.collapseIconOnly }, { "dropdown-toggle": hasitem })}
-              onClick={() => setIsOpen(prev => !prev)}
+              onClick={() => { setIsOpen(prev => !prev) }}
             >
               {!item.collapseIconOnly && (
                 <span>
@@ -108,13 +78,18 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
         <Collapse isOpen={isOpen} navbar className={classNames("item-menu", { "mb-1": isOpen })}>
           {item.children?.map((childItem, index) =>
             childItem instanceof Promise ? (
-              <LazySkeleton queryKey={`${item.id}_${index}`} query={childItem} />
+              <LazyLoadingSideBarItem
+                {...props}
+                queryKey={`${item.id}_${index}`}
+                query={childItem}
+                active={item.active}
+              />
             ) : (
               <PanelSideBarItem
                 key={childItem.id}
                 children={childItem}
                 LinkRenderer={LinkRenderer}
-                onClick={() => onClick && onClick(childItem)}
+                  onClick={() => { console.log("clicking me"); onClick && onClick(childItem) }}
                 depth={depth + 1}
                 active={item.active}
                 toggledItemIds={toggledItemIds}

@@ -4,8 +4,7 @@ import { Button } from "reactstrap";
 import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import { PanelItem } from "./Definitions/PanelItem";
 import { PanelSideBarItem } from "./PanelSideBarItem";
-import { LoadingSkeleton } from "src/Skeleton/LoadingSkeleton";
-import { useQuery } from "react-query";
+import { LazyLoadingSideBarItem } from "./LazyLoadingSideBarItem";
 
 interface PanelSidebarProps {
   toggledSidebar: boolean;
@@ -51,24 +50,6 @@ export const PanelSideBar = (props: PanelSidebarProps) => {
       </Button>
     ));
 
-  const LazySkeleton = (props: { queryKey: string, query: Promise<PanelItem<unknown>> }) => {
-    const {queryKey, query} = props;
-    const { data, isLoading, isSuccess } = useQuery(queryKey, () => query,  { refetchOnWindowFocus: false, refetchOnReconnect: false });
-    return (
-      <LoadingSkeleton isLoading={isLoading} isSuccess={isLoading || isSuccess}>
-        {data && (
-          <PanelSideBarItem
-            key={data.id}
-            children={data}
-            LinkRenderer={LinkRenderer}
-            onClick={(menuItem) => toggleMenuItem(menuItem)}
-            toggledItemIds={toggledMenuItemIds}
-            toggledSidebar={toggledSidebar}
-          />
-        )}
-      </LoadingSkeleton>
-    );
-  };
   return (
     <nav id="side-nav" className="panel-layout">
       <div className="side-nav__tiles">
@@ -77,19 +58,27 @@ export const PanelSideBar = (props: PanelSidebarProps) => {
       </div>
 
       <div className="side-nav__items">
-        {activePanel?.children?.map((item, index) => (
-          item instanceof Promise ?
-            <LazySkeleton queryKey={`${activePanel.id}_${index}`} query={item} />
-            :
-          <PanelSideBarItem
-            key={item.id}
-            children={item}
-            LinkRenderer={LinkRenderer}
-            onClick={(menuItem) => toggleMenuItem(menuItem)}
-            toggledItemIds={toggledMenuItemIds}
-            toggledSidebar={toggledSidebar}
-          />
-        ))}
+        {activePanel?.children?.map((item, index) =>
+          item instanceof Promise ? (
+            <LazyLoadingSideBarItem
+              queryKey={`${activePanel.id}_${index}`}
+              query={item}
+              LinkRenderer={LinkRenderer}
+              onClick={(menuItem) => toggleMenuItem(menuItem)}
+              toggledItemIds={toggledMenuItemIds}
+              toggledSidebar={toggledSidebar}
+            />
+          ) : (
+            <PanelSideBarItem
+              key={item.id}
+              children={item}
+              LinkRenderer={LinkRenderer}
+              onClick={(menuItem) => toggleMenuItem(menuItem)}
+              toggledItemIds={toggledMenuItemIds}
+              toggledSidebar={toggledSidebar}
+            />
+          ),
+        )}
       </div>
     </nav>
   );
