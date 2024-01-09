@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- the space between title and arrow in case of `collapsedIconOnly` menuItem.
+
 ## [3.1.0] - 2023-11-14
 
 ### Removed

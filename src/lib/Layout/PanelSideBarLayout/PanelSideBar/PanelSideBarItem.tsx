@@ -32,7 +32,7 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
         style={{ paddingLeft: depth ? `${depth + 1}rem` : undefined }}
       >
         {hasitem ? (
-          <div className="d-flex flex-row">
+          <div className={classNames("d-flex flex-row", { "justify-content-between": item.collapseIconOnly })}>
             {item.collapseIconOnly && (
               <LinkRenderer item={item}>
                 <span className="nav-link">
