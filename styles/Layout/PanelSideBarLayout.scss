@@ -131,8 +131,6 @@ section.content:first-of-type {
   position: fixed;
   display: flex;
   align-items: flex-start;
-  overflow-y: auto;
-  overflow-x: hidden;
   bottom: 0;
   background-color: $primary;
   width: $sidenav-base-width;
