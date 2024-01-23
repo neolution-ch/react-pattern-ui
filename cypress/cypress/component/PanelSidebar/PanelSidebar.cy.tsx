@@ -145,6 +145,6 @@ describe("PanelSidebar.cy.tsx", () => {
     cy.mount(PanelSidebar(sidebarItems));
 
     // Check active entries
-    cy.get("#home").parent("li").should("have.class", "active");
+    cy.get("#home").parent("div").parent("li").should("have.class", "active");
   });
 });

@@ -19,26 +19,27 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
   const { depth = 0, children: item, LinkRenderer, onClick, toggledItemIds = [], toggledSidebar } = props;
 
   const hasitem = !!item.children?.length;
+  const isActive = item.children?.find((s) => s.active) || item.active;
   const [isOpen, setIsOpen] = useState(toggledItemIds?.includes(item.id) || item.expanded);
   if (item.display === false) {
     return null;
   }
-  const scollToActiveItemRef = useRef<HTMLDivElement>(null);
+  const scrollToActiveItemRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (scollToActiveItemRef.current && (item.children?.find((s) => s.active) || item.active)) {
-      scollToActiveItemRef.current.scrollIntoView();
+    if (scrollToActiveItemRef.current && isActive) {
+      scrollToActiveItemRef.current.scrollIntoView();
     }
-  }, [scollToActiveItemRef]);
+  });
 
   return (
     <>
       <NavItem
         onClick={() => onClick && onClick(item)}
-        className={classNames({ "menu-open": isOpen, active: item.children?.find((s) => s.active) || item.active })}
+        className={classNames({ "menu-open": isOpen, active: isActive })}
         style={{ paddingLeft: depth ? `${depth + 1}rem` : undefined }}
       >
-        <div ref={scollToActiveItemRef}>
+        <div ref={scrollToActiveItemRef}>
           {hasitem ? (
             <div className={classNames("d-flex flex-row", { "justify-content-between": item.collapseIconOnly })}>
               {item.collapseIconOnly && (
