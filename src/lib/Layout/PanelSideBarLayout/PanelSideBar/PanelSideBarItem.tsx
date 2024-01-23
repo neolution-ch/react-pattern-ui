@@ -30,7 +30,7 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
     if (scrollToActiveItemRef.current && isActive) {
       scrollToActiveItemRef.current.scrollIntoView();
     }
-  });
+  }, []);
 
   return (
     <>
