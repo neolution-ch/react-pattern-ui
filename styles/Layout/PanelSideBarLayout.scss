@@ -131,14 +131,13 @@ section.content:first-of-type {
   position: fixed;
   display: flex;
   align-items: flex-start;
-  overflow-y: auto;
-  overflow-x: hidden;
   bottom: 0;
   background-color: $primary;
   width: $sidenav-base-width;
   top: $topnav-base-height;
   z-index: $zindex-fixed;
   transition: $sidebar-transition;
+  overflow: hidden;
 
   @include slim-scrollbar();
 
@@ -166,6 +165,8 @@ section.content:first-of-type {
       height: 100%;
       width: 100%;
       transition: #{width $sidebar-transition};
+      overflow-x: hidden;
+      overflow-y: auto;
 
       a {
         color: inherit;
@@ -201,6 +202,10 @@ section.content:first-of-type {
 
           > svg {
             margin-right: 0.5rem;
+          }
+
+          &.dropdown-toggle {
+            position: relative;
           }
 
           &.dropdown-toggle::after {
