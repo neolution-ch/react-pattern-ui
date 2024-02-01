@@ -108,7 +108,9 @@ export const PanelSideBarProvider = <TPanelItem,>(props: PanelSideBarMenuProvide
     theme = "light",
   } = props;
 
-  const activePanel = globalItems.find((x) => x.children?.find((y) => (y.children ? y.children.find((s) => s.active) : y.active)));
+  const activePanel = globalItems.find((x) =>
+    x.children ? x.children.find((y) => (y.children ? y.children.find((s) => s.active) : y.active)) : x.active,
+  );
   const firstActivePanel = activePanel ?? globalItems.find((x) => x.id);
 
   const getActivePanelId = () => localItems?.at(0)?.id ?? firstActivePanel?.id ?? "";
