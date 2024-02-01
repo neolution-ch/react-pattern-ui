@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fix on active panel
+- Selection of active panel when `active` is provided to main navigation items.
 
 ## [3.2.0] - 2024-01-24
 
