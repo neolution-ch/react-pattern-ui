@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.3.0] - 2024-03-08
+
 ### Added
 
 - Possibility to decide if render first nesting level of menuItems as tiles (default) or not
@@ -169,12 +171,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - created package :tada:
 - added tests
 
-[unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/3.2.1...HEAD
+[unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/3.3.0...HEAD
 [2.1.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.2...2.1.0
 [2.0.2]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/neolution-ch/react-pattern-ui/compare/45cbeb76034667019da84605082679900f506d75...2.0.0
+[3.3.0]: https://github.com/neolution-ch/react-pattern-ui/compare/3.2.1...3.3.0
 [3.2.1]: https://github.com/neolution-ch/react-pattern-ui/compare/3.2.0...3.2.1
 [3.2.0]: https://github.com/neolution-ch/react-pattern-ui/compare/3.1.1...3.2.0
 [3.1.1]: https://github.com/neolution-ch/react-pattern-ui/compare/3.1.0...3.1.1
