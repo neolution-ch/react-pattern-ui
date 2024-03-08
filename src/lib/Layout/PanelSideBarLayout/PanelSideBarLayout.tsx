@@ -76,7 +76,13 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
         </Nav>
       </nav>
 
-      <section className={`${renderFirstItemsLevelAsTiles ? "section-tiles" : "section-no-tiles"} ${classNames({ toggled: !isOpen })}`}>
+      <section
+        className={classNames(
+          { toggled: !isOpen },
+          { "section-no-tiles": !renderFirstItemsLevelAsTiles },
+          { "section-tiles": renderFirstItemsLevelAsTiles },
+        )}
+      >
         <PanelSideBar />
         {collapsible && <PanelSideBarToggle onClick={toggleSidebar} toggled={!isOpen} />}
         <PanelSideBarLayoutContent footer={footer ?? contextFooter}>{children}</PanelSideBarLayoutContent>
