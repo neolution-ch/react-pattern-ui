@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Possibility to decide if render first nesting level of menuItems as tiles (default) or not
+- Possibility to render tiles as button(default) or as links
+
 ## [3.2.1] - 2024-02-01
 
 ### Fixed

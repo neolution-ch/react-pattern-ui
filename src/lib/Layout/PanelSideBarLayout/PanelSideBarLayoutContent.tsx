@@ -8,7 +8,7 @@ export const PanelSideBarLayoutContent = (props: PanelSideBarLayoutContentProps)
   const { children, footer } = props;
 
   return (
-    <section className="content">
+    <section id="main-content-body" className="content">
       <main className="container-fluid">{children}</main>
       <footer className="py-4 bg-light mt-auto">
         <div className="mx-4">
