@@ -36,10 +36,12 @@ export const PanelSideBar = () => {
           outline
           className={classNames("tile", { active: activePanelId === id })}
           onClick={() => {
-            if (onClick) {
-              onClick();
-            } else {
-              setActivePanel(id);
+            if (!renderTilesAsLinks) {
+              if (onClick) {
+                onClick();
+              } else {
+                setActivePanel(id);
+              }
             }
           }}
           title={typeof title == "string" ? String(title) : ""}
