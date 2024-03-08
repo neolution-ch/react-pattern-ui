@@ -15,7 +15,7 @@ export const PanelSideBar = () => {
     toggledMenuItemIds,
     toggleMenuItem,
     renderFirstItemsLevelAsTiles,
-    renderTilesAsLinks = true,
+    renderTilesAsLinks,
   } = usePanelSideBarContext();
   const panelItems = localItems.concat(globalItems);
 
