@@ -69,12 +69,12 @@ export interface PanelSideBarContextProps<TPanelItem> {
    * The context theme
    */
   theme?: "light";
- /**
+  /**
    * Boolean indicating if you want to render first items level as icons or directly as menu entries
    */
   renderFirstItemsLevelAsTiles?: boolean;
 
-   /**
+  /**
    * Boolean indicating if you want to render first level items as links or as button
    */
   renderTilesAsLinks?: boolean;
