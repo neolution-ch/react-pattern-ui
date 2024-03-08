@@ -37,6 +37,7 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
     userDropDownMenuToggle,
     topBarRightCustomItems = [],
     topBarLeftCustomItems = [],
+    renderFirstItemsLevelAsTiles,
   } = usePanelSideBarContext();
 
   return (
@@ -75,8 +76,14 @@ export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
         </Nav>
       </nav>
 
-      <section className={classNames({ toggled: !isOpen })}>
-        <PanelSideBar toggledSidebar={isOpen} />
+      <section
+        className={classNames(
+          { toggled: !isOpen },
+          { "section-no-tiles": !renderFirstItemsLevelAsTiles },
+          { "section-tiles": renderFirstItemsLevelAsTiles },
+        )}
+      >
+        <PanelSideBar />
         {collapsible && <PanelSideBarToggle onClick={toggleSidebar} toggled={!isOpen} />}
         <PanelSideBarLayoutContent footer={footer ?? contextFooter}>{children}</PanelSideBarLayoutContent>
       </section>

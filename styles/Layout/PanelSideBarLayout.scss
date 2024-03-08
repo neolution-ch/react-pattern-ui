@@ -246,7 +246,7 @@ section.content:first-of-type {
 @include media-breakpoint-up(xs) {
   $toggled-width: #{$tile-size + $slim-scrollbar-base-width};
 
-  section.toggled {
+  .section-tiles.toggled {
     > #side-nav {
       transition: $sidebar-transition;
       width: #{$tile-size + $slim-scrollbar-base-width};
@@ -260,6 +260,27 @@ section.content:first-of-type {
     > section.content:first-of-type {
       transition: #{margin $sidebar-transition};
       margin-left: #{$tile-size + $toggle-base-width};
+
+      .dropdown-toggle::after {
+        display: none;
+      }
+    }
+  }
+
+  .section-no-tiles.toggled {
+    > #side-nav {
+      transition: $sidebar-transition;
+      width: #{$slim-scrollbar-base-width};
+    }
+
+    > #side-nav-toggle {
+      transition: $sidebar-transition;
+      left: 0px;
+    }
+
+    > section.content:first-of-type {
+      transition: #{margin $sidebar-transition};
+      margin-left: #{$toggle-base-width};
 
       .dropdown-toggle::after {
         display: none;

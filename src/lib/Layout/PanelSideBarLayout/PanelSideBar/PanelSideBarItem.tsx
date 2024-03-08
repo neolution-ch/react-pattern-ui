@@ -12,11 +12,10 @@ export interface PanelSideBarItemProps {
   depth?: number;
   active?: boolean;
   toggledItemIds: string[];
-  toggledSidebar: boolean;
 }
 
 const PanelSideBarItem = (props: PanelSideBarItemProps) => {
-  const { depth = 0, children: item, LinkRenderer, onClick, toggledItemIds = [], toggledSidebar } = props;
+  const { depth = 0, children: item, LinkRenderer, onClick, toggledItemIds = [] } = props;
 
   const hasitem = !!item.children?.length;
   const isActive = item.children?.find((s) => s.active) || item.active;
@@ -88,7 +87,6 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
               depth={depth + 1}
               active={item.active}
               toggledItemIds={toggledItemIds}
-              toggledSidebar={toggledSidebar}
             />
           ))}
         </Collapse>
