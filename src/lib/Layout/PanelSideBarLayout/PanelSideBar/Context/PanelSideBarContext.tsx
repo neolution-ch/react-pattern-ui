@@ -78,6 +78,11 @@ export interface PanelSideBarContextProps<TPanelItem> {
    * Boolean indicating if you want to render first level items as links or as button
    */
   renderTilesAsLinks?: boolean;
+
+  /**
+   * The default active panel id that will be taken if no active panel is dinamically found
+   */
+  defaultActivePanelId?: string;
 }
 
 export const PanelSideBarContext = createContext<PanelSideBarContextProps<any> | null>(null);
@@ -97,6 +102,7 @@ export interface PanelSideBarMenuProviderProps<TPanelItem>
     | "theme"
     | "renderFirstItemsLevelAsTiles"
     | "renderTilesAsLinks"
+    | "defaultActivePanelId"
   > {
   /**
    * The children elements.
@@ -119,12 +125,13 @@ export const PanelSideBarProvider = <TPanelItem,>(props: PanelSideBarMenuProvide
     renderFirstItemsLevelAsTiles = true,
     renderTilesAsLinks = false,
     theme = "light",
+    defaultActivePanelId,
   } = props;
 
   const activePanel = globalItems.find((x) =>
     x.children ? x.children.find((y) => (y.children ? y.children.find((s) => s.active) : y.active)) : x.active,
   );
-  const firstActivePanel = activePanel ?? globalItems.find((x) => x.id);
+  const firstActivePanel = activePanel ?? globalItems.find((x) => (defaultActivePanelId ? x.id === defaultActivePanelId : x.id));
 
   const getActivePanelId = () => localItems?.at(0)?.id ?? firstActivePanel?.id ?? "";
 

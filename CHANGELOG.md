@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Possibility to decide if render first nesting level of menuItems as tiles (default) or not
 - Possibility to render tiles as button(default) or as links
+- Possibility to define a default active panel used if no active panel is found dynamically
 
 ## [3.2.1] - 2024-02-01
 
