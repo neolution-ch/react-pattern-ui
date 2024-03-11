@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Possibility to define, if the page size in the paging can be changed by the user
+
 ## [3.3.0] - 2024-03-08
 
 ### Added

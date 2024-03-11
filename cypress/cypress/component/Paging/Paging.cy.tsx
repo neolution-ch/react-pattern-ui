@@ -68,4 +68,36 @@ describe("Paging.cy.tsx", () => {
     // Check pagination class set
     cy.get("[data-cy-root] > .container-fluid").should("have.class", "paging");
   });
+
+  it("paging without change of page size", () => {
+    const itemsPerPage = faker.datatype.number({ min: 1, max: 999 });
+    const pages = faker.datatype.number({ min: 3, max: 999 });
+    const currentPage = faker.datatype.number({ min: 2, max: pages - 1 });
+    const translations = { showedItemsText: "Item {from} to {to} from {total}", itemsPerPageDropdown: "Items per page" };
+
+    cy.mount(
+      <Paging
+        currentItemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        currentRecordCount={itemsPerPage}
+        setCurrentPage={cy.spy().as("setCurrentPage")}
+        totalRecords={pages * itemsPerPage}
+        setItemsPerPage={cy.spy().as("setItemsPerPage")}
+        translations={translations}
+        changePageSizePossible={false}
+      />,
+    );
+
+    // Check pages per item dropdown is not shown by checking that the first child is the paging from to text
+    cy.get("[data-cy-root] > .container-fluid > .row > .col-6:first-of-type")
+      .children()
+      .first()
+      .should(
+        "have.text",
+        translations.showedItemsText
+          .replace("{from}", (currentPage * itemsPerPage - itemsPerPage + 1).toString())
+          .replace("{to}", (currentPage * itemsPerPage).toString())
+          .replace("{total}", (pages * itemsPerPage).toString()),
+      );
+  });
 });

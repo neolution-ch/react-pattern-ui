@@ -11,6 +11,7 @@ interface PagingProps {
   possiblePageItemCounts?: number[];
   maxPagesShown?: number;
   showControls?: boolean;
+  changePageSizePossible?: boolean;
   setItemsPerPage(itemsPerPage: number): void;
   setCurrentPage(itemsPerPage: number): void;
 }
@@ -30,6 +31,7 @@ function Paging({
   possiblePageItemCounts,
   maxPagesShown = 7,
   showControls = true,
+  changePageSizePossible = true,
   setItemsPerPage,
   setCurrentPage,
 }: PagingProps) {
@@ -48,7 +50,7 @@ function Paging({
     <div className="container-fluid paging">
       <Row style={{ marginBottom: "20px" }}>
         <Col xs={pagingPossible && currentItemsPerPage < totalRecords ? 6 : 12} style={{ paddingLeft: 0 }}>
-          {pagingPossible && (
+          {pagingPossible && changePageSizePossible && (
             <UncontrolledButtonDropdown>
               <DropdownToggle caret color="link" size="sm">
                 {currentItemsPerPage}
