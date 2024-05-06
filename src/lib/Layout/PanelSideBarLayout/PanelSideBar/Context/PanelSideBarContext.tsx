@@ -1,4 +1,4 @@
-import React, { Context, createContext, useCallback, useContext, useEffect, useState } from "react";
+import React, { Context, createContext, useCallback, useContext, useState } from "react";
 import { getActivePanel } from "../Utils/getActivePanel";
 import { PanelSideBarContextProps } from "./PanelSideBarContextProps";
 
@@ -22,8 +22,10 @@ export interface PanelSideBarMenuProviderProps<TPanelItemId extends string, TPan
 export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
   props: PanelSideBarMenuProviderProps<TPanelItemId, TPanelItem>,
 ) => {
-  const { children, defaultActivePanelId, sidebarOpenByDefault = true } = props;
-  const [menuItems, setMenuItems] = useState(props.menuItems);
+  const { children, defaultActivePanelId, sidebarOpenByDefault = true, menuItems: defaultMenuItems } = props;
+  console.log(defaultMenuItems);
+  const [menuItems, setMenuItems] = useState(defaultMenuItems);
+  console.log(menuItems);
   const [isSidebarOpen, setIsSidebarOpen] = useState(sidebarOpenByDefault);
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
@@ -52,8 +54,6 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
       setToggledMenuItemIds(prev => prev.includes(activePanelId) ? prev : [...prev, activePanelId]);
     }
   }, []);
-
-  useEffect(() => recomputeActivePanel(), [menuItems]);
 
   return (
     <PanelSideBarContext.Provider
