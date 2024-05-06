@@ -23,16 +23,15 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
   props: PanelSideBarMenuProviderProps<TPanelItemId, TPanelItem>,
 ) => {
   const { children, defaultActivePanelId, sidebarOpenByDefault = true, menuItems: defaultMenuItems } = props;
-  console.log(defaultMenuItems);
   const [menuItems, setMenuItems] = useState(defaultMenuItems);
-  console.log(menuItems);
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(sidebarOpenByDefault);
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
   const [activePanelId, setActivePanelId] = useState(getActivePanel(menuItems, defaultActivePanelId)?.id);
-  const [toggledMenuItemIds, setToggledMenuItemIds] = useState<TPanelItemId[]>(activePanelId ? [activePanelId] : []);
   const setActivePanel = (panelId: TPanelItemId) => setActivePanelId(panelId);
 
+  const [toggledMenuItemIds, setToggledMenuItemIds] = useState<TPanelItemId[]>(activePanelId ? [activePanelId] : []);
   const toggleMenuItem: MenuItemToggleFn<TPanelItemId> = (menuItemId) => {
     setToggledMenuItemIds((prev) => {
       const idExists = !!prev.find((id) => id == menuItemId);
