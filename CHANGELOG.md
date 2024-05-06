@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Possibility to set fully control `menuItems`
+- Possibility to provide custom render component, e.g. skeleton, for mananing special case like asynchronus render (TODO)
+- Possibility to dinamically open or close `sidebar`
+
+### Changed
+
+- `topBarLeftCustomItems` and `topBarRigthCustomItems` renamed to `navbarLeftItems` and `navbarRightItems`
+- PanelItem Id type changed from `string` to being strongly typed
+
+### Fixed
+
+- When  `footer` is null, the whole section will not be rendered
+
+### Removed
+
+- `Delete Action`component
+- Built-in support for `userDropdown`. It should provide it in the navbar items.
+
 ## [3.4.0] - 2024-03-12
 
 ### Added

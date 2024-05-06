@@ -1,20 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
-import { ComponentType, useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Collapse, NavItem } from "reactstrap";
-import { LinkRendererProps } from "src/lib/SideBar/SideBarMenuContext";
 import { PanelItem } from "./../PanelSideBar/Definitions/PanelItem";
+import { PanelSideBarLayoutProps } from "../PanelSideBarLayout";
 
-export interface PanelSideBarItemProps {
-  children: PanelItem<unknown>;
-  LinkRenderer: ComponentType<LinkRendererProps>;
-  onClick?: (menuItem: PanelItem<unknown>) => void;
+export interface PanelSideBarItemProps<TPanelItemId extends string, TPanelItem> {
+  children: PanelItem<TPanelItemId, TPanelItem>;
+  LinkRenderer: PanelSideBarLayoutProps<TPanelItemId, TPanelItem>["LinkRenderer"];
+  onClick?: (menuItemId: TPanelItemId) => void;
   depth?: number;
   active?: boolean;
   toggledItemIds: string[];
 }
 
-const PanelSideBarItem = (props: PanelSideBarItemProps) => {
+const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarItemProps<TPanelItemId, TPanelItem>) => {
   const { depth = 0, children: item, LinkRenderer, onClick, toggledItemIds = [] } = props;
 
   const hasitem = !!item.children?.length;
@@ -34,7 +34,7 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
   return (
     <>
       <NavItem
-        onClick={() => onClick && onClick(item)}
+        onClick={() => onClick && onClick(item.id)}
         className={classNames({ "menu-open": isOpen, active: isActive })}
         style={{ paddingLeft: depth ? `${depth + 1}rem` : undefined }}
       >
@@ -83,7 +83,7 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
               key={childItem.id}
               children={childItem}
               LinkRenderer={LinkRenderer}
-              onClick={() => onClick && onClick(childItem)}
+              onClick={() => onClick && onClick(childItem.id)}
               depth={depth + 1}
               active={item.active}
               toggledItemIds={toggledItemIds}

@@ -1,4 +1,3 @@
-export * from "./lib/DeleteAction/DeleteAction";
 export * from "./lib/Layout/AuthenticationLayout";
 
 // Panel sidebar layout

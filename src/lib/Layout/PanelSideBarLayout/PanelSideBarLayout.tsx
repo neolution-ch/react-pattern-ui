@@ -1,13 +1,14 @@
 import classNames from "classnames";
-import { PropsWithChildren, ReactNode, useState } from "react";
-import { DropdownMenu, DropdownToggle, Nav, NavItem, UncontrolledDropdown } from "reactstrap";
+import { PropsWithChildren, ReactNode } from "react";
 import "../../../../styles/Layout/PanelSideBarLayout.scss";
 import { PanelSideBar } from "./PanelSideBar/PanelSidebar";
 import { PanelSideBarLayoutContent } from "./PanelSideBarLayoutContent";
 import { PanelSideBarToggle } from "./PanelSideBar/PanelSideBarToggle";
-import { usePanelSideBarContext } from "src/lib/Layout/PanelSideBarLayout/PanelSideBar/Context/PanelSideBarContext";
+import { PanelSidebarNavbar } from "./PanelSideBarNavbar";
+import { PanelLinkRenderer } from "./PanelSideBar/Definitions/PanelLinkRenderer";
+import { usePanelSideBarContext } from "./PanelSideBar/Context/PanelSideBarContext";
 
-export interface PanelSideBarLayoutProps extends PropsWithChildren {
+export interface PanelSideBarLayoutProps<TPanelItemId extends string, TPanelItem> extends PropsWithChildren {
   /**
    * The brand content shown on the top navigation bar.
    */
@@ -20,72 +21,61 @@ export interface PanelSideBarLayoutProps extends PropsWithChildren {
    * The collapsible option to choose.
    */
   collapsible?: boolean;
+  /**
+   * The navbar content on the right.
+   */
+  navbarRightItems?: ReactNode[];
+  /**
+   * The navbar content on the left.
+   */
+  navbarLeftItems?: ReactNode[];
+
+  /**
+   * The theme
+   */
+  theme?: "light";
+
+  /**
+   * Boolean indicating if you want to render first items level as icons or directly as menu entries
+   */
+  renderFirstItemsLevelAsTiles?: boolean;
+
+  /**
+   * Boolean indicating if you want to render first level items as links or as button
+   */
+  renderTilesAsLinks?: boolean;
+  /**
+   * The component used to render the menu item links.
+   */
+  LinkRenderer: PanelLinkRenderer<TPanelItemId, TPanelItem>;
 }
 
-export const PanelSideBarLayout = (props: PanelSideBarLayoutProps) => {
-  const { brand, children, footer, collapsible = true } = props;
-
-  const [isOpen, setIsOpen] = useState(true);
-  const toggleSidebar = () => setIsOpen((prev) => !prev);
-
-  const [isUserOpen, setIsUserOpen] = useState(false);
-
+export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarLayoutProps<TPanelItemId, TPanelItem>) => {
   const {
-    brand: contextBrand,
-    footer: contextFooter,
-    userDropDownMenu,
-    userDropDownMenuToggle,
-    topBarRightCustomItems = [],
-    topBarLeftCustomItems = [],
+    brand,
+    children,
+    navbarLeftItems,
+    navbarRightItems,
+    footer = undefined,
+    collapsible = true,
     renderFirstItemsLevelAsTiles,
-  } = usePanelSideBarContext();
+  } = props;
+
+  const { isSidebarOpen, toggleSidebar } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
 
   return (
     <>
-      <nav id="nav-top" className="panel-layout navbar navbar-expand">
-        {/* Navbar Brand */}
-        <div className="navbar-brand">{brand ?? contextBrand}</div>
-        <Nav tag="div" className="navbar-user flex-row justify-content-between" style={{ marginLeft: 35, marginRight: 48 }}>
-          <span className="d-flex flex-row justify-content-start align-items-center">
-            {/*Left Custom Menu*/}
-            {topBarLeftCustomItems?.map((item, index) => (
-              <NavItem tag="div" key={index} className="navbar-custom-item">
-                {item}
-              </NavItem>
-            ))}
-          </span>
-          <span className="d-flex flex-row justify-content-end align-items-center">
-            {/*Right Custom Menu*/}
-            {topBarRightCustomItems?.map((item, index) => (
-              <NavItem tag="div" key={index} className="navbar-custom-item">
-                {item}
-              </NavItem>
-            ))}
-            {/*Navbar user*/}
-            <NavItem tag="div">
-              <UncontrolledDropdown direction="start" isOpen={isUserOpen}>
-                <DropdownToggle nav className="user-dropdown" onClick={() => setIsUserOpen(!isUserOpen)}>
-                  {userDropDownMenuToggle}
-                </DropdownToggle>
-                <div>
-                  <DropdownMenu end>{userDropDownMenu}</DropdownMenu>
-                </div>
-              </UncontrolledDropdown>
-            </NavItem>
-          </span>
-        </Nav>
-      </nav>
-
+      <PanelSidebarNavbar brand={brand} navbarRightItems={navbarRightItems} navbarLeftItems={navbarLeftItems} />
       <section
         className={classNames(
-          { toggled: !isOpen },
+          { toggled: !isSidebarOpen },
           { "section-no-tiles": !renderFirstItemsLevelAsTiles },
           { "section-tiles": renderFirstItemsLevelAsTiles },
         )}
       >
-        <PanelSideBar />
-        {collapsible && <PanelSideBarToggle onClick={toggleSidebar} toggled={!isOpen} />}
-        <PanelSideBarLayoutContent footer={footer ?? contextFooter}>{children}</PanelSideBarLayoutContent>
+        <PanelSideBar<TPanelItemId, TPanelItem> {...props} />
+        {collapsible && <PanelSideBarToggle onClick={toggleSidebar} toggled={!isSidebarOpen} />}
+        <PanelSideBarLayoutContent footer={footer}>{children}</PanelSideBarLayoutContent>
       </section>
     </>
   );
