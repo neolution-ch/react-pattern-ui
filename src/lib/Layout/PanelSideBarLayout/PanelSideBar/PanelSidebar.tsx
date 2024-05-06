@@ -19,12 +19,11 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
   >();
 
   if (renderFirstItemsLevelAsTiles) {
-    console.log(menuItems);
-    if (menuItems?.find((x) => !x.icon)) {
+    if (menuItems.find((x) => !x.icon)) {
       throw new Error("Outer panel icon is required");
     }
 
-    const activePanel: PanelItem<TPanelItemId, TPanelItem> | undefined = menuItems?.find((x) => x.id === activePanelId);
+    const activePanel: PanelItem<TPanelItemId, TPanelItem> | undefined = menuItems.find((x) => x.id === activePanelId);
     const ButtonIcon = (props: { item: PanelItem<TPanelItemId, TPanelItem> }) => {
       const {
         item: { disabled, icon, onClick, id, title },
