@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import { PanelItem } from "../Definitions/PanelItem";
 import { MenuItemToggleFn } from "./PanelSideBarContext";
 
@@ -12,10 +11,6 @@ export interface PanelSideBarContextProps<TPanelItemId extends string, TPanelIte
    */
   menuItems: PanelItem<TPanelItemId, TPanelItem>[];
 
-  /**
-   * The setter for menu items.
-   */
-  setMenuItems: Dispatch<SetStateAction<PanelItem<TPanelItemId, TPanelItem>[]>>;
   /**
    * The function used to set a panel as active
    * @param panelId The panel item identifier
@@ -39,11 +34,6 @@ export interface PanelSideBarContextProps<TPanelItemId extends string, TPanelIte
    * Function for untoggling all menu items
    */
   untoggleMenuItems: () => void;
-
-  /**
-   * Function for recomputing active item
-   */
-  recomputeActivePanel: () => void;
 
   /**
    * If the sidebar is currently open or not

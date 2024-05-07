@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Possibility to set fully control `menuItems`
 - Possibility to provide custom render component, e.g. skeleton, for mananing special case like asynchronus render (TODO)
 - Possibility to dinamically open or close `sidebar`
 
@@ -21,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - When `footer` is null, the whole section will not be rendered
+- Unique key prop in a list warning
 
 ### Removed
 

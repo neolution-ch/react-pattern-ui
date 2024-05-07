@@ -1,4 +1,4 @@
-import React, { Context, createContext, useCallback, useContext, useState } from "react";
+import React, { Context, createContext, useContext, useEffect, useMemo, useState } from "react";
 import { getActivePanel } from "../Utils/getActivePanel";
 import { PanelSideBarContextProps } from "./PanelSideBarContextProps";
 
@@ -13,7 +13,7 @@ export interface PanelSideBarMenuProviderProps<TPanelItemId extends string, TPan
    */
   children: React.ReactNode;
 
-    /**
+  /**
    * if the sidebar should be open by default.
    */
   sidebarOpenByDefault?: boolean;
@@ -23,14 +23,13 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
   props: PanelSideBarMenuProviderProps<TPanelItemId, TPanelItem>,
 ) => {
   const { children, defaultActivePanelId, sidebarOpenByDefault = true, menuItems: defaultMenuItems } = props;
-  const [menuItems, setMenuItems] = useState(defaultMenuItems);
+  const menuItems = useMemo(() => defaultMenuItems, [defaultMenuItems]);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(sidebarOpenByDefault);
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
   const [activePanelId, setActivePanelId] = useState(getActivePanel(menuItems, defaultActivePanelId)?.id);
   const setActivePanel = (panelId: TPanelItemId) => setActivePanelId(panelId);
-
   const [toggledMenuItemIds, setToggledMenuItemIds] = useState<TPanelItemId[]>(activePanelId ? [activePanelId] : []);
   const toggleMenuItem: MenuItemToggleFn<TPanelItemId> = (menuItemId) => {
     setToggledMenuItemIds((prev) => {
@@ -44,24 +43,22 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
     });
   };
 
-  const untoggleMenuItems = () => setToggledMenuItemIds([]);
-
-  const recomputeActivePanel = useCallback(() => {
+  useEffect(() => {
     const activePanelId = getActivePanel(menuItems, defaultActivePanelId)?.id;
     setActivePanelId(activePanelId);
     if (activePanelId) {
-      setToggledMenuItemIds(prev => prev.includes(activePanelId) ? prev : [...prev, activePanelId]);
+      setToggledMenuItemIds((prev) => (prev.includes(activePanelId) ? prev : [...prev, activePanelId]));
     }
-  }, []);
+  }, [menuItems]);
+
+  const untoggleMenuItems = () => setToggledMenuItemIds([]);
 
   return (
     <PanelSideBarContext.Provider
       value={{
         menuItems,
-        setMenuItems,
         activePanelId,
         setActivePanel,
-        recomputeActivePanel,
         toggledMenuItemIds,
         toggleMenuItem,
         untoggleMenuItems,
