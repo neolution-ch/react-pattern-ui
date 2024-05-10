@@ -1,4 +1,5 @@
 import { PanelItem } from "../Definitions/PanelItem";
+import { PanelLinkRenderer } from "../Definitions/PanelLinkRenderer";
 import { MenuItemToggleFn } from "./PanelSideBarContext";
 
 export interface PanelSideBarContextProps<TPanelItemId extends string, TPanelItem> {
@@ -43,4 +44,23 @@ export interface PanelSideBarContextProps<TPanelItemId extends string, TPanelIte
    * Function for toggling sidebar
    */
   toggleSidebar: () => void;
+
+    /**
+   * The theme
+   */
+    theme?: "light" | "dark" | "blue";
+
+    /**
+     * Boolean indicating if you want to render first items level as icons or directly as menu entries
+     */
+    renderFirstItemsLevelAsTiles?: boolean;
+  
+    /**
+     * Boolean indicating if you want to render first level items as links or as button
+     */
+    renderTilesAsLinks?: boolean;
+    /**
+     * The component used to render the menu item links.
+     */
+    LinkRenderer: PanelLinkRenderer<TPanelItemId, TPanelItem>;
 }

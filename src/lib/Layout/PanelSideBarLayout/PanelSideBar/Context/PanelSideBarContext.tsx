@@ -7,7 +7,10 @@ export type MenuItemToggleFn<TPanelItemId extends string> = (menuItemId: TPanelI
 const PanelSideBarContext = createContext<PanelSideBarContextProps<any, any> | null>(null);
 
 export interface PanelSideBarMenuProviderProps<TPanelItemId extends string, TPanelItem>
-  extends Pick<PanelSideBarContextProps<TPanelItemId, TPanelItem>, "menuItems" | "defaultActivePanelId"> {
+  extends Pick<
+    PanelSideBarContextProps<TPanelItemId, TPanelItem>,
+    "menuItems" | "LinkRenderer" | "theme" | "renderTilesAsLinks" | "renderFirstItemsLevelAsTiles" | "defaultActivePanelId"
+  > {
   /**
    * The children elements.
    */
@@ -22,7 +25,16 @@ export interface PanelSideBarMenuProviderProps<TPanelItemId extends string, TPan
 export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
   props: PanelSideBarMenuProviderProps<TPanelItemId, TPanelItem>,
 ) => {
-  const { children, defaultActivePanelId, sidebarOpenByDefault = true, menuItems: defaultMenuItems } = props;
+  const {
+    children,
+    defaultActivePanelId,
+    sidebarOpenByDefault = true,
+    menuItems: defaultMenuItems,
+    LinkRenderer,
+    renderTilesAsLinks = false,
+    renderFirstItemsLevelAsTiles = true,
+    theme = "blue",
+  } = props;
   const menuItems = useMemo(() => defaultMenuItems, [defaultMenuItems]);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(sidebarOpenByDefault);
@@ -64,6 +76,10 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
         untoggleMenuItems,
         isSidebarOpen,
         toggleSidebar,
+        LinkRenderer,
+        theme,
+        renderFirstItemsLevelAsTiles,
+        renderTilesAsLinks,
       }}
     >
       {children}

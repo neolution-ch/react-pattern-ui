@@ -1,14 +1,13 @@
 import classNames from "classnames";
 import { PropsWithChildren, ReactNode } from "react";
-import "../../../../styles/Layout/PanelSideBarLayout.scss";
+import "../../../../styles/Layout/index.scss";
 import { PanelSideBar } from "./PanelSideBar/PanelSidebar";
 import { PanelSideBarLayoutContent } from "./PanelSideBarLayoutContent";
 import { PanelSideBarToggle } from "./PanelSideBar/PanelSideBarToggle";
 import { PanelSidebarNavbar } from "./PanelSideBarNavbar";
-import { PanelLinkRenderer } from "./PanelSideBar/Definitions/PanelLinkRenderer";
 import { usePanelSideBarContext } from "./PanelSideBar/Context/PanelSideBarContext";
 
-export interface PanelSideBarLayoutProps<TPanelItemId extends string, TPanelItem> extends PropsWithChildren {
+export interface PanelSideBarLayoutProps extends PropsWithChildren {
   /**
    * The brand content shown on the top navigation bar.
    */
@@ -31,26 +30,15 @@ export interface PanelSideBarLayoutProps<TPanelItemId extends string, TPanelItem
   navbarLeftItems?: ReactNode[];
 
   /**
-   * The theme
+   * If using the toggle button instead of the side menu adiacent bar.
    */
-  theme?: "light";
+  useToggleButton?: boolean;
 
-  /**
-   * Boolean indicating if you want to render first items level as icons or directly as menu entries
-   */
-  renderFirstItemsLevelAsTiles?: boolean;
 
-  /**
-   * Boolean indicating if you want to render first level items as links or as button
-   */
-  renderTilesAsLinks?: boolean;
-  /**
-   * The component used to render the menu item links.
-   */
-  LinkRenderer: PanelLinkRenderer<TPanelItemId, TPanelItem>;
+  useResponsiveLayout?: boolean;
 }
 
-export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarLayoutProps<TPanelItemId, TPanelItem>) => {
+export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarLayoutProps) => {
   const {
     brand,
     children,
@@ -58,23 +46,30 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
     navbarRightItems,
     footer = undefined,
     collapsible = true,
-    renderFirstItemsLevelAsTiles,
+    useToggleButton = false,
+    useResponsiveLayout = false,  
   } = props;
 
-  const { isSidebarOpen, toggleSidebar } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
+  
+  const { isSidebarOpen, toggleSidebar, renderFirstItemsLevelAsTiles } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
 
+  if (useResponsiveLayout && !useToggleButton) {
+    throw new Error("Responsive layout can be used only with toggle button in the navbar!")
+  }
   return (
     <>
-      <PanelSidebarNavbar brand={brand} navbarRightItems={navbarRightItems} navbarLeftItems={navbarLeftItems} />
+      <PanelSidebarNavbar useToggleButton={useToggleButton} brand={brand} navbarRightItems={navbarRightItems} navbarLeftItems={navbarLeftItems} />
       <section
+        id="main-section"
         className={classNames(
           { toggled: !isSidebarOpen },
+          { "responsive-layout" : useResponsiveLayout},
           { "section-no-tiles": !renderFirstItemsLevelAsTiles },
           { "section-tiles": renderFirstItemsLevelAsTiles },
         )}
       >
-        <PanelSideBar<TPanelItemId, TPanelItem> {...props} />
-        {collapsible && <PanelSideBarToggle onClick={toggleSidebar} toggled={!isSidebarOpen} />}
+        <PanelSideBar<TPanelItemId, TPanelItem> />
+        {collapsible && !useToggleButton && <PanelSideBarToggle onClick={toggleSidebar} toggled={!isSidebarOpen} />}
         <PanelSideBarLayoutContent footer={footer}>{children}</PanelSideBarLayoutContent>
       </section>
     </>

@@ -3,11 +3,10 @@ import classNames from "classnames";
 import { useState, useRef, useEffect } from "react";
 import { Collapse, NavItem } from "reactstrap";
 import { PanelItem } from "./../PanelSideBar/Definitions/PanelItem";
-import { PanelSideBarLayoutProps } from "../PanelSideBarLayout";
+import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 
 export interface PanelSideBarItemProps<TPanelItemId extends string, TPanelItem> {
   children: PanelItem<TPanelItemId, TPanelItem>;
-  LinkRenderer: PanelSideBarLayoutProps<TPanelItemId, TPanelItem>["LinkRenderer"];
   onClick?: (menuItemId: TPanelItemId) => void;
   depth?: number;
   active?: boolean;
@@ -15,8 +14,8 @@ export interface PanelSideBarItemProps<TPanelItemId extends string, TPanelItem> 
 }
 
 const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarItemProps<TPanelItemId, TPanelItem>) => {
-  const { depth = 0, children: item, LinkRenderer, onClick, toggledItemIds = [] } = props;
-
+  const { depth = 0, children: item, onClick, toggledItemIds = [] } = props;
+  const { LinkRenderer } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
   const hasitem = !!item.children?.length;
   const isActive = item.children?.find((s) => s.active) || item.active;
   const [isOpen, setIsOpen] = useState(toggledItemIds?.includes(item.id) || item.expanded);
@@ -82,7 +81,6 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
             <PanelSideBarItem
               key={childItem.id}
               children={childItem}
-              LinkRenderer={LinkRenderer}
               onClick={() => onClick && onClick(childItem.id)}
               depth={depth + 1}
               active={item.active}

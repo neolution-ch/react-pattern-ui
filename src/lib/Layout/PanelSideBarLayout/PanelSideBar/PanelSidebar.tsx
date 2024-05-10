@@ -4,19 +4,19 @@ import { Button } from "reactstrap";
 import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import { PanelItem } from "./Definitions/PanelItem";
 import { PanelSideBarItem } from "./PanelSideBarItem";
-import { PanelSideBarLayoutProps } from "../PanelSideBarLayout";
 
-type PanelSideBarProps<TPanelItemId extends string, TPanelItem> = Pick<
-  PanelSideBarLayoutProps<TPanelItemId, TPanelItem>,
-  "renderFirstItemsLevelAsTiles" | "renderTilesAsLinks" | "LinkRenderer"
->;
-
-export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarProps<TPanelItemId, TPanelItem>) => {
-  const { renderFirstItemsLevelAsTiles, renderTilesAsLinks, LinkRenderer } = props;
-  const { activePanelId, menuItems, setActivePanel, toggledMenuItemIds, toggleMenuItem } = usePanelSideBarContext<
+export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
+  const { activePanelId, menuItems, setActivePanel, toggledMenuItemIds, toggleMenuItem,  renderFirstItemsLevelAsTiles, renderTilesAsLinks, LinkRenderer, theme } = usePanelSideBarContext<
     TPanelItemId,
     TPanelItem
   >();
+
+  const className = classNames(
+    "panel-layout",
+    { "sidenav-dark": theme == "dark" },
+    { "sidenav-light": theme == "light" },
+    { "sidenav-blue": theme == "blue" },
+  );
 
   if (renderFirstItemsLevelAsTiles) {
     if (menuItems.find((x) => !x.icon)) {
@@ -63,7 +63,7 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
       );
 
     return (
-      <nav id="side-nav" className="panel-layout">
+      <nav id="side-nav" className={className}>
         <div className="side-nav__tiles">{panelItemsRenderer(menuItems)}</div>
 
         <div className="side-nav__items">
@@ -71,7 +71,6 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
             <PanelSideBarItem<TPanelItemId, TPanelItem>
               key={item.id}
               children={item}
-              LinkRenderer={LinkRenderer}
               onClick={(menuItemId) => toggleMenuItem(menuItemId)}
               toggledItemIds={toggledMenuItemIds}
             />
@@ -81,13 +80,12 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
     );
   } else {
     return (
-      <nav id="side-nav" className="panel-layout">
+      <nav id="side-nav" className={className}>
         <div className="side-nav__items">
           {menuItems?.map((item) => (
             <PanelSideBarItem<TPanelItemId, TPanelItem>
               key={item.id}
               children={item}
-              LinkRenderer={LinkRenderer}
               onClick={(menuItem) => toggleMenuItem(menuItem)}
               toggledItemIds={toggledMenuItemIds}
             />
