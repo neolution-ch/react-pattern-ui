@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { Collapse, NavItem } from "reactstrap";
 import { PanelItem } from "./../PanelSideBar/Definitions/PanelItem";
 import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
+import { hasActiveChildren } from "./Utils/getActivePanel";
 
 export interface PanelSideBarItemProps<TPanelItemId extends string, TPanelItem> {
   children: PanelItem<TPanelItemId, TPanelItem>;
@@ -13,12 +14,13 @@ export interface PanelSideBarItemProps<TPanelItemId extends string, TPanelItem> 
   toggledItemIds: string[];
 }
 
+// eslint-disable-next-line complexity
 const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarItemProps<TPanelItemId, TPanelItem>) => {
   const { depth = 0, children: item, onClick, toggledItemIds = [] } = props;
   const { LinkRenderer } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
   const hasitem = !!item.children?.length;
-  const isActive = item.children?.find((s) => s.active) || item.active;
-  const [isOpen, setIsOpen] = useState(toggledItemIds?.includes(item.id) || item.expanded);
+  const isActive = (hasitem && item.children && hasActiveChildren(item.children)) || item.active;
+  const [isOpen, setIsOpen] = useState(isActive || toggledItemIds?.includes(item.id) || item.expanded);
   if (item.display === false) {
     return null;
   }
