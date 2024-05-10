@@ -121,7 +121,9 @@ section.content:first-of-type {
     .side-nav {
       &__tiles {
         .tile {
+          color: $sidenav-light-link-color;
           background-color: $sidenav-light-bg;
+          border: 0px;
 
           &:hover,
           &.active {
@@ -214,12 +216,19 @@ section.content:first-of-type {
     .side-nav {
       &__tiles {
         .tile {
+          color: $sidenav-dark-active-bg-color;
+
           background-color: $sidenav-dark-bg;
+          border:0px;
+
+          &.active {
+            border: 1px solid  $sidenav-dark-active-bg-color;
+          }
 
           &:hover {
-            color: $sidenav-dark-active-color;
             background-color: $sidenav-dark-active-bg-color;
             border-color: $sidenav-dark-active-bg-color;
+            color:  $sidenav-dark-bg;
           }
         }
       }
@@ -251,16 +260,6 @@ section.content:first-of-type {
 
           &.active {
             position: relative;
-
-            &:before {
-              content: " ";
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 3px;
-              height: 100%;
-              background-color: $sidenav-dark-active-color;
-            }
 
             .nav-link {
               color: $sidenav-dark-link-active-color;
@@ -406,7 +405,16 @@ section.content:first-of-type {
   .section-tiles.toggled {
     > #side-nav {
       transition: $sidebar-transition;
-      width: #{$tile-size + $slim-scrollbar-base-width};
+      width: $tile-size;
+      display: none;
+
+      li.nav-item {
+        &.active {
+          &:before {
+            display: none;
+          }
+        }
+      }
     }
 
     > #side-nav-toggle {
@@ -427,7 +435,15 @@ section.content:first-of-type {
   .section-no-tiles.toggled {
     > #side-nav {
       transition: $sidebar-transition;
-      width: #{$slim-scrollbar-base-width};
+      width: 0px;
+      
+      li.nav-item {
+        &.active {
+          &:before {
+            display: none;
+          }
+        }
+      }
     }
 
     > #side-nav-toggle {

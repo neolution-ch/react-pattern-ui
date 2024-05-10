@@ -33,9 +33,9 @@ $sidenav-dark-heading-color: fade-out($white, 0.75);
 $sidenav-dark-link-color: fade-out($white, 0.5);
 $sidenav-dark-icon-color: fade-out($white, 0.75);
 $sidenav-dark-footer-bg: $gray-800;
-$sidenav-dark-active-color: $white; //TODO: define different
-$sidenav-dark-active-bg-color: $primary-hover; // TODO: define different
-$sidenav-dark-active-border-color: $primary; // TODO: define different
+$sidenav-dark-active-color: $gray-900;
+$sidenav-dark-active-bg-color:  $white;
+$sidenav-dark-active-border-color:  $white;
 $svg-dark-attributes: "fill='white' strike='white'";
 
 // Sidenav-blue
@@ -63,9 +63,8 @@ $sidenav-light-link-color: $gray-600;
 $sidenav-light-link-active-color: $black;
 $sidenav-light-icon-color: $gray-500;
 $sidenav-light-footer-bg: $gray-200;
-$sidenav-light-active-color: $white; //TODO: define different
-$sidenav-light-active-bg-color: $primary-hover; // TODO: define different
-$sidenav-light-active-border-color: $primary; // TODO: define different
+$sidenav-light-active-color: $primary;
+$sidenav-light-active-bg-color:  $gray-100;
 $svg-light-attributes: "fill='dark' strike='dark'";
 
 // Color variables for the topnav

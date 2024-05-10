@@ -34,7 +34,6 @@ export interface PanelSideBarLayoutProps extends PropsWithChildren {
    */
   useToggleButton?: boolean;
 
-
   useResponsiveLayout?: boolean;
 }
 
@@ -47,23 +46,27 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
     footer = undefined,
     collapsible = true,
     useToggleButton = false,
-    useResponsiveLayout = false,  
+    useResponsiveLayout = false,
   } = props;
 
-  
   const { isSidebarOpen, toggleSidebar, renderFirstItemsLevelAsTiles } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
 
   if (useResponsiveLayout && !useToggleButton) {
-    throw new Error("Responsive layout can be used only with toggle button in the navbar!")
+    throw new Error("Responsive layout can be used only with toggle button in the navbar!");
   }
   return (
     <>
-      <PanelSidebarNavbar useToggleButton={useToggleButton} brand={brand} navbarRightItems={navbarRightItems} navbarLeftItems={navbarLeftItems} />
+      <PanelSidebarNavbar
+        useToggleButton={useToggleButton}
+        brand={brand}
+        navbarRightItems={navbarRightItems}
+        navbarLeftItems={navbarLeftItems}
+      />
       <section
         id="main-section"
         className={classNames(
           { toggled: !isSidebarOpen },
-          { "responsive-layout" : useResponsiveLayout},
+          { "responsive-layout": useResponsiveLayout },
           { "section-no-tiles": !renderFirstItemsLevelAsTiles },
           { "section-tiles": renderFirstItemsLevelAsTiles },
         )}

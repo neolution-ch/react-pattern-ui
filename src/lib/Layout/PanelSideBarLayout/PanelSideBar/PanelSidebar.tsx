@@ -6,10 +6,17 @@ import { PanelItem } from "./Definitions/PanelItem";
 import { PanelSideBarItem } from "./PanelSideBarItem";
 
 export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
-  const { activePanelId, menuItems, setActivePanel, toggledMenuItemIds, toggleMenuItem,  renderFirstItemsLevelAsTiles, renderTilesAsLinks, LinkRenderer, theme } = usePanelSideBarContext<
-    TPanelItemId,
-    TPanelItem
-  >();
+  const {
+    activePanelId,
+    menuItems,
+    setActivePanel,
+    toggledMenuItemIds,
+    toggleMenuItem,
+    renderFirstItemsLevelAsTiles,
+    renderTilesAsLinks,
+    LinkRenderer,
+    theme,
+  } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
 
   const className = classNames(
     "panel-layout",
