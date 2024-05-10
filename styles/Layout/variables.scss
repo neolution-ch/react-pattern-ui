@@ -7,18 +7,17 @@ $primary: #007bc5;
 $primary-hover: #0069a7;
 $light: $white;
 
-// Color variables for the sidenav
 $topnav-base-height: 4rem;
 $navbar-padding-x: $navbar-padding-y;
 $usernav-base-height: calc(#{$topnav-base-height} - 1rem);
 
-$tile-size: 3rem;
+$tile-size: 3.438rem;
 $sidebar-transition: 0.25s ease-in-out;
 $sidebar-items-transition: #{0.2s $sidebar-transition};
 $slim-scrollbar-base-width: 0.25rem;
 
-$sidenav-base-width: 14rem; //remember to overwrite for your project to 18rem
-$sidenav-max-width: $sidenav-base-width; //remember to overwrite for your project to 18rem
+$sidenav-base-width: 16rem; 
+$sidenav-max-width: $sidenav-base-width;
 
 $toggle-base-width: 1rem; // used for toggle  as bar
 $toggle-btn-size: 2.5rem; // used for toggle  as button
@@ -48,9 +47,9 @@ $sidenav-blue-heading-color: fade-out(#0069a7, 0.75);
 $sidenav-blue-link-color: fade-out(#0069a7, 0.5);
 $sidenav-blue-icon-color: fade-out(#0069a7, 0.75);
 $sidenav-blue-footer-bg: #007bc5;
-$sidenav-blue-active-color: #0069a7;
+$sidenav-blue-active-color: $white;
 $sidenav-blue-active-bg-color:  #0069a7;
-$sidenav-blue-active-border-color: $primary;
+$sidenav-blue-active-border-color: $white;
 $svg-blue-attributes: "fill='white' strike='white'";
 
 // -- Sidenav Light
@@ -68,6 +67,6 @@ $sidenav-light-active-bg-color:  $gray-100;
 $svg-light-attributes: "fill='dark' strike='dark'";
 
 // Color variables for the topnav
-$topnav-dark-toggler-color: fade-out($white, 0.5); //define different
+$topnav-dark-toggler-color: fade-out($white, 0.5);
 $topnav-blue-toggler-color:#007bc5;
 $topnav-light-toggler-color: $gray-900;

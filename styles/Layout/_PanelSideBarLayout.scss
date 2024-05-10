@@ -219,16 +219,16 @@ section.content:first-of-type {
           color: $sidenav-dark-active-bg-color;
 
           background-color: $sidenav-dark-bg;
-          border:0px;
+          border: 0px;
 
           &.active {
-            border: 1px solid  $sidenav-dark-active-bg-color;
+            border: 1px solid $sidenav-dark-active-bg-color;
           }
 
           &:hover {
             background-color: $sidenav-dark-active-bg-color;
             border-color: $sidenav-dark-active-bg-color;
-            color:  $sidenav-dark-bg;
+            color: $sidenav-dark-bg;
           }
         }
       }
@@ -286,14 +286,17 @@ section.content:first-of-type {
     background-color: $sidenav-blue-bg;
     .side-nav {
       &__tiles {
+        background-color: $white;
         .tile {
           background-color: $sidenav-blue-bg;
+          border: 0;
+          border-radius: 0;
+          color: $sidenav-blue-active-color;
 
           &:hover,
           &.active {
             color: $sidenav-blue-active-color;
             background-color: $sidenav-blue-active-bg-color;
-            border-color: $sidenav-blue-active-bg-color;
           }
         }
       }
@@ -323,10 +326,10 @@ section.content:first-of-type {
             color: white;
           }
 
-          &.active,
-          .active {
-            background-color: $sidenav-blue-active-bg-color;
+          &:hover,
+          &.active {
             color: $sidenav-blue-active-color;
+            background-color: $sidenav-blue-active-bg-color;
           }
 
           &.menu-open .nav-link.dropdown-toggle::after {
@@ -406,7 +409,6 @@ section.content:first-of-type {
     > #side-nav {
       transition: $sidebar-transition;
       width: $tile-size;
-      display: none;
 
       li.nav-item {
         &.active {
@@ -436,7 +438,7 @@ section.content:first-of-type {
     > #side-nav {
       transition: $sidebar-transition;
       width: 0px;
-      
+
       li.nav-item {
         &.active {
           &:before {
@@ -486,37 +488,37 @@ $zindex-topnav: 1039 !default;
       @include media-breakpoint-up(lg) {
         box-shadow: 0 0 0.5rem 0.125rem rgba($color: $gray-500, $alpha: 0.75);
       }
-    }
-
-    #main-content-body {
-      position: relative;
-      margin-left: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-width: 0;
-      flex-grow: 1;
-      min-height: 100vh;
-    }
-
-    &.toggled {
-      #side-nav {
-        transform: translateX(0);
-        box-shadow: unset;
-      }
 
       #main-content-body {
-        &:before {
-          content: "";
-          display: block;
-          position: absolute;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          background: $black;
-          z-index: $zindex-content;
-          opacity: 0.5;
-          transition: opacity 0.3s ease-in-out;
+        position: relative;
+        margin-left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-width: 0;
+        flex-grow: 1;
+        min-height: 100vh;
+      }
+
+      &.toggled {
+        #side-nav {
+          transform: translateX(0);
+          box-shadow: unset;
+        }
+
+        #main-content-body {
+          &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: $black;
+            z-index: $zindex-content;
+            opacity: 0.5;
+            transition: opacity 0.3s ease-in-out;
+          }
         }
       }
     }

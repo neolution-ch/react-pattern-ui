@@ -9,7 +9,7 @@
 
   #sidebar-toggle {
     width: $toggle-btn-size;
-  
+
     &:hover {
       color: $white !important;
     }
@@ -58,8 +58,8 @@
       background-color: $navbar-light-bg;
     }
     #sidebar-toggle {
-        color: $topnav-light-toggler-color;
-      }
+      color: $topnav-light-toggler-color;
+    }
   }
 }
 #nav-top.panel-layout.navbar-blue {
