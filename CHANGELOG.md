@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - :boom: `topBarLeftCustomItems` and `topBarRigthCustomItems` renamed to `navbarLeftItems` and `navbarRightItems`
 - `navbarLeftItems` and `navbarRightItems` have not default margin by default
 - default sidebar `width` to `16rem`
-- :boom:  `UI elements` are now parameter of `SidebarLayout` and not of the context anymore
+- :boom: `UI elements` are now parameter of `SidebarLayout` and not of the context anymore
 - PanelItem Id type changed from `string` to being strongly typed
 
 ### Fixed
