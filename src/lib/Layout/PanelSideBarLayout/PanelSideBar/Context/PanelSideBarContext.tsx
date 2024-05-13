@@ -44,7 +44,9 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
   const setActivePanel = (panelId: TPanelItemId) => setActivePanelId(panelId);
 
   const preExpandedMenuItemIds = menuItems.filter((x) => x.expanded).map((x) => x.id);
-  const [toggledMenuItemIds, setToggledMenuItemIds] = useState<TPanelItemId[]>(activePanelId ? preExpandedMenuItemIds.concat(activePanelId) : preExpandedMenuItemIds);
+  const [toggledMenuItemIds, setToggledMenuItemIds] = useState<TPanelItemId[]>(
+    activePanelId ? preExpandedMenuItemIds.concat(activePanelId) : preExpandedMenuItemIds,
+  );
   const toggleMenuItem: MenuItemToggleFn<TPanelItemId> = (menuItemId) => {
     setToggledMenuItemIds((prev) => {
       const idExists = !!prev.find((id) => id == menuItemId);

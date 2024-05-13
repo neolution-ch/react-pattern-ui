@@ -34,6 +34,9 @@ export interface PanelSideBarLayoutProps extends PropsWithChildren {
    */
   useToggleButton?: boolean;
 
+  /**
+   * If use the responsive layout when the screen is sm in order to remove the sidebar overlay.
+   */
   useResponsiveLayout?: boolean;
 }
 

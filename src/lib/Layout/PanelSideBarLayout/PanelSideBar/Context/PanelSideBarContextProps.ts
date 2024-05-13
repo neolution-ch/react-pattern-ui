@@ -45,22 +45,22 @@ export interface PanelSideBarContextProps<TPanelItemId extends string, TPanelIte
    */
   toggleSidebar: () => void;
 
-    /**
+  /**
    * The theme
    */
-    theme?: "light" | "dark" | "blue";
+  theme?: "light" | "dark" | "blue";
 
-    /**
-     * Boolean indicating if you want to render first items level as icons or directly as menu entries
-     */
-    renderFirstItemsLevelAsTiles?: boolean;
-  
-    /**
-     * Boolean indicating if you want to render first level items as links or as button
-     */
-    renderTilesAsLinks?: boolean;
-    /**
-     * The component used to render the menu item links.
-     */
-    LinkRenderer: PanelLinkRenderer<TPanelItemId, TPanelItem>;
+  /**
+   * Boolean indicating if you want to render first items level as icons or directly as menu entries
+   */
+  renderFirstItemsLevelAsTiles?: boolean;
+
+  /**
+   * Boolean indicating if you want to render first level items as links or as button
+   */
+  renderTilesAsLinks?: boolean;
+  /**
+   * The component used to render the menu item links.
+   */
+  LinkRenderer: PanelLinkRenderer<TPanelItemId, TPanelItem>;
 }
