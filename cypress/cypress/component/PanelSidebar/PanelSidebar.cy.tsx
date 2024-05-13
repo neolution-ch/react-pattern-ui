@@ -1,17 +1,16 @@
 import React from "react";
 import { PanelSideBarProvider, PanelSideBarLayout, PanelItem, PanelLinkRendererProps } from "react-pattern-ui";
 import { faBars, faCogs } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
-type CustomPanelItem<TLocalPanelIds = ""> = {
-  id: "home" | "settings" | TLocalPanelIds;
-};
+type AppRoutes = "home" | "settings" | "dropdownTest" | "dropdown-test1" | "dropdown-test2";
 
-type TSideBarMenuItem<TLocalPanelIds = ""> = PanelItem<CustomPanelItem<TLocalPanelIds>>;
+type TSideBarMenuItem = PanelItem<AppRoutes>;
 
 const PanelSidebar = (items: TSideBarMenuItem[]) => (
   <PanelSideBarProvider
-    globalItems={items}
-    LinkRenderer={(elem: PanelLinkRendererProps<Record<string, unknown>>) => (
+    menuItems={items}
+    LinkRenderer={(elem: PanelLinkRendererProps<AppRoutes, Record<string, unknown>>) => (
       <div
         id={elem.item.id}
         onClick={() => {

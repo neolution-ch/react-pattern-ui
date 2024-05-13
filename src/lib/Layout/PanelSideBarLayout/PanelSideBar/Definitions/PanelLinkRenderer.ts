@@ -1,7 +1,7 @@
 import { ComponentType, ReactNode } from "react";
 import { PanelItem } from "./PanelItem";
 
-interface PanelLinkRendererProps<TPanelItemId extends string, TPanelItem> {
+export interface PanelLinkRendererProps<TPanelItemId extends string, TPanelItem> {
   /**
    * The generic panel item.
    */

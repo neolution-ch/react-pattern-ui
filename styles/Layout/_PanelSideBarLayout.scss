@@ -267,7 +267,7 @@ section.content:first-of-type {
             }
           }
           &:hover {
-            color: $sidenav-dark-active-color;
+            color: $sidenav-dark-link-active-color;
             background-color: $sidenav-dark-bg;
           }
 
@@ -471,6 +471,17 @@ $zindex-topnav: 1039 !default;
 // Responsive styling for the sidenav layout
 @include media-breakpoint-down(lg) {
   #main-section.responsive-layout {
+    #main-content-body {
+      position: relative;
+      margin-left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+      flex-grow: 1;
+      min-height: 100vh;
+    }
+
     #side-nav {
       position: fixed;
       left: 0;
@@ -484,41 +495,26 @@ $zindex-topnav: 1039 !default;
       z-index: $zindex-sidenav;
       // Mobile first transform - by default the sidenav will be moved off-canvas
       transform: translateX(-$sidenav-base-width);
+    }
 
-      @include media-breakpoint-up(lg) {
-        box-shadow: 0 0 0.5rem 0.125rem rgba($color: $gray-500, $alpha: 0.75);
+    &.toggled {
+      #side-nav {
+        transform: translateX(0);
+        box-shadow: unset;
       }
 
       #main-content-body {
-        position: relative;
-        margin-left: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        min-width: 0;
-        flex-grow: 1;
-        min-height: 100vh;
-      }
-
-      &.toggled {
-        #side-nav {
-          transform: translateX(0);
-          box-shadow: unset;
-        }
-
-        #main-content-body {
-          &:before {
-            content: "";
-            display: block;
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: $black;
-            z-index: $zindex-content;
-            opacity: 0.5;
-            transition: opacity 0.3s ease-in-out;
-          }
+        &:before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background: $black;
+          z-index: $zindex-content;
+          opacity: 0.5;
+          transition: opacity 0.3s ease-in-out;
         }
       }
     }
