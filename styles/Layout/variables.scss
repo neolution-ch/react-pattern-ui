@@ -16,7 +16,7 @@ $sidebar-transition: 0.25s ease-in-out;
 $sidebar-items-transition: #{0.2s $sidebar-transition};
 $slim-scrollbar-base-width: 0.25rem;
 
-$sidenav-base-width: 16rem; 
+$sidenav-base-width: 16rem;
 $sidenav-max-width: $sidenav-base-width;
 
 $toggle-base-width: 1rem; // used for toggle  as bar
@@ -33,8 +33,8 @@ $sidenav-dark-link-color: fade-out($white, 0.5);
 $sidenav-dark-icon-color: fade-out($white, 0.75);
 $sidenav-dark-footer-bg: $gray-800;
 $sidenav-dark-active-color: $gray-900;
-$sidenav-dark-active-bg-color:  $white;
-$sidenav-dark-active-border-color:  $white;
+$sidenav-dark-active-bg-color: $white;
+$sidenav-dark-active-border-color: $white;
 $svg-dark-attributes: "fill='white' strike='white'";
 
 // Sidenav-blue
@@ -48,7 +48,7 @@ $sidenav-blue-link-color: fade-out(#0069a7, 0.5);
 $sidenav-blue-icon-color: fade-out(#0069a7, 0.75);
 $sidenav-blue-footer-bg: #007bc5;
 $sidenav-blue-active-color: $white;
-$sidenav-blue-active-bg-color:  #0069a7;
+$sidenav-blue-active-bg-color: #0069a7;
 $sidenav-blue-active-border-color: $white;
 $svg-blue-attributes: "fill='white' strike='white'";
 
@@ -63,10 +63,10 @@ $sidenav-light-link-active-color: $black;
 $sidenav-light-icon-color: $gray-500;
 $sidenav-light-footer-bg: $gray-200;
 $sidenav-light-active-color: $primary;
-$sidenav-light-active-bg-color:  $gray-100;
+$sidenav-light-active-bg-color: $gray-100;
 $svg-light-attributes: "fill='dark' strike='dark'";
 
 // Color variables for the topnav
 $topnav-dark-toggler-color: fade-out($white, 0.5);
-$topnav-blue-toggler-color:#007bc5;
+$topnav-blue-toggler-color: #007bc5;
 $topnav-light-toggler-color: $gray-900;
