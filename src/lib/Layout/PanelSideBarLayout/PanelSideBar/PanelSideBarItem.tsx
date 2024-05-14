@@ -1,25 +1,26 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
-import { ComponentType, useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Collapse, NavItem } from "reactstrap";
-import { LinkRendererProps } from "src/lib/SideBar/SideBarMenuContext";
 import { PanelItem } from "./../PanelSideBar/Definitions/PanelItem";
+import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
+import { hasActiveChildren } from "./Utils/getActivePanel";
 
-export interface PanelSideBarItemProps {
-  children: PanelItem<unknown>;
-  LinkRenderer: ComponentType<LinkRendererProps>;
-  onClick?: (menuItem: PanelItem<unknown>) => void;
+export interface PanelSideBarItemProps<TPanelItemId extends string, TPanelItem> {
+  children: PanelItem<TPanelItemId, TPanelItem>;
+  onClick?: (menuItemId: TPanelItemId) => void;
   depth?: number;
   active?: boolean;
   toggledItemIds: string[];
 }
 
-const PanelSideBarItem = (props: PanelSideBarItemProps) => {
-  const { depth = 0, children: item, LinkRenderer, onClick, toggledItemIds = [] } = props;
-
+// eslint-disable-next-line complexity
+const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarItemProps<TPanelItemId, TPanelItem>) => {
+  const { depth = 0, children: item, onClick, toggledItemIds = [] } = props;
+  const { LinkRenderer } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
   const hasitem = !!item.children?.length;
-  const isActive = item.children?.find((s) => s.active) || item.active;
-  const [isOpen, setIsOpen] = useState(toggledItemIds?.includes(item.id) || item.expanded);
+  const isActive = (hasitem && item.children && hasActiveChildren(item.children)) || item.active;
+  const [isOpen, setIsOpen] = useState(isActive || toggledItemIds?.includes(item.id) || item.expanded);
   if (item.display === false) {
     return null;
   }
@@ -34,7 +35,7 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
   return (
     <>
       <NavItem
-        onClick={() => onClick && onClick(item)}
+        onClick={() => onClick && onClick(item.id)}
         className={classNames({ "menu-open": isOpen, active: isActive })}
         style={{ paddingLeft: depth ? `${depth + 1}rem` : undefined }}
       >
@@ -82,8 +83,7 @@ const PanelSideBarItem = (props: PanelSideBarItemProps) => {
             <PanelSideBarItem
               key={childItem.id}
               children={childItem}
-              LinkRenderer={LinkRenderer}
-              onClick={() => onClick && onClick(childItem)}
+              onClick={() => onClick && onClick(childItem.id)}
               depth={depth + 1}
               active={item.active}
               toggledItemIds={toggledItemIds}

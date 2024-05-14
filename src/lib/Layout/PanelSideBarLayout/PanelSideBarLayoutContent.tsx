@@ -10,7 +10,7 @@ export const PanelSideBarLayoutContent = (props: PanelSideBarLayoutContentProps)
   return (
     <section id="main-content-body" className="content">
       <main className="container-fluid">{children}</main>
-      <footer className="py-4 bg-light mt-auto">
+      <footer hidden={!footer} className="py-4 bg-light mt-auto">
         <div className="mx-4">
           <div className="layout-sidenav__footer">{footer}</div>
         </div>

@@ -1,0 +1,76 @@
+#nav-top.panel-layout {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  padding-left: 0;
+  height: $topnav-base-height;
+  z-index: $zindex-fixed;
+
+  #sidebar-toggle {
+    width: $toggle-btn-size;
+
+    &:hover {
+      color: $white !important;
+    }
+  }
+
+  .navbar-brand {
+    max-width: $sidenav-max-width;
+    padding: $navbar-padding-x;
+    margin: 0;
+
+    img {
+      max-width: calc(#{$sidenav-max-width} - (#{$navbar-padding-y} * 2));
+    }
+  }
+
+  .top-navbar {
+    display: flex;
+    height: $usernav-base-height;
+    width: 100%;
+
+    .navbar-custom-item {
+      margin-left: 1em;
+      width: fit-content;
+    }
+  }
+}
+
+#nav-top.panel-layout.navbar-dark {
+  background-color: $navbar-dark-bg;
+  .navbar-brand {
+    img {
+      background-color: $navbar-dark-bg;
+    }
+  }
+
+  #sidebar-toggle {
+    color: $topnav-dark-toggler-color;
+  }
+}
+
+#nav-top.panel-layout.navbar-light {
+  background-color: $navbar-light-bg;
+  background-color: $navbar-light-bg;
+  .navbar-brand {
+    img {
+      background-color: $navbar-light-bg;
+    }
+    #sidebar-toggle {
+      color: $topnav-light-toggler-color;
+    }
+  }
+}
+#nav-top.panel-layout.navbar-blue {
+  background-color: $navbar-blue-bg;
+  background-color: $navbar-blue-bg;
+  .navbar-brand {
+    img {
+      background-color: $navbar-blue-bg;
+    }
+  }
+  #sidebar-toggle {
+    color: $topnav-blue-toggler-color;
+  }
+}

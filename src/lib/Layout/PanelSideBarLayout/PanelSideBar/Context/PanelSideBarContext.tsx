@@ -1,179 +1,86 @@
-import React, { ComponentType, createContext, ReactNode, useContext, useState } from "react";
-import { PanelItem } from "../Definitions/PanelItem";
+import React, { Context, createContext, useContext, useEffect, useMemo, useState } from "react";
+import { getActivePanel } from "../Utils/getActivePanel";
+import { PanelSideBarContextProps } from "./PanelSideBarContextProps";
 
-export interface PanelLinkRendererProps<T> {
-  /**
-   * The generic panel item.
-   */
-  item: PanelItem<T>;
-  /**
-   * The panel children item.
-   */
-  children: ReactNode;
-}
+export type MenuItemToggleFn<TPanelItemId extends string> = (menuItemId: TPanelItemId) => void;
 
-export type MenuItemToggleFn<TPanelItem> = (menuItem: PanelItem<TPanelItem>) => void;
+const PanelSideBarContext = createContext<PanelSideBarContextProps<any, any> | null>(null);
 
-export interface PanelSideBarContextProps<TPanelItem> {
-  activePanelId: string;
-  /**
-   * The global panel items.
-   */
-  globalItems: PanelItem<TPanelItem>[];
-  /**
-   * The local panel items.
-   */
-  localItems?: PanelItem[];
-  /**
-   * The function used to set a panel as active
-   * @param panelId The panel item identifier
-   */
-  setActivePanel: (panelId: string) => void;
-  /**
-   * The component used to render the menu item links.
-   */
-  LinkRenderer: ComponentType<PanelLinkRendererProps<TPanelItem>>;
-  /**
-   * The list of toggled menu item identifier
-   */
-  toggledMenuItemIds: string[];
-  /**
-   * The function used to toggle a menu item
-   */
-  toggleMenuItem: MenuItemToggleFn<TPanelItem>;
-  /**
-   * The footer content.
-   */
-  footer?: ReactNode;
-  /**
-   * The brand content shown on the top navigation bar.
-   */
-  brand?: ReactNode;
-  /**
-   * The user dropdown toggle content.
-   */
-  userDropDownMenuToggle?: ReactNode;
-  /**
-   * The user dropdown menu content.
-   */
-  userDropDownMenu?: ReactNode;
-  /**
-   * The menu content on the right.
-   */
-  topBarRightCustomItems?: ReactNode[];
-  /**
-   * The menu content on the left.
-   */
-  topBarLeftCustomItems?: ReactNode[];
-  /**
-   * The context theme
-   */
-  theme?: "light";
-  /**
-   * Boolean indicating if you want to render first items level as icons or directly as menu entries
-   */
-  renderFirstItemsLevelAsTiles?: boolean;
-
-  /**
-   * Boolean indicating if you want to render first level items as links or as button
-   */
-  renderTilesAsLinks?: boolean;
-
-  /**
-   * The default active panel id that will be taken if no active panel is dinamically found
-   */
-  defaultActivePanelId?: string;
-}
-
-export const PanelSideBarContext = createContext<PanelSideBarContextProps<any> | null>(null);
-
-export interface PanelSideBarMenuProviderProps<TPanelItem>
+export interface PanelSideBarMenuProviderProps<TPanelItemId extends string, TPanelItem>
   extends Pick<
-    PanelSideBarContextProps<TPanelItem>,
-    | "globalItems"
-    | "LinkRenderer"
-    | "brand"
-    | "footer"
-    | "userDropDownMenu"
-    | "userDropDownMenuToggle"
-    | "topBarRightCustomItems"
-    | "topBarLeftCustomItems"
-    | "localItems"
-    | "theme"
-    | "renderFirstItemsLevelAsTiles"
-    | "renderTilesAsLinks"
-    | "defaultActivePanelId"
+    PanelSideBarContextProps<TPanelItemId, TPanelItem>,
+    "menuItems" | "LinkRenderer" | "theme" | "renderTilesAsLinks" | "renderFirstItemsLevelAsTiles" | "defaultActivePanelId"
   > {
   /**
    * The children elements.
    */
   children: React.ReactNode;
+
+  /**
+   * if the sidebar should be open by default.
+   */
+  sidebarOpenByDefault?: boolean;
 }
 
-export const PanelSideBarProvider = <TPanelItem,>(props: PanelSideBarMenuProviderProps<TPanelItem>) => {
+export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
+  props: PanelSideBarMenuProviderProps<TPanelItemId, TPanelItem>,
+) => {
   const {
     children,
-    globalItems,
-    localItems = [],
-    LinkRenderer,
-    brand = null,
-    footer = null,
-    userDropDownMenu,
-    userDropDownMenuToggle,
-    topBarRightCustomItems,
-    topBarLeftCustomItems,
-    renderFirstItemsLevelAsTiles = true,
-    renderTilesAsLinks = false,
-    theme = "light",
     defaultActivePanelId,
+    sidebarOpenByDefault = true,
+    menuItems: defaultMenuItems,
+    LinkRenderer,
+    renderTilesAsLinks = false,
+    renderFirstItemsLevelAsTiles = true,
+    theme = "blue",
   } = props;
+  const menuItems = useMemo(() => defaultMenuItems, [defaultMenuItems]);
 
-  const activePanel = globalItems.find((x) =>
-    x.children ? x.children.find((y) => (y.children ? y.children.find((s) => s.active) : y.active)) : x.active,
+  const [isSidebarOpen, setIsSidebarOpen] = useState(sidebarOpenByDefault);
+  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
+
+  const [activePanelId, setActivePanelId] = useState(getActivePanel(menuItems, defaultActivePanelId)?.id);
+  const setActivePanel = (panelId: TPanelItemId) => setActivePanelId(panelId);
+
+  const preExpandedMenuItemIds = menuItems.filter((x) => x.expanded).map((x) => x.id);
+  const [toggledMenuItemIds, setToggledMenuItemIds] = useState<TPanelItemId[]>(
+    activePanelId ? preExpandedMenuItemIds.concat(activePanelId) : preExpandedMenuItemIds,
   );
-  const firstActivePanel = activePanel ?? globalItems.find((x) => (defaultActivePanelId ? x.id === defaultActivePanelId : x.id));
-
-  const getActivePanelId = () => localItems?.at(0)?.id ?? firstActivePanel?.id ?? "";
-
-  const [activePanelId, setActivePanelId] = useState(getActivePanelId());
-
-  const [toggledMenuItemIds, setToggledMenuItemIds] = useState<string[]>([
-    (firstActivePanel?.children
-      ? firstActivePanel.children?.find((x) => x.children?.find((s) => s.active))
-      : firstActivePanel?.children?.find((x) => x.active)
-    )?.id ?? "",
-  ]);
-
-  const setActivePanel = (panelId: string) => setActivePanelId(panelId);
-
-  const toggleMenuItem: MenuItemToggleFn<TPanelItem> = (menuItem) => {
+  const toggleMenuItem: MenuItemToggleFn<TPanelItemId> = (menuItemId) => {
     setToggledMenuItemIds((prev) => {
-      const idExists = !!prev.find((id) => id == menuItem.id);
+      const idExists = !!prev.find((id) => id == menuItemId);
 
       if (idExists) {
-        return prev.filter((id) => id !== menuItem.id);
+        return prev.filter((id) => id !== menuItemId);
       }
 
-      return [...prev, menuItem.id];
+      return [...prev, menuItemId];
     });
   };
+
+  useEffect(() => {
+    const activePanelId = getActivePanel(menuItems, defaultActivePanelId)?.id;
+    setActivePanelId(activePanelId);
+    if (activePanelId) {
+      setToggledMenuItemIds((prev) => (prev.includes(activePanelId) ? prev : [...prev, activePanelId]));
+    }
+  }, [menuItems]);
+
+  const untoggleMenuItems = () => setToggledMenuItemIds([]);
 
   return (
     <PanelSideBarContext.Provider
       value={{
+        menuItems,
         activePanelId,
-        globalItems,
-        localItems,
-        LinkRenderer,
         setActivePanel,
         toggledMenuItemIds,
         toggleMenuItem,
-        footer,
-        userDropDownMenu,
-        userDropDownMenuToggle,
-        topBarRightCustomItems,
-        topBarLeftCustomItems,
-        brand,
+        untoggleMenuItems,
+        isSidebarOpen,
+        toggleSidebar,
+        LinkRenderer,
         theme,
         renderFirstItemsLevelAsTiles,
         renderTilesAsLinks,
@@ -184,8 +91,8 @@ export const PanelSideBarProvider = <TPanelItem,>(props: PanelSideBarMenuProvide
   );
 };
 
-export const usePanelSideBarContext = () => {
-  const context = useContext(PanelSideBarContext);
+export const usePanelSideBarContext = <TPanelItemId extends string, TPanelItem>() => {
+  const context = useContext(PanelSideBarContext as Context<PanelSideBarContextProps<TPanelItemId, TPanelItem>>);
   if (context === null) {
     throw new Error("usePanelSideBarContext must be used within a PanelSideBarProvider");
   }

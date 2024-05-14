@@ -7,6 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Possibility to dinamically open or close `sidebar`
+- Possibility to dinamically toggle `menu items`
+- Added support for `light`, `dark` and `blue` theme in PanelSideBarLayout.
+
+### Changed
+
+- `menuItems properties` are not locked by any states during the render process anymore. Changing externally the menu items will provide the correct menu
+- :boom: `topBarLeftCustomItems` and `topBarRigthCustomItems` renamed to `navbarLeftItems` and `navbarRightItems`
+- `navbarLeftItems` and `navbarRightItems` have not default margin by default
+- default sidebar `width` to `16rem`
+- :boom: `UI elements` are now parameter of `SidebarLayout` and not of the context anymore
+- PanelItem Id type changed from `string` to being strongly typed
+
+### Fixed
+
+- When `footer` is null, the whole section will not be rendered
+- Unique key prop in a list warning
+- menu items provided with `expanded` to true are correctly displayed in `PanelSideBarLayout`
+- Active panel is now recognized recursively and not until the third deep level anymore
+
+### Removed
+
+- :boom: `DeleteAction` component.
+- :boom: Built-in support for `userDropdown`. It should provided in the `navbarRightItems` items and define your style in your solution.
+- :boom: `localItems` property as menuItems can be fully controlled by the consumer.
+- :boom: removed `PanelSideBar` component and its relative contexts and should be replaced with `PanelSideBarLayout`. In order to migrate:
+  - assign `items` to `menuItems` in the `PanelSideBarProvider`
+  - set `renderFirstItemsLevelAsTiles` to false
+  - set `useToggleButton` in `PanelSideBarLayout` to true
+  - set `useResponsiveLayout` in `PanelSideBarLayout` to true
+  - move `brand` to `PanelSideBarLayout`
+  - move `footer` to `PanelSideBarLayout`
+
 ## [3.4.0] - 2024-03-12
 
 ### Added
