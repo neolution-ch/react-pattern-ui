@@ -63,4 +63,7 @@ export interface PanelSideBarContextProps<TPanelItemId extends string, TPanelIte
    * The component used to render the menu item links.
    */
   LinkRenderer: PanelLinkRenderer<TPanelItemId, TPanelItem>;
+
+  openMenuItems: (panelItemIds: TPanelItemId[]) => void;
+  closeMenuItems: (panelItemIds: TPanelItemId[]) => void;
 }

@@ -10,8 +10,6 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
     activePanelId,
     menuItems,
     setActivePanel,
-    toggledMenuItemIds,
-    toggleMenuItem,
     renderFirstItemsLevelAsTiles,
     renderTilesAsLinks,
     LinkRenderer,
@@ -74,12 +72,11 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
         <div className="side-nav__tiles">{panelItemsRenderer(menuItems)}</div>
 
         <div className="side-nav__items">
-          {activePanel?.children?.map((item) => (
+          {activePanel?.custom && activePanel.custom}
+          {activePanel?.children?.filter(x => x.display !== false).map((item) => (
             <PanelSideBarItem<TPanelItemId, TPanelItem>
               key={item.id}
               children={item}
-              onClick={(menuItemId) => toggleMenuItem(menuItemId)}
-              toggledItemIds={toggledMenuItemIds}
             />
           ))}
         </div>
@@ -89,12 +86,10 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
     return (
       <nav id="side-nav" className={className}>
         <div className="side-nav__items">
-          {menuItems?.map((item) => (
+          {menuItems?.filter(x => x.display !== false).map((item) => (
             <PanelSideBarItem<TPanelItemId, TPanelItem>
               key={item.id}
               children={item}
-              onClick={(menuItem) => toggleMenuItem(menuItem)}
-              toggledItemIds={toggledMenuItemIds}
             />
           ))}
         </div>

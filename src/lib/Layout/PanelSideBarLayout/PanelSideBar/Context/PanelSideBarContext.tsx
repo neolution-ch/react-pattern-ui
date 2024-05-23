@@ -1,5 +1,5 @@
 import React, { Context, createContext, useContext, useEffect, useMemo, useState } from "react";
-import { getActivePanel } from "../Utils/getActivePanel";
+import { getActivePanel, getActivePanelParentsIds } from "../Utils/getActivePanel";
 import { PanelSideBarContextProps } from "./PanelSideBarContextProps";
 
 export type MenuItemToggleFn<TPanelItemId extends string> = (menuItemId: TPanelItemId) => void;
@@ -36,7 +36,7 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
     theme = "blue",
   } = props;
   const menuItems = useMemo(() => defaultMenuItems, [defaultMenuItems]);
-
+  console.log(menuItems)
   const [isSidebarOpen, setIsSidebarOpen] = useState(sidebarOpenByDefault);
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
@@ -63,11 +63,22 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
     const activePanelId = getActivePanel(menuItems, defaultActivePanelId)?.id;
     setActivePanelId(activePanelId);
     if (activePanelId) {
-      setToggledMenuItemIds((prev) => (prev.includes(activePanelId) ? prev : [...prev, activePanelId]));
+      setToggledMenuItemIds((prev) => {
+        const toggledMenuItemIds = [...getActivePanelParentsIds(menuItems, activePanelId), activePanelId].filter(x => !prev.includes(x));
+        return [...prev, ...toggledMenuItemIds];
+      });
     }
   }, [menuItems]);
 
   const untoggleMenuItems = () => setToggledMenuItemIds([]);
+
+  const openMenuItems = (panelItemIds: TPanelItemId[]) => {
+    setToggledMenuItemIds((prev) => [...prev, ...panelItemIds.filter(x => !prev.includes(x))]);
+  }
+
+  const closeMenuItems = (panelItemIds: TPanelItemId[]) => {
+    setToggledMenuItemIds((prev) => prev.filter(x => panelItemIds.includes(x)));
+  }
 
   return (
     <PanelSideBarContext.Provider
@@ -84,6 +95,8 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
         theme,
         renderFirstItemsLevelAsTiles,
         renderTilesAsLinks,
+        openMenuItems,
+        closeMenuItems,
       }}
     >
       {children}
