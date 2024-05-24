@@ -4,6 +4,7 @@ import { Button } from "reactstrap";
 import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import { PanelItem } from "./Definitions/PanelItem";
 import { PanelSideBarItem } from "./PanelSideBarItem";
+import { useMemo } from "react";
 
 export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
   const {
@@ -23,12 +24,14 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
     { "sidenav-blue": theme == "blue" },
   );
 
+  const activePanel: PanelItem<TPanelItemId, TPanelItem> | undefined = menuItems.find((x) => x.id === activePanelId);
+  const customPanel = useMemo(() => activePanel?.custom, []);
+
   if (renderFirstItemsLevelAsTiles) {
     if (menuItems.find((x) => !x.icon)) {
       throw new Error("Outer panel icon is required");
     }
 
-    const activePanel: PanelItem<TPanelItemId, TPanelItem> | undefined = menuItems.find((x) => x.id === activePanelId);
     const ButtonIcon = (props: { item: PanelItem<TPanelItemId, TPanelItem> }) => {
       const {
         item: { disabled, icon, onClick, id, title },
@@ -56,8 +59,9 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
       );
     };
 
-    const panelItemsRenderer = (items: PanelItem<TPanelItemId, TPanelItem>[]) =>
-      items?.map((item, index) =>
+    const PanelItemsRenderer = (props: { items: PanelItem<TPanelItemId, TPanelItem>[] }) => {
+      const { items } = props;
+      return items?.map((item, index) =>
         renderTilesAsLinks ? (
           <LinkRenderer key={index} item={item}>
             <ButtonIcon item={item} />
@@ -65,15 +69,16 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
         ) : (
           <ButtonIcon key={index} item={item} />
         ),
-      );
+      )
+    };
 
     return (
       <nav id="side-nav" className={className}>
-        <div className="side-nav__tiles">{panelItemsRenderer(menuItems)}</div>
-
+        <div className="side-nav__tiles">{<PanelItemsRenderer items={menuItems} />}</div>
         <div className="side-nav__items">
-          {activePanel?.custom && activePanel.custom}
-          {activePanel?.children?.filter(x => x.display !== false).map((item) => (
+          {customPanel}
+          {/* .filter(x => x.display !== false) */}
+          {activePanel?.children?.map((item) => (
             <PanelSideBarItem<TPanelItemId, TPanelItem>
               key={item.id}
               children={item}
@@ -86,7 +91,8 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
     return (
       <nav id="side-nav" className={className}>
         <div className="side-nav__items">
-          {menuItems?.filter(x => x.display !== false).map((item) => (
+        {/* .filter(x => x.display !== false) */}
+          {menuItems?.map((item) => (
             <PanelSideBarItem<TPanelItemId, TPanelItem>
               key={item.id}
               children={item}

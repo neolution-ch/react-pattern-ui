@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { PanelItem } from "../Definitions/PanelItem";
 import { PanelLinkRenderer } from "../Definitions/PanelLinkRenderer";
 import { MenuItemToggleFn } from "./PanelSideBarContext";
@@ -64,6 +65,13 @@ export interface PanelSideBarContextProps<TPanelItemId extends string, TPanelIte
    */
   LinkRenderer: PanelLinkRenderer<TPanelItemId, TPanelItem>;
 
+    /**
+   * The list of toggled menu item identifier
+   */
+    hiddenMenuItemIds: TPanelItemId[];
+
+    setHiddenMenuItemsIds: Dispatch<SetStateAction< TPanelItemId[]>>;
+  
   openMenuItems: (panelItemIds: TPanelItemId[]) => void;
   closeMenuItems: (panelItemIds: TPanelItemId[]) => void;
 }

@@ -27,3 +27,21 @@ export const getActivePanelParentsIds = <TPanelItemId extends string, TPanelItem
 
   return parentsIds;
 }
+
+export const getHiddenPanelIds = <TPanelItemId extends string, TPanelItem>(items: PanelItem<TPanelItemId, TPanelItem>[]) => {
+  let hiddenIds: TPanelItemId[] = [];
+  
+  items.forEach((item) => {
+    if (item.display == false) {
+      hiddenIds = [...hiddenIds, item.id];
+
+    }
+    // we need to check only menu items that have active child
+    if (item.children) {
+      hiddenIds = [...hiddenIds, ...getHiddenPanelIds(item.children)];
+      }
+    }
+  );
+
+  return hiddenIds;
+}

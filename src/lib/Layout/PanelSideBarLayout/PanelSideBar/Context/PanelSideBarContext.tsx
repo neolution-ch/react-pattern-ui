@@ -1,5 +1,5 @@
 import React, { Context, createContext, useContext, useEffect, useMemo, useState } from "react";
-import { getActivePanel, getActivePanelParentsIds } from "../Utils/getActivePanel";
+import { getActivePanel, getActivePanelParentsIds, getHiddenPanelIds } from "../Utils/getActivePanel";
 import { PanelSideBarContextProps } from "./PanelSideBarContextProps";
 
 export type MenuItemToggleFn<TPanelItemId extends string> = (menuItemId: TPanelItemId) => void;
@@ -36,12 +36,15 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
     theme = "blue",
   } = props;
   const menuItems = useMemo(() => defaultMenuItems, [defaultMenuItems]);
-  console.log(menuItems)
   const [isSidebarOpen, setIsSidebarOpen] = useState(sidebarOpenByDefault);
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
   const [activePanelId, setActivePanelId] = useState(getActivePanel(menuItems, defaultActivePanelId)?.id);
   const setActivePanel = (panelId: TPanelItemId) => setActivePanelId(panelId);
+
+  const [hiddenMenuItemIds, setHiddenMenuItemsIds] = useState<TPanelItemId[]>(
+    getHiddenPanelIds(menuItems),
+  );
 
   const preExpandedMenuItemIds = menuItems.filter((x) => x.expanded).map((x) => x.id);
   const [toggledMenuItemIds, setToggledMenuItemIds] = useState<TPanelItemId[]>(
@@ -58,6 +61,7 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
       return [...prev, menuItemId];
     });
   };
+
 
   useEffect(() => {
     const activePanelId = getActivePanel(menuItems, defaultActivePanelId)?.id;
@@ -97,6 +101,8 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
         renderTilesAsLinks,
         openMenuItems,
         closeMenuItems,
+        hiddenMenuItemIds,
+        setHiddenMenuItemsIds,
       }}
     >
       {children}
