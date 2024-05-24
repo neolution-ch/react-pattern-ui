@@ -10,11 +10,12 @@ export interface PanelSideBarItemProps<TPanelItemId extends string, TPanelItem> 
   children: PanelItem<TPanelItemId, TPanelItem>;
   depth?: number;
   active?: boolean;
+  isParentHidden?: boolean;
 }
 
 // eslint-disable-next-line complexity
 const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarItemProps<TPanelItemId, TPanelItem>) => {
-  const { depth = 0, children: item } = props;
+  const { depth = 0, children: item, isParentHidden = false } = props;
   const { LinkRenderer, toggledMenuItemIds, toggleMenuItem, hiddenMenuItemIds } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
   const hasitem = !!item.children?.length;
   const isActive = (hasitem && item.children && hasActiveChildren(item.children)) || item.active;
@@ -30,10 +31,10 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
   return (
     <>
       <NavItem
-        hidden={hiddenMenuItemIds.includes(item.id)}
+        hidden={isParentHidden || hiddenMenuItemIds.includes(item.id)}
         onClick={() => {
-          if(hasitem && !item.collapseIconOnly) {
-            toggleMenuItem(item.id)
+          if (hasitem && !item.collapseIconOnly) {
+            toggleMenuItem(item.id);
           }
         }}
         className={classNames({ "menu-open": isOpen, active: isActive })}
@@ -56,7 +57,7 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
                 className={classNames("nav-link", { "w-100": !item.collapseIconOnly }, { "dropdown-toggle": hasitem })}
                 onClick={() => {
                   if (item.collapseIconOnly) {
-                    toggleMenuItem(item.id)
+                    toggleMenuItem(item.id);
                   }
                 }}
               >
@@ -80,16 +81,15 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
           )}
         </div>
       </NavItem>
-
-      {!hiddenMenuItemIds.includes(item.id) && hasitem && (
+      {hasitem && (
         <Collapse isOpen={isOpen} navbar className={classNames("item-menu", { "mb-1": isOpen })}>
-          {/* .filter(x => x.display !== false) */}
           {item.children?.map((childItem) => (
             <PanelSideBarItem
               key={childItem.id}
               children={childItem}
               depth={depth + 1}
               active={item.active}
+              isParentHidden={hiddenMenuItemIds.includes(item.id)}
             />
           ))}
         </Collapse>

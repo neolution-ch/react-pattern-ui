@@ -44,6 +44,4 @@ export type PanelItem<TPanelItemId extends string, TPanelItem = Record<string, u
    * Whether collapse only with icon.
    */
   collapseIconOnly?: boolean;
-
-  custom?: ReactNode;
 };

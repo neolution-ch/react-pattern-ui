@@ -28,7 +28,7 @@ export interface PanelSideBarContextProps<TPanelItemId extends string, TPanelIte
   toggleMenuItem: MenuItemToggleFn<TPanelItemId>;
 
   /**
-   * The default active panel id that will be taken if no active panel is dinamically found
+   * The default active panel id that will be taken if no active panel is dynamically found
    */
   defaultActivePanelId?: TPanelItemId;
 
@@ -65,13 +65,26 @@ export interface PanelSideBarContextProps<TPanelItemId extends string, TPanelIte
    */
   LinkRenderer: PanelLinkRenderer<TPanelItemId, TPanelItem>;
 
-    /**
+  /**
    * The list of toggled menu item identifier
    */
-    hiddenMenuItemIds: TPanelItemId[];
+  hiddenMenuItemIds: TPanelItemId[];
 
-    setHiddenMenuItemsIds: Dispatch<SetStateAction< TPanelItemId[]>>;
-  
+  /**
+   * Function to get the hidden menu items
+   */
+  setHiddenMenuItemsIds: Dispatch<SetStateAction<TPanelItemId[]>>;
+
+  /*
+   * Function to open menu items
+   * @params panelItemIds the panel item identifiers to open
+   */
   openMenuItems: (panelItemIds: TPanelItemId[]) => void;
-  closeMenuItems: (panelItemIds: TPanelItemId[]) => void;
+
+  /*
+   * Function to close menu items
+   * @params panelItemIds the panel item identifiers to close
+   * @params includeActivePanel whether needs to include the active panel
+   */
+  closeMenuItems: (panelItemIds: TPanelItemId[], includeActivePanel?: boolean) => void;
 }

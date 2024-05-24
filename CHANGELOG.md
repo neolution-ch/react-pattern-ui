@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- various utility functions `getPreExpandedMenuItems`, `getChildrenPanelItemsIds`, `getHiddenPanelIds`
+- possibility to dynamic display the menu items
+- improved Context status management so that the Layout is using only the states inside it
+
+### Fixed
+
+- issue for which hiding a menu entry was breaking the rules of hook
+
 ## [4.0.0] - 2024-05-14
 
 ### Added

@@ -1,6 +1,7 @@
 import React, { Context, createContext, useContext, useEffect, useMemo, useState } from "react";
-import { getActivePanel, getActivePanelParentsIds, getHiddenPanelIds } from "../Utils/getActivePanel";
+import { getActivePanel, getActivePanelParentsIds } from "../Utils/getActivePanel";
 import { PanelSideBarContextProps } from "./PanelSideBarContextProps";
+import { getHiddenPanelIds, getPreExpandedMenuItems } from "../Utils/panelUtils";
 
 export type MenuItemToggleFn<TPanelItemId extends string> = (menuItemId: TPanelItemId) => void;
 
@@ -42,11 +43,9 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
   const [activePanelId, setActivePanelId] = useState(getActivePanel(menuItems, defaultActivePanelId)?.id);
   const setActivePanel = (panelId: TPanelItemId) => setActivePanelId(panelId);
 
-  const [hiddenMenuItemIds, setHiddenMenuItemsIds] = useState<TPanelItemId[]>(
-    getHiddenPanelIds(menuItems),
-  );
+  const [hiddenMenuItemIds, setHiddenMenuItemsIds] = useState<TPanelItemId[]>(getHiddenPanelIds(menuItems));
 
-  const preExpandedMenuItemIds = menuItems.filter((x) => x.expanded).map((x) => x.id);
+  const preExpandedMenuItemIds = getPreExpandedMenuItems(menuItems);
   const [toggledMenuItemIds, setToggledMenuItemIds] = useState<TPanelItemId[]>(
     activePanelId ? preExpandedMenuItemIds.concat(activePanelId) : preExpandedMenuItemIds,
   );
@@ -62,13 +61,12 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
     });
   };
 
-
   useEffect(() => {
     const activePanelId = getActivePanel(menuItems, defaultActivePanelId)?.id;
     setActivePanelId(activePanelId);
     if (activePanelId) {
       setToggledMenuItemIds((prev) => {
-        const toggledMenuItemIds = [...getActivePanelParentsIds(menuItems, activePanelId), activePanelId].filter(x => !prev.includes(x));
+        const toggledMenuItemIds = [...getActivePanelParentsIds(menuItems, activePanelId), activePanelId].filter((x) => !prev.includes(x));
         return [...prev, ...toggledMenuItemIds];
       });
     }
@@ -77,12 +75,17 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
   const untoggleMenuItems = () => setToggledMenuItemIds([]);
 
   const openMenuItems = (panelItemIds: TPanelItemId[]) => {
-    setToggledMenuItemIds((prev) => [...prev, ...panelItemIds.filter(x => !prev.includes(x))]);
-  }
+    setToggledMenuItemIds((prev) => [...prev, ...panelItemIds.filter((x) => !prev.includes(x))]);
+  };
 
-  const closeMenuItems = (panelItemIds: TPanelItemId[]) => {
-    setToggledMenuItemIds((prev) => prev.filter(x => panelItemIds.includes(x)));
-  }
+  const closeMenuItems = (panelItemIds: TPanelItemId[], includeActivePanel?: boolean) => {
+    const activePanels = activePanelId ? [...getActivePanelParentsIds(menuItems, activePanelId), activePanelId] : [];
+    setToggledMenuItemIds((prev) =>
+      includeActivePanel
+        ? prev.filter((x) => !panelItemIds.includes(x))
+        : prev.filter((x) => !panelItemIds.filter((y) => !activePanels.includes(y)).includes(x)),
+    );
+  };
 
   return (
     <PanelSideBarContext.Provider

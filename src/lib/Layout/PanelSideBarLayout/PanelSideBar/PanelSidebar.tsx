@@ -4,18 +4,10 @@ import { Button } from "reactstrap";
 import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import { PanelItem } from "./Definitions/PanelItem";
 import { PanelSideBarItem } from "./PanelSideBarItem";
-import { useMemo } from "react";
 
 export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
-  const {
-    activePanelId,
-    menuItems,
-    setActivePanel,
-    renderFirstItemsLevelAsTiles,
-    renderTilesAsLinks,
-    LinkRenderer,
-    theme,
-  } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
+  const { activePanelId, menuItems, setActivePanel, renderFirstItemsLevelAsTiles, renderTilesAsLinks, LinkRenderer, theme } =
+    usePanelSideBarContext<TPanelItemId, TPanelItem>();
 
   const className = classNames(
     "panel-layout",
@@ -25,7 +17,6 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
   );
 
   const activePanel: PanelItem<TPanelItemId, TPanelItem> | undefined = menuItems.find((x) => x.id === activePanelId);
-  const customPanel = useMemo(() => activePanel?.custom, []);
 
   if (renderFirstItemsLevelAsTiles) {
     if (menuItems.find((x) => !x.icon)) {
@@ -69,20 +60,15 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
         ) : (
           <ButtonIcon key={index} item={item} />
         ),
-      )
+      );
     };
 
     return (
       <nav id="side-nav" className={className}>
         <div className="side-nav__tiles">{<PanelItemsRenderer items={menuItems} />}</div>
         <div className="side-nav__items">
-          {customPanel}
-          {/* .filter(x => x.display !== false) */}
           {activePanel?.children?.map((item) => (
-            <PanelSideBarItem<TPanelItemId, TPanelItem>
-              key={item.id}
-              children={item}
-            />
+            <PanelSideBarItem<TPanelItemId, TPanelItem> key={item.id} children={item} />
           ))}
         </div>
       </nav>
@@ -91,12 +77,8 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
     return (
       <nav id="side-nav" className={className}>
         <div className="side-nav__items">
-        {/* .filter(x => x.display !== false) */}
           {menuItems?.map((item) => (
-            <PanelSideBarItem<TPanelItemId, TPanelItem>
-              key={item.id}
-              children={item}
-            />
+            <PanelSideBarItem<TPanelItemId, TPanelItem> key={item.id} children={item} />
           ))}
         </div>
       </nav>
