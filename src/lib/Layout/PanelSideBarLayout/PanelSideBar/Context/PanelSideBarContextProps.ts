@@ -75,16 +75,16 @@ export interface PanelSideBarContextProps<TPanelItemId extends string, TPanelIte
    */
   setHiddenMenuItemsIds: Dispatch<SetStateAction<TPanelItemId[]>>;
 
-  /*
+  /**
    * Function to open menu items
-   * @params panelItemIds the panel item identifiers to open
+   * @param panelItemIds the panel item identifiers to open
    */
   openMenuItems: (panelItemIds: TPanelItemId[]) => void;
 
-  /*
+  /**
    * Function to close menu items
-   * @params panelItemIds the panel item identifiers to close
-   * @params includeActivePanel whether needs to include the active panel
+   * @param panelItemIds the panel item identifiers to close
+   * @param includeActivePanel whether needs to include the active panel
    */
   closeMenuItems: (panelItemIds: TPanelItemId[], includeActivePanel?: boolean) => void;
 }

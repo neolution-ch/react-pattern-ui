@@ -1,18 +1,18 @@
-import React from "react";
-import { PanelSideBarProvider, PanelSideBarLayout, PanelItem, PanelLinkRendererProps } from "react-pattern-ui";
+import React, { PropsWithChildren, ReactNode } from "react";
+import { PanelSideBarProvider, PanelSideBarLayout, PanelItem, PanelLinkRendererProps, usePanelSideBarContext } from "react-pattern-ui";
 import { faBars, faCogs } from "@fortawesome/free-solid-svg-icons";
 
 type AppRoutes = "home" | "settings" | "dropdownTest" | "dropdown-test1" | "dropdown-test2";
 type TSideBarMenuItem = PanelItem<AppRoutes>;
 
 // Configuration object for avoiding duplicated code
-interface PanelSideBarConfiguration {
+interface PanelSideBarConfiguration extends PropsWithChildren {
   renderFirstItemsLevelAsTiles?: boolean;
   useToggleButton?: boolean;
 }
 
 const getPanelSidebarInternal = (items: TSideBarMenuItem[], config?: PanelSideBarConfiguration) => {
-  const { renderFirstItemsLevelAsTiles = true, useToggleButton = false } = config ?? {};
+  const { renderFirstItemsLevelAsTiles = true, useToggleButton = false, children } = config ?? {};
   return (
     <PanelSideBarProvider
       menuItems={items}
@@ -32,13 +32,13 @@ const getPanelSidebarInternal = (items: TSideBarMenuItem[], config?: PanelSideBa
       )}
     >
       <PanelSideBarLayout useToggleButton={useToggleButton}>
-        <div id="pageContent">Cypress</div>
+        <div id="pageContent">{children ?? "Cypress"}</div>
       </PanelSideBarLayout>
     </PanelSideBarProvider>
   );
 };
 
-const getSidebarItems = (active?: boolean, disabled?: boolean): TSideBarMenuItem[] => [
+const getSidebarItems = (active?: boolean, disabled?: boolean, expanded?: boolean): TSideBarMenuItem[] => [
   {
     id: "home",
     title: "Home",
@@ -65,6 +65,7 @@ const getSidebarItems = (active?: boolean, disabled?: boolean): TSideBarMenuItem
       {
         title: "Dropdown",
         id: "dropdownTest",
+        expanded,
         children: [
           {
             title: "Dropdown test 1",
@@ -81,19 +82,24 @@ const getSidebarItems = (active?: boolean, disabled?: boolean): TSideBarMenuItem
   },
 ];
 
-const PanelSideBarWithTiles = (props: { active?: boolean; disabled?: boolean }) => {
-  const { active, disabled } = props;
-  return getPanelSidebarInternal(getSidebarItems(active, disabled));
+interface PanelSideBarProps extends PropsWithChildren {
+  active?: boolean;
+  disabled?: boolean;
+  expanded?: boolean;
+}
+
+const PanelSideBarWithTiles = (props: PanelSideBarProps) => {
+  const { active, disabled, expanded, children } = props;
+  return getPanelSidebarInternal(getSidebarItems(active, disabled, expanded), { children });
 };
 
-const PanelSideBarNoTiles = (props: { active?: boolean; disabled?: boolean }) => {
+const PanelSideBarNoTiles = (props: PanelSideBarProps) => {
   const { active, disabled } = props;
   return getPanelSidebarInternal(getSidebarItems(active, disabled), { renderFirstItemsLevelAsTiles: false, useToggleButton: true });
 };
 
 describe("PanelSidebar.cy.tsx", () => {
   it("icon and titles rendered correctly", () => {
-    const sidebarItems = getSidebarItems();
     cy.mount(<PanelSideBarWithTiles />);
 
     // Check if icon are rendered
@@ -143,7 +149,6 @@ describe("PanelSidebar.cy.tsx", () => {
   });
 
   it("toggle sidebar", () => {
-    const sidebarItems = getSidebarItems();
     cy.mount(<PanelSideBarWithTiles />);
 
     // Check toggle sidebar
@@ -171,5 +176,74 @@ describe("PanelSidebar.cy.tsx", () => {
     cy.mount(<PanelSideBarNoTiles />);
     cy.get("#sidebar-toggle").click();
     cy.get("#side-nav").should("have.css", "width", "0px");
+  });
+
+  it("check dropdown correctly pre-expanded", () => {
+    cy.mount(<PanelSideBarWithTiles expanded />);
+    cy.get("button[title=Settings]").click();
+    cy.get("#dropdown-test1").should("be.visible");
+    cy.get("#dropdown-test2").should("be.visible");
+  });
+
+  it("dynamically toggle menu item", () => {
+    const Button = () => {
+      const { toggleMenuItem } = usePanelSideBarContext();
+      return (
+        <button id="test-toggle" onClick={() => toggleMenuItem("dropdownTest")}>
+          Toggle
+        </button>
+      );
+    };
+
+    cy.mount(<PanelSideBarWithTiles expanded children={<Button />} />);
+    cy.get("button[title=Settings]").click();
+    cy.get("li:has(.dropdown-toggle)").should("be.visible").should("have.class", "menu-open");
+    cy.get("#test-toggle").click();
+    cy.get("li:has(.dropdown-toggle)").should("be.visible").should("not.have.class", "menu-open");
+    cy.get("#test-toggle").click();
+    cy.get("li:has(.dropdown-toggle)").should("be.visible").should("have.class", "menu-open");
+  });
+
+  it("dynamically hide menu items", () => {
+    const Button = () => {
+      const { setHiddenMenuItemsIds } = usePanelSideBarContext();
+      return (
+        <button id="test-hide" onClick={() => setHiddenMenuItemsIds(["dropdown-test1", "dropdown-test2"])}>
+          Hide
+        </button>
+      );
+    };
+
+    cy.mount(<PanelSideBarWithTiles expanded children={<Button />} />);
+    cy.get("button[title=Settings]").click();
+    cy.get("#dropdown-test1").should("be.visible");
+    cy.get("#dropdown-test2").should("be.visible");
+    cy.get("#test-hide").click();
+    cy.get("#dropdown-test1").should("not.be.visible");
+    cy.get("#dropdown-test2").should("not.be.visible");
+  });
+
+  it("dynamically open and close menu item", () => {
+    const Button = () => {
+      const { openMenuItems, closeMenuItems } = usePanelSideBarContext();
+      return (
+        <>
+          <button id="test-open-item" onClick={() => openMenuItems(["dropdownTest"])}>
+            Open
+          </button>
+          <button id="test-close-item" onClick={() => closeMenuItems(["dropdownTest"])}>
+            Close
+          </button>
+        </>
+      );
+    };
+
+    cy.mount(<PanelSideBarWithTiles children={<Button />} />);
+    cy.get("button[title=Settings]").click();
+    cy.get("li:has(.dropdown-toggle)").should("be.visible").should("not.have.class", "menu-open");
+    cy.get("#test-open-item").click();
+    cy.get("li:has(.dropdown-toggle)").should("be.visible").should("have.class", "menu-open");
+    cy.get("#test-close-item").click();
+    cy.get("li:has(.dropdown-toggle)").should("be.visible").should("not.have.class", "menu-open");
   });
 });
