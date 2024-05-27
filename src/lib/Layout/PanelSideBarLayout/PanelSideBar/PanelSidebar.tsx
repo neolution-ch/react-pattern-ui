@@ -6,17 +6,8 @@ import { PanelItem } from "./Definitions/PanelItem";
 import { PanelSideBarItem } from "./PanelSideBarItem";
 
 export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
-  const {
-    activePanelId,
-    menuItems,
-    setActivePanel,
-    toggledMenuItemIds,
-    toggleMenuItem,
-    renderFirstItemsLevelAsTiles,
-    renderTilesAsLinks,
-    LinkRenderer,
-    theme,
-  } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
+  const { activePanelId, menuItems, setActivePanel, renderFirstItemsLevelAsTiles, renderTilesAsLinks, LinkRenderer, theme } =
+    usePanelSideBarContext<TPanelItemId, TPanelItem>();
 
   const className = classNames(
     "panel-layout",
@@ -25,12 +16,13 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
     { "sidenav-blue": theme == "blue" },
   );
 
+  const activePanel: PanelItem<TPanelItemId, TPanelItem> | undefined = menuItems.find((x) => x.id === activePanelId);
+
   if (renderFirstItemsLevelAsTiles) {
     if (menuItems.find((x) => !x.icon)) {
       throw new Error("Outer panel icon is required");
     }
 
-    const activePanel: PanelItem<TPanelItemId, TPanelItem> | undefined = menuItems.find((x) => x.id === activePanelId);
     const ButtonIcon = (props: { item: PanelItem<TPanelItemId, TPanelItem> }) => {
       const {
         item: { disabled, icon, onClick, id, title },
@@ -58,8 +50,9 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
       );
     };
 
-    const panelItemsRenderer = (items: PanelItem<TPanelItemId, TPanelItem>[]) =>
-      items?.map((item, index) =>
+    const PanelItemsRenderer = (props: { items: PanelItem<TPanelItemId, TPanelItem>[] }) => {
+      const { items } = props;
+      return items?.map((item, index) =>
         renderTilesAsLinks ? (
           <LinkRenderer key={index} item={item}>
             <ButtonIcon item={item} />
@@ -68,19 +61,14 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
           <ButtonIcon key={index} item={item} />
         ),
       );
+    };
 
     return (
       <nav id="side-nav" className={className}>
-        <div className="side-nav__tiles">{panelItemsRenderer(menuItems)}</div>
-
+        <div className="side-nav__tiles">{<PanelItemsRenderer items={menuItems} />}</div>
         <div className="side-nav__items">
           {activePanel?.children?.map((item) => (
-            <PanelSideBarItem<TPanelItemId, TPanelItem>
-              key={item.id}
-              children={item}
-              onClick={(menuItemId) => toggleMenuItem(menuItemId)}
-              toggledItemIds={toggledMenuItemIds}
-            />
+            <PanelSideBarItem<TPanelItemId, TPanelItem> key={item.id} children={item} />
           ))}
         </div>
       </nav>
@@ -90,12 +78,7 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
       <nav id="side-nav" className={className}>
         <div className="side-nav__items">
           {menuItems?.map((item) => (
-            <PanelSideBarItem<TPanelItemId, TPanelItem>
-              key={item.id}
-              children={item}
-              onClick={(menuItem) => toggleMenuItem(menuItem)}
-              toggledItemIds={toggledMenuItemIds}
-            />
+            <PanelSideBarItem<TPanelItemId, TPanelItem> key={item.id} children={item} />
           ))}
         </div>
       </nav>

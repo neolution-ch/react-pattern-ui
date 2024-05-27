@@ -1,6 +1,7 @@
 import React, { Context, createContext, useContext, useEffect, useMemo, useState } from "react";
-import { getActivePanel } from "../Utils/getActivePanel";
+import { getActivePanel, getActivePanelParentsIds } from "../Utils/getActivePanel";
 import { PanelSideBarContextProps } from "./PanelSideBarContextProps";
+import { getHiddenPanelIds, getPreExpandedMenuItems } from "../Utils/panelUtils";
 
 export type MenuItemToggleFn<TPanelItemId extends string> = (menuItemId: TPanelItemId) => void;
 
@@ -36,14 +37,15 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
     theme = "blue",
   } = props;
   const menuItems = useMemo(() => defaultMenuItems, [defaultMenuItems]);
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(sidebarOpenByDefault);
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
   const [activePanelId, setActivePanelId] = useState(getActivePanel(menuItems, defaultActivePanelId)?.id);
   const setActivePanel = (panelId: TPanelItemId) => setActivePanelId(panelId);
 
-  const preExpandedMenuItemIds = menuItems.filter((x) => x.expanded).map((x) => x.id);
+  const [hiddenMenuItemIds, setHiddenMenuItemsIds] = useState<TPanelItemId[]>(getHiddenPanelIds(menuItems));
+
+  const preExpandedMenuItemIds = getPreExpandedMenuItems(menuItems);
   const [toggledMenuItemIds, setToggledMenuItemIds] = useState<TPanelItemId[]>(
     activePanelId ? preExpandedMenuItemIds.concat(activePanelId) : preExpandedMenuItemIds,
   );
@@ -63,11 +65,27 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
     const activePanelId = getActivePanel(menuItems, defaultActivePanelId)?.id;
     setActivePanelId(activePanelId);
     if (activePanelId) {
-      setToggledMenuItemIds((prev) => (prev.includes(activePanelId) ? prev : [...prev, activePanelId]));
+      setToggledMenuItemIds((prev) => {
+        const toggledMenuItemIds = [...getActivePanelParentsIds(menuItems, activePanelId), activePanelId].filter((x) => !prev.includes(x));
+        return [...prev, ...toggledMenuItemIds];
+      });
     }
   }, [menuItems]);
 
   const untoggleMenuItems = () => setToggledMenuItemIds([]);
+
+  const openMenuItems = (panelItemIds: TPanelItemId[]) => {
+    setToggledMenuItemIds((prev) => [...prev, ...panelItemIds.filter((x) => !prev.includes(x))]);
+  };
+
+  const closeMenuItems = (panelItemIds: TPanelItemId[], includeActivePanel?: boolean) => {
+    const activePanels = activePanelId ? [...getActivePanelParentsIds(menuItems, activePanelId), activePanelId] : [];
+    setToggledMenuItemIds((prev) =>
+      includeActivePanel
+        ? prev.filter((x) => !panelItemIds.includes(x))
+        : prev.filter((x) => !panelItemIds.filter((y) => !activePanels.includes(y)).includes(x)),
+    );
+  };
 
   return (
     <PanelSideBarContext.Provider
@@ -84,6 +102,10 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
         theme,
         renderFirstItemsLevelAsTiles,
         renderTilesAsLinks,
+        openMenuItems,
+        closeMenuItems,
+        hiddenMenuItemIds,
+        setHiddenMenuItemsIds,
       }}
     >
       {children}
