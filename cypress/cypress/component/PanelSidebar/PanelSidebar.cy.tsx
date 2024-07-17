@@ -44,6 +44,7 @@ const getSidebarItems = (active?: boolean, disabled?: boolean, expanded?: boolea
     title: "Home",
     icon: faBars,
     disabled,
+    display: true,
     children: [
       {
         title: "Home",
@@ -57,6 +58,7 @@ const getSidebarItems = (active?: boolean, disabled?: boolean, expanded?: boolea
     title: "Settings",
     icon: faCogs,
     disabled,
+    display: true,
     children: [
       {
         title: "Settings",
