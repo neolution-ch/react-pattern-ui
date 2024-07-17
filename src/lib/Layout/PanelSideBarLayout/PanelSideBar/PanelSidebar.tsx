@@ -52,15 +52,17 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
 
     const PanelItemsRenderer = (props: { items: PanelItem<TPanelItemId, TPanelItem>[] }) => {
       const { items } = props;
-      return items?.filter((x) => x.display).map((item, index) =>
-        renderTilesAsLinks ? (
-          <LinkRenderer key={index} item={item}>
-            <ButtonIcon item={item} />
-          </LinkRenderer>
-        ) : (
-          <ButtonIcon key={index} item={item} />
-        ),
-      );
+      return items
+        ?.filter((x) => x.display)
+        .map((item, index) =>
+          renderTilesAsLinks ? (
+            <LinkRenderer key={index} item={item}>
+              <ButtonIcon item={item} />
+            </LinkRenderer>
+          ) : (
+            <ButtonIcon key={index} item={item} />
+          ),
+        );
     };
 
     return (
