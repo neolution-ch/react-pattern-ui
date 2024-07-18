@@ -6,8 +6,16 @@ import { PanelItem } from "./Definitions/PanelItem";
 import { PanelSideBarItem } from "./PanelSideBarItem";
 
 export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
-  const { activePanelId, menuItems, setActivePanel, renderFirstItemsLevelAsTiles, renderTilesAsLinks, LinkRenderer, theme } =
-    usePanelSideBarContext<TPanelItemId, TPanelItem>();
+  const {
+    activePanelId,
+    menuItems,
+    setActivePanel,
+    renderFirstItemsLevelAsTiles,
+    renderTilesAsLinks,
+    LinkRenderer,
+    theme,
+    hiddenMenuItemIds,
+  } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
 
   const className = classNames(
     "panel-layout",
@@ -52,15 +60,17 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
 
     const PanelItemsRenderer = (props: { items: PanelItem<TPanelItemId, TPanelItem>[] }) => {
       const { items } = props;
-      return items?.map((item, index) =>
-        renderTilesAsLinks ? (
-          <LinkRenderer key={index} item={item}>
-            <ButtonIcon item={item} />
-          </LinkRenderer>
-        ) : (
-          <ButtonIcon key={index} item={item} />
-        ),
-      );
+      return items
+        ?.filter((x) => !hiddenMenuItemIds.includes(x.id))
+        .map((item, index) =>
+          renderTilesAsLinks ? (
+            <LinkRenderer key={index} item={item}>
+              <ButtonIcon item={item} />
+            </LinkRenderer>
+          ) : (
+            <ButtonIcon key={index} item={item} />
+          ),
+        );
     };
 
     return (
