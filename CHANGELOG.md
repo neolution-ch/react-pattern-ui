@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Filter panel sidebars in order to hide the one with display set to false
+### Fixed
+
+- Fixed hide feature for tiles menu items
 
 ## [4.1.0] - 2024-05-27
 
