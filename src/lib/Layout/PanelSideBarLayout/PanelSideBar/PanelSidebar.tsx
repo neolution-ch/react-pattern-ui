@@ -6,7 +6,7 @@ import { PanelItem } from "./Definitions/PanelItem";
 import { PanelSideBarItem } from "./PanelSideBarItem";
 
 export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
-  const { activePanelId, menuItems, setActivePanel, renderFirstItemsLevelAsTiles, renderTilesAsLinks, LinkRenderer, theme } =
+  const { activePanelId, menuItems, setActivePanel, renderFirstItemsLevelAsTiles, renderTilesAsLinks, LinkRenderer, theme, hiddenMenuItemIds } =
     usePanelSideBarContext<TPanelItemId, TPanelItem>();
 
   const className = classNames(
@@ -15,6 +15,7 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
     { "sidenav-light": theme == "light" },
     { "sidenav-blue": theme == "blue" },
   );
+
 
   const activePanel: PanelItem<TPanelItemId, TPanelItem> | undefined = menuItems.find((x) => x.id === activePanelId);
 
@@ -52,8 +53,7 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
 
     const PanelItemsRenderer = (props: { items: PanelItem<TPanelItemId, TPanelItem>[] }) => {
       const { items } = props;
-      return items
-        ?.filter((x) => x.display)
+      return items?.filter(x => !hiddenMenuItemIds.includes(x.id))
         .map((item, index) =>
           renderTilesAsLinks ? (
             <LinkRenderer key={index} item={item}>
