@@ -1,8 +1,8 @@
 import React, { PropsWithChildren, ReactNode } from "react";
 import { PanelSideBarProvider, PanelSideBarLayout, PanelItem, PanelLinkRendererProps, usePanelSideBarContext } from "react-pattern-ui";
-import { faBars, faCogs } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faCogs, faInfo } from "@fortawesome/free-solid-svg-icons";
 
-type AppRoutes = "home" | "settings" | "dropdownTest" | "dropdown-test1" | "dropdown-test2";
+type AppRoutes = "home" | "settings" | "dropdownTest" | "dropdown-test1" | "dropdown-test2" | "info";
 type TSideBarMenuItem = PanelItem<AppRoutes>;
 
 // Configuration object for avoiding duplicated code
@@ -44,7 +44,6 @@ const getSidebarItems = (active?: boolean, disabled?: boolean, expanded?: boolea
     title: "Home",
     icon: faBars,
     disabled,
-    display: true,
     children: [
       {
         title: "Home",
@@ -58,7 +57,6 @@ const getSidebarItems = (active?: boolean, disabled?: boolean, expanded?: boolea
     title: "Settings",
     icon: faCogs,
     disabled,
-    display: true,
     children: [
       {
         title: "Settings",
@@ -79,6 +77,19 @@ const getSidebarItems = (active?: boolean, disabled?: boolean, expanded?: boolea
             active,
           },
         ],
+      },
+    ],
+  },
+  {
+    id: "info",
+    title: "Info",
+    icon: faInfo,
+    display: false,
+    children: [
+      {
+        title: "Info",
+        id: "info",
+        active,
       },
     ],
   },
@@ -247,5 +258,13 @@ describe("PanelSidebar.cy.tsx", () => {
     cy.get("li:has(.dropdown-toggle)").should("be.visible").should("have.class", "menu-open");
     cy.get("#test-close-item").click();
     cy.get("li:has(.dropdown-toggle)").should("be.visible").should("not.have.class", "menu-open");
+  });
+
+  it("check hidden panel", () => {
+    cy.mount(<PanelSideBarWithTiles />);
+
+    cy.get("button[title=Settings]").should("be.visible");
+    cy.get("button[title=Home]").should("be.visible");
+    cy.get("button[title=Info]").should("not.exist");
   });
 });
