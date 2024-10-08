@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren, ReactNode, useEffect, useRef } from "react";
 
 interface PanelSideBarLayoutContentProps extends PropsWithChildren {
   footer?: ReactNode;
@@ -7,8 +7,14 @@ interface PanelSideBarLayoutContentProps extends PropsWithChildren {
 export const PanelSideBarLayoutContent = (props: PanelSideBarLayoutContentProps) => {
   const { children, footer } = props;
 
+  const mainSectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    mainSectionRef.current?.scrollTo(0, 0);
+  }, []);
+
   return (
-    <section id="main-content-body" className="content">
+    <section ref={mainSectionRef} id="main-content-body" className="content">
       <main className="container-fluid">{children}</main>
       <footer hidden={!footer} className="py-4 bg-light mt-auto">
         <div className="mx-4">
