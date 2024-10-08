@@ -39,11 +39,6 @@ export interface PanelSideBarLayoutProps extends PropsWithChildren {
    */
   useResponsiveLayout?: boolean;
 
-  /**
-   * Enable scrolling to top each time the active panel change
-   */
-  scroolToTopOnActivePanelChange?: boolean;
-
    /**
    * the body ref
    */
