@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { PropsWithChildren, ReactNode } from "react";
+import { MutableRefObject, PropsWithChildren, ReactNode } from "react";
 import "../../../../styles/Layout/index.scss";
 import { PanelSideBar } from "./PanelSideBar/PanelSidebar";
 import { PanelSideBarLayoutContent } from "./PanelSideBarLayoutContent";
@@ -43,6 +43,11 @@ export interface PanelSideBarLayoutProps extends PropsWithChildren {
    * Enable scrolling to top each time the active panel change
    */
   scroolToTopOnActivePanelChange?: boolean;
+
+   /**
+   * the body ref
+   */
+  bodyRef?: MutableRefObject<HTMLElement | null>;
 }
 
 export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarLayoutProps) => {
