@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { PropsWithChildren, ReactNode } from "react";
+import { MutableRefObject, PropsWithChildren, ReactNode } from "react";
 import "../../../../styles/Layout/index.scss";
 import { PanelSideBar } from "./PanelSideBar/PanelSidebar";
 import { PanelSideBarLayoutContent } from "./PanelSideBarLayoutContent";
@@ -38,6 +38,11 @@ export interface PanelSideBarLayoutProps extends PropsWithChildren {
    * If use the responsive layout when the screen is sm in order to remove the sidebar overlay.
    */
   useResponsiveLayout?: boolean;
+
+  /**
+   * the main content body ref
+   */
+  mainContentBodyRef?: MutableRefObject<HTMLElement | null>;
 }
 
 export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarLayoutProps) => {
@@ -50,6 +55,7 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
     collapsible = true,
     useToggleButton = false,
     useResponsiveLayout = false,
+    mainContentBodyRef,
   } = props;
 
   const { isSidebarOpen, toggleSidebar, renderFirstItemsLevelAsTiles } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
@@ -76,7 +82,9 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
       >
         <PanelSideBar<TPanelItemId, TPanelItem> />
         {collapsible && !useToggleButton && <PanelSideBarToggle onClick={toggleSidebar} toggled={!isSidebarOpen} />}
-        <PanelSideBarLayoutContent footer={footer}>{children}</PanelSideBarLayoutContent>
+        <PanelSideBarLayoutContent footer={footer} mainContentBodyRef={mainContentBodyRef}>
+          {children}
+        </PanelSideBarLayoutContent>
       </section>
     </>
   );

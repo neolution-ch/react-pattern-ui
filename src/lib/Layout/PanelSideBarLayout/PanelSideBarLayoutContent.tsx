@@ -1,14 +1,15 @@
-import { PropsWithChildren, ReactNode } from "react";
+import { MutableRefObject, PropsWithChildren, ReactNode } from "react";
 
 interface PanelSideBarLayoutContentProps extends PropsWithChildren {
   footer?: ReactNode;
+  mainContentBodyRef?: MutableRefObject<HTMLElement | null>;
 }
 
 export const PanelSideBarLayoutContent = (props: PanelSideBarLayoutContentProps) => {
-  const { children, footer } = props;
+  const { children, footer, mainContentBodyRef } = props;
 
   return (
-    <section id="main-content-body" className="content">
+    <section ref={mainContentBodyRef} id="main-content-body" className="content">
       <main className="container-fluid">{children}</main>
       <footer hidden={!footer} className="py-4 bg-light mt-auto">
         <div className="mx-4">
