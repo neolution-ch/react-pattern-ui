@@ -10,6 +10,7 @@ export const PanelSideBarLayoutContent = (props: PanelSideBarLayoutContentProps)
   const mainSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    console.log("trying scrolling main content body");
     mainSectionRef.current?.scrollTo(0, 0);
   }, []);
 

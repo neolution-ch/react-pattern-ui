@@ -21,9 +21,9 @@ const plugins = [
   }),
   nodeResolve(),
   terser({
-    output: { comments: false },
+    output: { comments: true },
     compress: {
-      drop_console: true,
+      drop_console: false,
     },
   }),
 ];

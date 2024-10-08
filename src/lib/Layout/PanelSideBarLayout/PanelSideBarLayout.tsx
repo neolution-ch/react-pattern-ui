@@ -67,6 +67,7 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
 
   useEffect(() => {
     if (scroolToTopOnPageChange) {
+      console.log("trying scrolling main section");
       mainSectionRef.current?.scrollTo(0, 0);
     }
   }, [scroolToTopOnPageChange]);
