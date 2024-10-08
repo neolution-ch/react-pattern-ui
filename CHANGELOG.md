@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `scroolToTopOnPageChange` flag feature which, if enabled, scrool the main section to top each time page is changed
+
 ## [4.1.1] - 2024-07-18
 
 ### Fixed

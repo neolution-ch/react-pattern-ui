@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren, ReactNode, useEffect, useRef } from "react";
 import "../../../../styles/Layout/index.scss";
 import { PanelSideBar } from "./PanelSideBar/PanelSidebar";
 import { PanelSideBarLayoutContent } from "./PanelSideBarLayoutContent";
@@ -38,6 +38,11 @@ export interface PanelSideBarLayoutProps extends PropsWithChildren {
    * If use the responsive layout when the screen is sm in order to remove the sidebar overlay.
    */
   useResponsiveLayout?: boolean;
+
+  /**
+   * Enable scrolling to top each time you change page/remount the component
+   */
+  scroolToTopOnPageChange?: boolean;
 }
 
 export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarLayoutProps) => {
@@ -50,13 +55,22 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
     collapsible = true,
     useToggleButton = false,
     useResponsiveLayout = false,
+    scroolToTopOnPageChange,
   } = props;
 
+  const mainSectionRef = useRef<HTMLElement>(null);
   const { isSidebarOpen, toggleSidebar, renderFirstItemsLevelAsTiles } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
 
   if (useResponsiveLayout && !useToggleButton) {
     throw new Error("Responsive layout can be used only with toggle button in the navbar!");
   }
+
+  useEffect(() => {
+    if (scroolToTopOnPageChange) {
+      mainSectionRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [scroolToTopOnPageChange]);
+
   return (
     <>
       <PanelSidebarNavbar
@@ -66,6 +80,7 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
         navbarLeftItems={navbarLeftItems}
       />
       <section
+        ref={mainSectionRef}
         id="main-section"
         className={classNames(
           { toggled: !isSidebarOpen },
