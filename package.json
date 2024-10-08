@@ -1,6 +1,6 @@
 {
   "name": "@neolution-ch/react-pattern-ui",
-  "version": "4.1.1",
+  "version": "4.2.0-rc.0",
   "description": "Some basic functions and components which are needed in most of projects.",
   "repository": {
     "type": "git",
