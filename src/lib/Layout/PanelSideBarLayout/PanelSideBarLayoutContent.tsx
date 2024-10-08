@@ -1,18 +1,22 @@
 import { PropsWithChildren, ReactNode, useEffect, useRef } from "react";
+import { usePanelSideBarContext } from "./PanelSideBar/Context/PanelSideBarContext";
 
 interface PanelSideBarLayoutContentProps extends PropsWithChildren {
   footer?: ReactNode;
+  scroolToTopOnActivePanelChange?: boolean;
 }
 
 export const PanelSideBarLayoutContent = (props: PanelSideBarLayoutContentProps) => {
-  const { children, footer } = props;
+  const { children, footer, scroolToTopOnActivePanelChange = false } = props;
 
+  const { activePanelId } = usePanelSideBarContext();
   const mainSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    console.log("trying scrolling main content body");
-    mainSectionRef.current?.scrollTo(0, 0);
-  }, []);
+    if (scroolToTopOnActivePanelChange) {
+      mainSectionRef.current?.scrollTo(0, 0);
+    }
+  }, [activePanelId]);
 
   return (
     <section ref={mainSectionRef} id="main-content-body" className="content">

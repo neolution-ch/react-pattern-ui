@@ -77,8 +77,8 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
       <nav id="side-nav" className={className}>
         <div className="side-nav__tiles">{<PanelItemsRenderer items={menuItems} />}</div>
         <div className="side-nav__items">
-          {activePanel?.children?.map((item) => (
-            <PanelSideBarItem<TPanelItemId, TPanelItem> key={item.id} children={item} />
+          {activePanel?.children?.map((item, index) => (
+            <PanelSideBarItem<TPanelItemId, TPanelItem> key={index} children={item} />
           ))}
         </div>
       </nav>
@@ -87,8 +87,8 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
     return (
       <nav id="side-nav" className={className}>
         <div className="side-nav__items">
-          {menuItems?.map((item) => (
-            <PanelSideBarItem<TPanelItemId, TPanelItem> key={item.id} children={item} />
+          {menuItems?.map((item, index) => (
+            <PanelSideBarItem<TPanelItemId, TPanelItem> key={index} children={item} />
           ))}
         </div>
       </nav>

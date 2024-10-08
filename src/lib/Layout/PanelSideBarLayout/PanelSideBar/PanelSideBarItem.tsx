@@ -83,9 +83,9 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
       </NavItem>
       {hasitem && (
         <Collapse isOpen={isOpen} navbar className={classNames("item-menu", { "mb-1": isOpen })}>
-          {item.children?.map((childItem) => (
+          {item.children?.map((childItem, index) => (
             <PanelSideBarItem
-              key={childItem.id}
+              key={index}
               children={childItem}
               depth={depth + 1}
               active={item.active}
