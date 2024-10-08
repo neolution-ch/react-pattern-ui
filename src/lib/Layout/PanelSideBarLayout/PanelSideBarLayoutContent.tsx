@@ -13,8 +13,10 @@ export const PanelSideBarLayoutContent = (props: PanelSideBarLayoutContentProps)
   const mainSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    console.log(mainSectionRef.current);
+    console.log("trying scrolling")
     if (scroolToTopOnActivePanelChange) {
-      mainSectionRef.current?.scrollTo(0, 0);
+      setTimeout(() => mainSectionRef.current?.scrollTo(0, 0), 100);
     }
   }, [activePanelId]);
 
