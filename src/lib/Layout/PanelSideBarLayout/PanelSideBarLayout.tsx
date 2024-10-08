@@ -61,6 +61,7 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
     useToggleButton = false,
     useResponsiveLayout = false,
     scroolToTopOnActivePanelChange,
+    bodyRef
   } = props;
 
   const { isSidebarOpen, toggleSidebar, renderFirstItemsLevelAsTiles } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
@@ -88,7 +89,7 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
       >
         <PanelSideBar<TPanelItemId, TPanelItem> />
         {collapsible && !useToggleButton && <PanelSideBarToggle onClick={toggleSidebar} toggled={!isSidebarOpen} />}
-        <PanelSideBarLayoutContent footer={footer} scroolToTopOnActivePanelChange={scroolToTopOnActivePanelChange}>{children}</PanelSideBarLayoutContent>
+        <PanelSideBarLayoutContent footer={footer} bodyRef={bodyRef} scroolToTopOnActivePanelChange={scroolToTopOnActivePanelChange}>{children}</PanelSideBarLayoutContent>
       </section>
     </>
   );
