@@ -39,10 +39,10 @@ export interface PanelSideBarLayoutProps extends PropsWithChildren {
    */
   useResponsiveLayout?: boolean;
 
-   /**
-   * the body ref
+  /**
+   * the main content body ref
    */
-  bodyRef?: MutableRefObject<HTMLElement | null>;
+  mainContentBodyRef?: MutableRefObject<HTMLElement | null>;
 }
 
 export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarLayoutProps) => {
@@ -55,7 +55,7 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
     collapsible = true,
     useToggleButton = false,
     useResponsiveLayout = false,
-    bodyRef
+    mainContentBodyRef,
   } = props;
 
   const { isSidebarOpen, toggleSidebar, renderFirstItemsLevelAsTiles } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
@@ -83,7 +83,9 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
       >
         <PanelSideBar<TPanelItemId, TPanelItem> />
         {collapsible && !useToggleButton && <PanelSideBarToggle onClick={toggleSidebar} toggled={!isSidebarOpen} />}
-        <PanelSideBarLayoutContent footer={footer} bodyRef={bodyRef}>{children}</PanelSideBarLayoutContent>
+        <PanelSideBarLayoutContent footer={footer} mainContentBodyRef={mainContentBodyRef}>
+          {children}
+        </PanelSideBarLayoutContent>
       </section>
     </>
   );
