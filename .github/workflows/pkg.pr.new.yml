@@ -21,7 +21,9 @@ jobs:
 
       - run: yarn --frozen-lockfile
 
-      # append the git commit to the package.json version
+      # append the git commit to the package.json version.
+      # We do this because some cache mechanisms (like nextjs) don't work well with the same version and ignore the changes
+      # until you manually delete the cache
       - run: jq '.version = .version + "-" + env.GITHUB_SHA' package.json > package.json.tmp && mv package.json.tmp package.json
 
       - run: npx pkg-pr-new publish
