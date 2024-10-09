@@ -24,5 +24,4 @@ jobs:
       # append the git commit to the package.json version
       - run: jq '.version = .version + "-" + env.GITHUB_SHA' package.json > package.json.tmp && mv package.json.tmp package.json
 
-      - run: cat package.json
-      # - run: npx pkg-pr-new publish
+      - run: npx pkg-pr-new publish
