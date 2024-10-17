@@ -1,4 +1,6 @@
+import classNames from "classnames";
 import { MutableRefObject, PropsWithChildren, ReactNode } from "react";
+import { usePanelSideBarContext } from "./PanelSideBar/Context/PanelSideBarContext";
 
 interface PanelSideBarLayoutContentProps extends PropsWithChildren {
   footer?: ReactNode;
@@ -7,9 +9,10 @@ interface PanelSideBarLayoutContentProps extends PropsWithChildren {
 
 export const PanelSideBarLayoutContent = (props: PanelSideBarLayoutContentProps) => {
   const { children, footer, mainContentBodyRef } = props;
+  const { activePanelShowIconsOnCollapse } = usePanelSideBarContext();
 
   return (
-    <section ref={mainContentBodyRef} id="main-content-body" className="content">
+    <section ref={mainContentBodyRef} id="main-content-body" className={classNames("content", { "show-icons": activePanelShowIconsOnCollapse })}>
       <main className="container-fluid">{children}</main>
       <footer hidden={!footer} className="py-4 bg-light mt-auto">
         <div className="mx-4">

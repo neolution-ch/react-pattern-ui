@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added the pkg.pr.new workflow.
+- icon visibility on sidebar collapsing.
 
 ## [4.2.0] - 2024-10-08
 
