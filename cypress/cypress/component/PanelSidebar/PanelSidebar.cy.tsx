@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, ReactNode } from "react";
 import { PanelSideBarProvider, PanelSideBarLayout, PanelItem, PanelLinkRendererProps, usePanelSideBarContext } from "react-pattern-ui";
-import { faBars, faCogs, faInfo } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faCogs, faInfo, faHome, faPerson } from "@fortawesome/free-solid-svg-icons";
 
 type AppRoutes = "home" | "settings" | "dropdownTest" | "dropdown-test1" | "dropdown-test2" | "info";
 type TSideBarMenuItem = PanelItem<AppRoutes>;
@@ -27,7 +27,7 @@ const getPanelSidebarInternal = (items: TSideBarMenuItem[], config?: PanelSideBa
             }
           }}
         >
-          <>{elem.item.title}</>
+          <>{elem.children}</>
         </div>
       )}
     >
@@ -38,17 +38,24 @@ const getPanelSidebarInternal = (items: TSideBarMenuItem[], config?: PanelSideBa
   );
 };
 
-const getSidebarItems = (active?: boolean, disabled?: boolean, expanded?: boolean): TSideBarMenuItem[] => [
+const getSidebarItems = (active?: boolean, disabled?: boolean, expanded?: boolean, showIconsOnCollapse?: boolean): TSideBarMenuItem[] => [
   {
     id: "home",
     title: "Home",
     icon: faBars,
     disabled,
+    showIconsOnCollapse: showIconsOnCollapse,
     children: [
       {
         title: "Home",
         id: "home",
         active,
+        icon: faHome,
+      },
+      {
+        title: "Profile",
+        id: "profile",
+        icon: faPerson,
       },
     ],
   },
@@ -99,11 +106,12 @@ interface PanelSideBarProps extends PropsWithChildren {
   active?: boolean;
   disabled?: boolean;
   expanded?: boolean;
+  showIconsOnCollapse?: boolean;
 }
 
 const PanelSideBarWithTiles = (props: PanelSideBarProps) => {
-  const { active, disabled, expanded, children } = props;
-  return getPanelSidebarInternal(getSidebarItems(active, disabled, expanded), { children });
+  const { active, disabled, expanded, showIconsOnCollapse, children } = props;
+  return getPanelSidebarInternal(getSidebarItems(active, disabled, expanded, showIconsOnCollapse), { children });
 };
 
 const PanelSideBarNoTiles = (props: PanelSideBarProps) => {
@@ -266,5 +274,16 @@ describe("PanelSidebar.cy.tsx", () => {
     cy.get("button[title=Settings]").should("be.visible");
     cy.get("button[title=Home]").should("be.visible");
     cy.get("button[title=Info]").should("not.exist");
+  });
+
+  it("toggle sidebar with visible icons", () => {
+    cy.mount(<PanelSideBarWithTiles showIconsOnCollapse />);
+    cy.get('[data-icon="angle-left"]').should("be.visible");
+    cy.get("#side-nav-toggle").click();
+    cy.get('[data-icon="angle-right"]').should("be.visible");
+    cy.get(".toggled").should("exist");
+    cy.get(".side-nav__items").should("be.visible");
+    cy.get('#home').should("be.visible");
+    cy.get('#profile').should("be.visible");
   });
 });
