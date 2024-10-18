@@ -9,10 +9,10 @@ interface PanelSideBarLayoutContentProps extends PropsWithChildren {
 
 export const PanelSideBarLayoutContent = (props: PanelSideBarLayoutContentProps) => {
   const { children, footer, mainContentBodyRef } = props;
-  const { activePanelShowIconsOnCollapse } = usePanelSideBarContext();
+  const { isIconShownOnSidebarCollapse } = usePanelSideBarContext();
 
   return (
-    <section ref={mainContentBodyRef} id="main-content-body" className={classNames("content", { "show-icons": activePanelShowIconsOnCollapse })}>
+    <section ref={mainContentBodyRef} id="main-content-body" className={classNames("content", { "show-icons": isIconShownOnSidebarCollapse })}>
       <main className="container-fluid">{children}</main>
       <footer hidden={!footer} className="py-4 bg-light mt-auto">
         <div className="mx-4">

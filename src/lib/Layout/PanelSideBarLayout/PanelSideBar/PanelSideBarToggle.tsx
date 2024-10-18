@@ -10,7 +10,7 @@ interface PanelSideBarToggleProps extends ButtonProps {
 
 export const PanelSideBarToggle = (props: PanelSideBarToggleProps) => {
   const { toggled, ...buttonProps } = props;
-  const { theme, activePanelShowIconsOnCollapse } = usePanelSideBarContext();
+  const { theme, isIconShownOnSidebarCollapse } = usePanelSideBarContext();
 
   return (
     <Button
@@ -19,7 +19,7 @@ export const PanelSideBarToggle = (props: PanelSideBarToggleProps) => {
         { "side-nav-toggle-dark": theme == "dark" },
         { "side-nav-toggle-light": theme == "light" },
         { "side-nav-toggle-blue": theme == "blue" },
-        { "show-icons": activePanelShowIconsOnCollapse },
+        { "show-icons": isIconShownOnSidebarCollapse },
       )}
       id="side-nav-toggle"
       color="primary"

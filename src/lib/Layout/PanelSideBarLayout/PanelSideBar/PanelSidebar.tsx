@@ -15,7 +15,7 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
     LinkRenderer,
     theme,
     hiddenMenuItemIds,
-    activePanelShowIconsOnCollapse,
+    isIconShownOnSidebarCollapse,
   } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
 
   const className = classNames(
@@ -23,7 +23,7 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
     { "sidenav-dark": theme == "dark" },
     { "sidenav-light": theme == "light" },
     { "sidenav-blue": theme == "blue" },
-    { "show-icons": activePanelShowIconsOnCollapse }
+    { "show-icons": isIconShownOnSidebarCollapse }
   );
 
   const activePanel: PanelItem<TPanelItemId, TPanelItem> | undefined = menuItems.find((x) => x.id === activePanelId);

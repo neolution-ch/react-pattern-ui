@@ -87,7 +87,7 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
     );
   };
 
-  const activePanelShowIconsOnCollapse = menuItems.find((x) => x.id === activePanelId)?.showIconsOnCollapse ?? false;
+  const isIconShownOnSidebarCollapse = menuItems.find((x) => x.id === activePanelId)?.onSidebarCollapseOptions?.showIcon || false;
 
   return (
     <PanelSideBarContext.Provider
@@ -108,7 +108,7 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
         closeMenuItems,
         hiddenMenuItemIds,
         setHiddenMenuItemsIds,
-        activePanelShowIconsOnCollapse,
+        isIconShownOnSidebarCollapse,
       }}
     >
       {children}

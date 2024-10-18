@@ -91,5 +91,5 @@ export interface PanelSideBarContextProps<TPanelItemId extends string, TPanelIte
   /**
    * Whether the sidebar maintains the active panel item icons visible on collapsing.
    */
-  activePanelShowIconsOnCollapse?: boolean;
+  isIconShownOnSidebarCollapse?: boolean;
 }

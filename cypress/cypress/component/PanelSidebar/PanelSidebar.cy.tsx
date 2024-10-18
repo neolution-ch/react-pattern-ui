@@ -1,5 +1,5 @@
-import React, { PropsWithChildren, ReactNode } from "react";
-import { PanelSideBarProvider, PanelSideBarLayout, PanelItem, PanelLinkRendererProps, usePanelSideBarContext } from "react-pattern-ui";
+import React, { PropsWithChildren } from "react";
+import { PanelSideBarProvider, PanelSideBarLayout, PanelItem, PanelLinkRendererProps, usePanelSideBarContext, PanelItemOnSideBarCollapseOptions } from "react-pattern-ui";
 import { faBars, faCogs, faInfo, faHome, faPerson } from "@fortawesome/free-solid-svg-icons";
 
 type AppRoutes = "home" | "settings" | "dropdownTest" | "dropdown-test1" | "dropdown-test2" | "info";
@@ -38,13 +38,13 @@ const getPanelSidebarInternal = (items: TSideBarMenuItem[], config?: PanelSideBa
   );
 };
 
-const getSidebarItems = (active?: boolean, disabled?: boolean, expanded?: boolean, showIconsOnCollapse?: boolean): TSideBarMenuItem[] => [
+const getSidebarItems = (active?: boolean, disabled?: boolean, expanded?: boolean, onSidebarCollapseOptions?: PanelItemOnSideBarCollapseOptions): TSideBarMenuItem[] => [
   {
     id: "home",
     title: "Home",
     icon: faBars,
     disabled,
-    showIconsOnCollapse: showIconsOnCollapse,
+    onSidebarCollapseOptions: onSidebarCollapseOptions ? { ...onSidebarCollapseOptions } : undefined,
     children: [
       {
         title: "Home",
@@ -55,7 +55,9 @@ const getSidebarItems = (active?: boolean, disabled?: boolean, expanded?: boolea
       {
         title: "Profile",
         id: "profile",
-        icon: faPerson,
+        onSidebarCollapseOptions: {
+          fallbackIcon: faPerson,
+        }
       },
     ],
   },
@@ -106,12 +108,12 @@ interface PanelSideBarProps extends PropsWithChildren {
   active?: boolean;
   disabled?: boolean;
   expanded?: boolean;
-  showIconsOnCollapse?: boolean;
+  onSidebarCollapseOptions?: PanelItemOnSideBarCollapseOptions;
 }
 
 const PanelSideBarWithTiles = (props: PanelSideBarProps) => {
-  const { active, disabled, expanded, showIconsOnCollapse, children } = props;
-  return getPanelSidebarInternal(getSidebarItems(active, disabled, expanded, showIconsOnCollapse), { children });
+  const { active, disabled, expanded, onSidebarCollapseOptions, children } = props;
+  return getPanelSidebarInternal(getSidebarItems(active, disabled, expanded, onSidebarCollapseOptions), { children });
 };
 
 const PanelSideBarNoTiles = (props: PanelSideBarProps) => {
@@ -277,13 +279,13 @@ describe("PanelSidebar.cy.tsx", () => {
   });
 
   it("toggle sidebar with visible icons", () => {
-    cy.mount(<PanelSideBarWithTiles showIconsOnCollapse />);
+    cy.mount(<PanelSideBarWithTiles onSidebarCollapseOptions={{ showIcon: true }} />);
     cy.get('[data-icon="angle-left"]').should("be.visible");
     cy.get("#side-nav-toggle").click();
     cy.get('[data-icon="angle-right"]').should("be.visible");
     cy.get(".toggled").should("exist");
     cy.get(".side-nav__items").should("be.visible");
     cy.get('#home').should("be.visible");
-    cy.get('#profile').should("be.visible");
+    cy.get("#profile > .nav-link > svg").should("be.visible");
   });
 });
