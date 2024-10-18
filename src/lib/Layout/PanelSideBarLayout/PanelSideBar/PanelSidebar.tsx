@@ -23,7 +23,7 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
     { "sidenav-dark": theme == "dark" },
     { "sidenav-light": theme == "light" },
     { "sidenav-blue": theme == "blue" },
-    { "show-icons": isIconShownOnSidebarCollapse }
+    { "show-icons": isIconShownOnSidebarCollapse },
   );
 
   const activePanel: PanelItem<TPanelItemId, TPanelItem> | undefined = menuItems.find((x) => x.id === activePanelId);

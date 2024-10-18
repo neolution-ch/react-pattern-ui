@@ -18,7 +18,7 @@ const PanelSidebarItemNavLink = <TPanelItemId extends string, TPanelItem>({
   collapsedWithIcon,
   className,
 }: {
-  item:  PanelItem<TPanelItemId, TPanelItem>;
+  item: PanelItem<TPanelItemId, TPanelItem>;
   collapsedWithIcon?: boolean;
   className?: string;
 }) => {
@@ -37,7 +37,9 @@ const PanelSidebarItemNavLink = <TPanelItemId extends string, TPanelItem>({
 // eslint-disable-next-line complexity
 const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarItemProps<TPanelItemId, TPanelItem>) => {
   const { depth = 0, children: item, isParentHidden = false } = props;
-  const { LinkRenderer, toggledMenuItemIds, toggleMenuItem, hiddenMenuItemIds, isIconShownOnSidebarCollapse, isSidebarOpen } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
+  const { LinkRenderer, toggledMenuItemIds, toggleMenuItem, hiddenMenuItemIds, isIconShownOnSidebarCollapse, isSidebarOpen } =
+    usePanelSideBarContext<TPanelItemId, TPanelItem>();
+
   const hasItems = !!item.children?.length;
   const isActive = (hasItems && item.children && hasActiveChildren(item.children)) || item.active;
   const isOpen = toggledMenuItemIds?.includes(item.id);
@@ -67,13 +69,21 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
             <div className={classNames("d-flex flex-row", { "justify-content-between": item.collapseIconOnly })}>
               {item.collapseIconOnly && (
                 <LinkRenderer item={item}>
-                  <PanelSidebarItemNavLink<TPanelItemId, TPanelItem> className="nav-link" item={item} collapsedWithIcon={collapsedWithIcon} />
+                  <PanelSidebarItemNavLink<TPanelItemId, TPanelItem>
+                    className="nav-link"
+                    item={item}
+                    collapsedWithIcon={collapsedWithIcon}
+                  />
                 </LinkRenderer>
               )}
 
               <a
                 role="button"
-                className={classNames("nav-link", { "w-100": !item.collapseIconOnly }, { "dropdown-toggle": hasItems && !collapsedWithIcon })}
+                className={classNames(
+                  "nav-link",
+                  { "w-100": !item.collapseIconOnly },
+                  { "dropdown-toggle": hasItems && !collapsedWithIcon },
+                )}
                 onClick={() => {
                   if (item.collapseIconOnly) {
                     toggleMenuItem(item.id);
@@ -88,7 +98,7 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
           ) : (
             <>
               <LinkRenderer item={item}>
-              <PanelSidebarItemNavLink<TPanelItemId, TPanelItem> className="nav-link" item={item} collapsedWithIcon={collapsedWithIcon} />
+                <PanelSidebarItemNavLink<TPanelItemId, TPanelItem> className="nav-link" item={item} collapsedWithIcon={collapsedWithIcon} />
               </LinkRenderer>
             </>
           )}

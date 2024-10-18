@@ -12,7 +12,11 @@ export const PanelSideBarLayoutContent = (props: PanelSideBarLayoutContentProps)
   const { isIconShownOnSidebarCollapse } = usePanelSideBarContext();
 
   return (
-    <section ref={mainContentBodyRef} id="main-content-body" className={classNames("content", { "show-icons": isIconShownOnSidebarCollapse })}>
+    <section
+      ref={mainContentBodyRef}
+      id="main-content-body"
+      className={classNames("content", { "show-icons": isIconShownOnSidebarCollapse })}
+    >
       <main className="container-fluid">{children}</main>
       <footer hidden={!footer} className="py-4 bg-light mt-auto">
         <div className="mx-4">

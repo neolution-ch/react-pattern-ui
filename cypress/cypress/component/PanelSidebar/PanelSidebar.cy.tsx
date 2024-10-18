@@ -1,5 +1,12 @@
 import React, { PropsWithChildren } from "react";
-import { PanelSideBarProvider, PanelSideBarLayout, PanelItem, PanelLinkRendererProps, usePanelSideBarContext, PanelItemOnSideBarCollapseOptions } from "react-pattern-ui";
+import {
+  PanelSideBarProvider,
+  PanelSideBarLayout,
+  PanelItem,
+  PanelLinkRendererProps,
+  usePanelSideBarContext,
+  PanelItemOnSideBarCollapseOptions,
+} from "react-pattern-ui";
 import { faBars, faCogs, faInfo, faHome, faPerson } from "@fortawesome/free-solid-svg-icons";
 
 type AppRoutes = "home" | "settings" | "dropdownTest" | "dropdown-test1" | "dropdown-test2" | "info";
@@ -38,7 +45,12 @@ const getPanelSidebarInternal = (items: TSideBarMenuItem[], config?: PanelSideBa
   );
 };
 
-const getSidebarItems = (active?: boolean, disabled?: boolean, expanded?: boolean, onSidebarCollapseOptions?: PanelItemOnSideBarCollapseOptions): TSideBarMenuItem[] => [
+const getSidebarItems = (
+  active?: boolean,
+  disabled?: boolean,
+  expanded?: boolean,
+  onSidebarCollapseOptions?: PanelItemOnSideBarCollapseOptions,
+): TSideBarMenuItem[] => [
   {
     id: "home",
     title: "Home",
@@ -57,7 +69,7 @@ const getSidebarItems = (active?: boolean, disabled?: boolean, expanded?: boolea
         id: "profile",
         onSidebarCollapseOptions: {
           fallbackIcon: faPerson,
-        }
+        },
       },
     ],
   },
@@ -285,7 +297,7 @@ describe("PanelSidebar.cy.tsx", () => {
     cy.get('[data-icon="angle-right"]').should("be.visible");
     cy.get(".toggled").should("exist");
     cy.get(".side-nav__items").should("be.visible");
-    cy.get('#home').should("be.visible");
+    cy.get("#home").should("be.visible");
     cy.get("#profile > .nav-link > svg").should("be.visible");
   });
 });

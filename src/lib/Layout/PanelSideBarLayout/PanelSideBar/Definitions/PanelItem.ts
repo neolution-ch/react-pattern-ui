@@ -11,7 +11,7 @@ export type PanelItemOnSideBarCollapseOptions = {
    * The icon to be displayed when the active panel item has `showIcon` enabled, the sidebar is collapsed and the panel item does not have any icon.
    */
   fallbackIcon?: IconProp;
-} 
+};
 
 export type PanelItem<TPanelItemId extends string, TPanelItem = Record<string, unknown>> = TPanelItem & {
   /**
@@ -53,8 +53,8 @@ export type PanelItem<TPanelItemId extends string, TPanelItem = Record<string, u
    */
   active?: boolean;
   /**
-  * Whether collapse only with icon.
-  */
+   * Whether collapse only with icon.
+   */
   collapseIconOnly?: boolean;
 
   /**
