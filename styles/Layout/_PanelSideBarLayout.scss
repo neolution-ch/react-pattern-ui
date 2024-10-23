@@ -403,12 +403,13 @@ section.content:first-of-type {
 }
 
 @include media-breakpoint-up(xs) {
-  $toggled-width: #{$tile-size + $slim-scrollbar-base-width};
-
   .section-tiles.toggled {
     > #side-nav {
       transition: $sidebar-transition;
-      width: $tile-size;
+      width: #{$tile-size};
+      &.show-icons {
+        width: #{$tile-size + $sidenav-items-icon-width};
+      }
 
       li.nav-item {
         &.active {
@@ -422,11 +423,17 @@ section.content:first-of-type {
     > #side-nav-toggle {
       transition: $sidebar-transition;
       left: #{$tile-size};
+      &.show-icons {
+        left: #{$tile-size + $sidenav-items-icon-width};
+      }
     }
 
     > section.content:first-of-type {
       transition: #{margin $sidebar-transition};
       margin-left: #{$tile-size + $toggle-base-width};
+      &.show-icons {
+        margin-left: #{$tile-size + $toggle-base-width + $sidenav-items-icon-width};
+      }
 
       .dropdown-toggle::after {
         display: none;

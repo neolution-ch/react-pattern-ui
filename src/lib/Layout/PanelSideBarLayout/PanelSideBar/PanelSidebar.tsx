@@ -5,7 +5,12 @@ import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import { PanelItem } from "./Definitions/PanelItem";
 import { PanelSideBarItem } from "./PanelSideBarItem";
 
-export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
+interface PanelSideBarProps {
+  isIconShownOnSidebarCollapse: boolean;
+}
+
+export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarProps) => {
+  const { isIconShownOnSidebarCollapse } = props;
   const {
     activePanelId,
     menuItems,
@@ -22,6 +27,7 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
     { "sidenav-dark": theme == "dark" },
     { "sidenav-light": theme == "light" },
     { "sidenav-blue": theme == "blue" },
+    { "show-icons": isIconShownOnSidebarCollapse },
   );
 
   const activePanel: PanelItem<TPanelItemId, TPanelItem> | undefined = menuItems.find((x) => x.id === activePanelId);
@@ -78,7 +84,11 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
         <div className="side-nav__tiles">{<PanelItemsRenderer items={menuItems} />}</div>
         <div className="side-nav__items">
           {activePanel?.children?.map((item) => (
-            <PanelSideBarItem<TPanelItemId, TPanelItem> key={item.id} children={item} />
+            <PanelSideBarItem<TPanelItemId, TPanelItem>
+              key={item.id}
+              children={item}
+              isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
+            />
           ))}
         </div>
       </nav>
@@ -88,7 +98,11 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>() => {
       <nav id="side-nav" className={className}>
         <div className="side-nav__items">
           {menuItems?.map((item) => (
-            <PanelSideBarItem<TPanelItemId, TPanelItem> key={item.id} children={item} />
+            <PanelSideBarItem<TPanelItemId, TPanelItem>
+              key={item.id}
+              children={item}
+              isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
+            />
           ))}
         </div>
       </nav>
