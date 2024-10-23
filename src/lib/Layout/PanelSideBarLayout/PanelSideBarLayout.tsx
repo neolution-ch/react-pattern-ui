@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { MutableRefObject, PropsWithChildren, ReactNode } from "react";
+import { MutableRefObject, PropsWithChildren, ReactNode, useMemo } from "react";
 import "../../../../styles/Layout/index.scss";
 import { PanelSideBar } from "./PanelSideBar/PanelSidebar";
 import { PanelSideBarLayoutContent } from "./PanelSideBarLayoutContent";
@@ -58,11 +58,20 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
     mainContentBodyRef,
   } = props;
 
-  const { isSidebarOpen, toggleSidebar, renderFirstItemsLevelAsTiles } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
+  const { isSidebarOpen, toggleSidebar, renderFirstItemsLevelAsTiles, menuItems, activePanelId } = usePanelSideBarContext<
+    TPanelItemId,
+    TPanelItem
+  >();
 
   if (useResponsiveLayout && !useToggleButton) {
     throw new Error("Responsive layout can be used only with toggle button in the navbar!");
   }
+
+  const isIconShownOnSidebarCollapse = useMemo(
+    () => menuItems.find((x) => x.id === activePanelId)?.onSidebarCollapseOptions?.showIcon ?? false,
+    [menuItems, activePanelId],
+  );
+
   return (
     <>
       <PanelSidebarNavbar
@@ -80,9 +89,19 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
           { "section-tiles": renderFirstItemsLevelAsTiles },
         )}
       >
-        <PanelSideBar<TPanelItemId, TPanelItem> />
-        {collapsible && !useToggleButton && <PanelSideBarToggle onClick={toggleSidebar} toggled={!isSidebarOpen} />}
-        <PanelSideBarLayoutContent footer={footer} mainContentBodyRef={mainContentBodyRef}>
+        <PanelSideBar<TPanelItemId, TPanelItem> isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse} />
+        {collapsible && !useToggleButton && (
+          <PanelSideBarToggle
+            onClick={toggleSidebar}
+            toggled={!isSidebarOpen}
+            isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
+          />
+        )}
+        <PanelSideBarLayoutContent
+          footer={footer}
+          mainContentBodyRef={mainContentBodyRef}
+          isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
+        >
           {children}
         </PanelSideBarLayoutContent>
       </section>

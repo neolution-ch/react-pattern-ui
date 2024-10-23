@@ -6,11 +6,12 @@ import classNames from "classnames";
 
 interface PanelSideBarToggleProps extends ButtonProps {
   toggled: boolean;
+  isIconShownOnSidebarCollapse: boolean;
 }
 
 export const PanelSideBarToggle = (props: PanelSideBarToggleProps) => {
-  const { toggled, ...buttonProps } = props;
-  const { theme, isIconShownOnSidebarCollapse } = usePanelSideBarContext();
+  const { toggled, isIconShownOnSidebarCollapse, ...buttonProps } = props;
+  const { theme } = usePanelSideBarContext();
 
   return (
     <Button

@@ -87,9 +87,4 @@ export interface PanelSideBarContextProps<TPanelItemId extends string, TPanelIte
    * @param includeActivePanel whether needs to include the active panel
    */
   closeMenuItems: (panelItemIds: TPanelItemId[], includeActivePanel?: boolean) => void;
-
-  /**
-   * Whether the sidebar maintains the active panel item icons visible on collapsing.
-   */
-  isIconShownOnSidebarCollapse?: boolean;
 }

@@ -11,6 +11,7 @@ export interface PanelSideBarItemProps<TPanelItemId extends string, TPanelItem> 
   depth?: number;
   active?: boolean;
   isParentHidden?: boolean;
+  isIconShownOnSidebarCollapse: boolean;
 }
 
 const PanelSidebarItemNavLink = <TPanelItemId extends string, TPanelItem>({
@@ -36,9 +37,11 @@ const PanelSidebarItemNavLink = <TPanelItemId extends string, TPanelItem>({
 
 // eslint-disable-next-line complexity
 const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarItemProps<TPanelItemId, TPanelItem>) => {
-  const { depth = 0, children: item, isParentHidden = false } = props;
-  const { LinkRenderer, toggledMenuItemIds, toggleMenuItem, hiddenMenuItemIds, isIconShownOnSidebarCollapse, isSidebarOpen } =
-    usePanelSideBarContext<TPanelItemId, TPanelItem>();
+  const { depth = 0, children: item, isParentHidden = false, isIconShownOnSidebarCollapse } = props;
+  const { LinkRenderer, toggledMenuItemIds, toggleMenuItem, hiddenMenuItemIds, isSidebarOpen } = usePanelSideBarContext<
+    TPanelItemId,
+    TPanelItem
+  >();
 
   const hasItems = !!item.children?.length;
   const isActive = (hasItems && item.children && hasActiveChildren(item.children)) || item.active;
@@ -113,6 +116,7 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
               depth={depth + 1}
               active={item.active}
               isParentHidden={hiddenMenuItemIds.includes(item.id)}
+              isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
             />
           ))}
         </Collapse>
