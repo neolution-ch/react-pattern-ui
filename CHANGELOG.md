@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### dependabot: \#64 Bump tibdex/github-app-token from 1 to 2
+
 ## [4.3.0] - 2024-10-23
 
 ### Added
