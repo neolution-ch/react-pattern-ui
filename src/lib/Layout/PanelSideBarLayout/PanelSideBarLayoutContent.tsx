@@ -1,14 +1,15 @@
 import classNames from "classnames";
-import { MutableRefObject, PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren, ReactNode } from "react";
+import { usePanelSideBarContext } from "./PanelSideBar/Context/PanelSideBarContext";
 
 interface PanelSideBarLayoutContentProps extends PropsWithChildren {
   footer?: ReactNode;
-  mainContentBodyRef?: MutableRefObject<HTMLElement | null>;
   isIconShownOnSidebarCollapse: boolean;
 }
 
 export const PanelSideBarLayoutContent = (props: PanelSideBarLayoutContentProps) => {
-  const { children, footer, mainContentBodyRef, isIconShownOnSidebarCollapse } = props;
+  const { children, footer, isIconShownOnSidebarCollapse } = props;
+  const { mainContentBodyRef } = usePanelSideBarContext();
 
   return (
     <section

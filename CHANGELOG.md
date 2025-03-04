@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### dependabot: \#68 Bump the github-actions group with 5 updates
 
+### Removed
+
+- :boom: The property `mainContentBodyRef` from `PanelSideBarLayout`.
+
+### Added
+
+- The ref `mainContentBodyRef` exposed to through the context to be used to control the main content body behaviour (e.g. scroll to top on page change).
+
 ## [4.3.0] - 2024-10-23
 
 ### Added

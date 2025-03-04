@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, MutableRefObject, SetStateAction } from "react";
 import { PanelItem } from "../Definitions/PanelItem";
 import { PanelLinkRenderer } from "../Definitions/PanelLinkRenderer";
 import { MenuItemToggleFn } from "./PanelSideBarContext";
@@ -87,4 +87,9 @@ export interface PanelSideBarContextProps<TPanelItemId extends string, TPanelIte
    * @param includeActivePanel whether needs to include the active panel
    */
   closeMenuItems: (panelItemIds: TPanelItemId[], includeActivePanel?: boolean) => void;
+
+  /**
+   * the main content body ref
+   */
+  mainContentBodyRef: MutableRefObject<HTMLElement | null>;
 }

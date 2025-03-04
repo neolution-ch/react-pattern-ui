@@ -1,4 +1,4 @@
-import React, { Context, createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, { Context, createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { getActivePanel, getActivePanelParentsIds } from "../Utils/getActivePanel";
 import { PanelSideBarContextProps } from "./PanelSideBarContextProps";
 import { getHiddenPanelIds, getPreExpandedMenuItems } from "../Utils/panelUtils";
@@ -36,6 +36,7 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
     renderFirstItemsLevelAsTiles = true,
     theme = "blue",
   } = props;
+  const mainContentBodyRef = useRef<HTMLElement>(null);
   const menuItems = useMemo(() => defaultMenuItems, [defaultMenuItems]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(sidebarOpenByDefault);
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
@@ -106,6 +107,7 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
         closeMenuItems,
         hiddenMenuItemIds,
         setHiddenMenuItemsIds,
+        mainContentBodyRef,
       }}
     >
       {children}
