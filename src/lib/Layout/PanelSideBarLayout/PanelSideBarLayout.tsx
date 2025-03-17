@@ -46,7 +46,7 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
     children,
     navbarLeftItems,
     navbarRightItems,
-    footer = undefined,
+    footer,
     collapsible = true,
     useToggleButton = false,
     useResponsiveLayout = false,

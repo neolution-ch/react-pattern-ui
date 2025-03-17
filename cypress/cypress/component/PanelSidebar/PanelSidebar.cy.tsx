@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import {
   PanelSideBarProvider,
   PanelSideBarLayout,
@@ -30,11 +30,11 @@ const getPanelSidebarInternal = (items: TSideBarMenuItem[], config?: PanelSideBa
           onClick={() => {
             const pageContent = document.getElementById("pageContent");
             if (pageContent) {
-              pageContent.innerText = elem.item.id;
+              pageContent.textContent = elem.item.id;
             }
           }}
         >
-          <>{elem.children}</>
+          {(elem as React.PropsWithChildren).children}
         </div>
       )}
     >
@@ -230,7 +230,11 @@ describe("PanelSidebar.cy.tsx", () => {
       );
     };
 
-    cy.mount(<PanelSideBarWithTiles expanded children={<Button />} />);
+    cy.mount(
+      <PanelSideBarWithTiles expanded>
+        <Button />
+      </PanelSideBarWithTiles>,
+    );
     cy.get("button[title=Settings]").click();
     cy.get("li:has(.dropdown-toggle)").should("be.visible").should("have.class", "menu-open");
     cy.get("#test-toggle").click();
@@ -249,7 +253,11 @@ describe("PanelSidebar.cy.tsx", () => {
       );
     };
 
-    cy.mount(<PanelSideBarWithTiles expanded children={<Button />} />);
+    cy.mount(
+      <PanelSideBarWithTiles expanded>
+        <Button />
+      </PanelSideBarWithTiles>,
+    );
     cy.get("button[title=Settings]").click();
     cy.get("#dropdown-test1").should("be.visible");
     cy.get("#dropdown-test2").should("be.visible");
@@ -273,7 +281,11 @@ describe("PanelSidebar.cy.tsx", () => {
       );
     };
 
-    cy.mount(<PanelSideBarWithTiles children={<Button />} />);
+    cy.mount(
+      <PanelSideBarWithTiles>
+        <Button />
+      </PanelSideBarWithTiles>,
+    );
     cy.get("button[title=Settings]").click();
     cy.get("li:has(.dropdown-toggle)").should("be.visible").should("not.have.class", "menu-open");
     cy.get("#test-open-item").click();

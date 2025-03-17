@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { Paging } from "react-pattern-ui";
 import { faker } from "@faker-js/faker";
 
@@ -31,10 +30,10 @@ describe("Paging.cy.tsx", () => {
     );
     cy.get("[data-cy-root] > .container-fluid > .row > .col-6:first-of-type > .btn-group > .dropdown-menu > .dropdown-item").then(
       (items: JQuery<HTMLElement>) => {
-        expect(items.map((_, item) => item.innerText).toArray(), "possible items per page").to.deep.eq(
+        expect(items.map((_, item) => item.textContent).toArray(), "possible items per page").to.deep.eq(
           [25, 50, 100, 200, itemsPerPage].sort((a, b) => a - b).map((itemNumber): string => itemNumber.toString()),
         );
-        cy.wrap(items.filter((_, item) => item.innerText === "25")).click();
+        cy.wrap(items.filter((_, item) => item.textContent === "25")).click();
         cy.get("@setItemsPerPage").should("be.calledOnceWith", 25);
       },
     );
@@ -52,15 +51,15 @@ describe("Paging.cy.tsx", () => {
     cy.get("[data-cy-root] > .container-fluid > .row > .col-6:nth-of-type(2) > .btn-group > button.btn").then(
       (items: JQuery<HTMLElement>) => {
         expect(items.length, "navigation buttons count").to.eq(Math.min(7, pages) + 4);
-        cy.wrap(items.filter((_, item) => item.innerText === "<<")).click();
+        cy.wrap(items.filter((_, item) => item.textContent === "<<")).click();
         cy.get("@setCurrentPage").should("be.calledOnceWith", 1);
-        cy.wrap(items.filter((_, item) => item.innerText === "<")).click();
+        cy.wrap(items.filter((_, item) => item.textContent === "<")).click();
         cy.get("@setCurrentPage").should("be.calledWith", currentPage - 1);
-        cy.wrap(items.filter((_, item) => item.innerText === (currentPage - 1).toString())).click();
+        cy.wrap(items.filter((_, item) => item.textContent === (currentPage - 1).toString())).click();
         cy.get("@setCurrentPage").should("be.calledWith", currentPage - 1);
-        cy.wrap(items.filter((_, item) => item.innerText === ">")).click();
+        cy.wrap(items.filter((_, item) => item.textContent === ">")).click();
         cy.get("@setCurrentPage").should("be.calledWith", currentPage + 1);
-        cy.wrap(items.filter((_, item) => item.innerText === ">>")).click();
+        cy.wrap(items.filter((_, item) => item.textContent === ">>")).click();
         cy.get("@setCurrentPage").should("be.calledWith", pages);
       },
     );

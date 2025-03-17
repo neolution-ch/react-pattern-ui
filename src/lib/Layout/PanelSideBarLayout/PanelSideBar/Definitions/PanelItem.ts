@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/named
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { ReactNode } from "react";
 

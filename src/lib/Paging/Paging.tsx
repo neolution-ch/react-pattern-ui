@@ -43,6 +43,7 @@ function Paging({
       [...(possiblePageItemCounts ?? [25, 50, 100, 200]), currentItemsPerPage]
         .filter((value, index, array) => array.indexOf(value) == index)
         .sort((a, b) => a - b),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
@@ -86,7 +87,7 @@ function Paging({
                   {"<"}
                 </Button>
               )}
-              {Array.from(Array(maxPage + 1).keys())
+              {Array.from({ length: maxPage + 1 }, (_, i) => i)
                 .filter((page) => page > firstPageShown)
                 .slice(0, maxPagesShown)
                 .map((page) => (

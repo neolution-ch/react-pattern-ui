@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- migrated to eslint 9 with the neolution eslint config
+
 ## [5.0.0] - 2025-03-04
 
 ### dependabot: \#68 Bump the github-actions group with 5 updates

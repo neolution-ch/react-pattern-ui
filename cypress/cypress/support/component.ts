@@ -14,6 +14,7 @@
 // ***********************************************************
 
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import "react-pattern-ui/styles.css";
 
 // Import commands.js using ES2015 syntax:
@@ -29,6 +30,7 @@ import { mount } from "cypress/react18";
 // Alternatively, can be defined in cypress/support/component.d.ts
 // with a <reference path="./component" /> at the top of your spec.
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable {
       mount: typeof mount;

@@ -35,7 +35,6 @@ const PanelSidebarItemNavLink = <TPanelItemId extends string, TPanelItem>({
   );
 };
 
-// eslint-disable-next-line complexity
 const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarItemProps<TPanelItemId, TPanelItem>) => {
   const { depth = 0, children: item, isParentHidden = false, isIconShownOnSidebarCollapse } = props;
   const { LinkRenderer, toggledMenuItemIds, toggleMenuItem, hiddenMenuItemIds, isSidebarOpen } = usePanelSideBarContext<
@@ -53,6 +52,7 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
     if (scrollToActiveItemRef.current && isActive) {
       scrollToActiveItemRef.current.scrollIntoView();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -112,12 +112,13 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
           {item.children?.map((childItem) => (
             <PanelSideBarItem
               key={childItem.id}
-              children={childItem}
               depth={depth + 1}
               active={item.active}
               isParentHidden={hiddenMenuItemIds.includes(item.id)}
               isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
-            />
+            >
+              {childItem}
+            </PanelSideBarItem>
           ))}
         </Collapse>
       )}

@@ -33,7 +33,7 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
   const activePanel: PanelItem<TPanelItemId, TPanelItem> | undefined = menuItems.find((x) => x.id === activePanelId);
 
   if (renderFirstItemsLevelAsTiles) {
-    if (menuItems.find((x) => !x.icon)) {
+    if (menuItems.some((x) => !x.icon)) {
       throw new Error("Outer panel icon is required");
     }
 
@@ -65,18 +65,22 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
     };
 
     const PanelItemsRenderer = (props: { items: PanelItem<TPanelItemId, TPanelItem>[] }) => {
+      // eslint-disable-next-line react/prop-types
       const { items } = props;
-      return items
-        ?.filter((x) => !hiddenMenuItemIds.includes(x.id))
-        .map((item, index) =>
-          renderTilesAsLinks ? (
-            <LinkRenderer key={index} item={item}>
-              <ButtonIcon item={item} />
-            </LinkRenderer>
-          ) : (
-            <ButtonIcon key={index} item={item} />
-          ),
-        );
+      return (
+        items
+          // eslint-disable-next-line react/prop-types
+          ?.filter((x) => !hiddenMenuItemIds.includes(x.id))
+          .map((item, index) =>
+            renderTilesAsLinks ? (
+              <LinkRenderer key={index} item={item}>
+                <ButtonIcon item={item} />
+              </LinkRenderer>
+            ) : (
+              <ButtonIcon key={index} item={item} />
+            ),
+          )
+      );
     };
 
     return (
@@ -84,11 +88,9 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
         <div className="side-nav__tiles">{<PanelItemsRenderer items={menuItems} />}</div>
         <div className="side-nav__items">
           {activePanel?.children?.map((item) => (
-            <PanelSideBarItem<TPanelItemId, TPanelItem>
-              key={item.id}
-              children={item}
-              isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
-            />
+            <PanelSideBarItem<TPanelItemId, TPanelItem> key={item.id} isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}>
+              {item}
+            </PanelSideBarItem>
           ))}
         </div>
       </nav>
@@ -98,11 +100,9 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
       <nav id="side-nav" className={className}>
         <div className="side-nav__items">
           {menuItems?.map((item) => (
-            <PanelSideBarItem<TPanelItemId, TPanelItem>
-              key={item.id}
-              children={item}
-              isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
-            />
+            <PanelSideBarItem<TPanelItemId, TPanelItem> key={item.id} isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}>
+              {item}
+            </PanelSideBarItem>
           ))}
         </div>
       </nav>

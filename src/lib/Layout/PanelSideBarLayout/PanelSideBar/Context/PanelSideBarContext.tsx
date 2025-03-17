@@ -5,6 +5,7 @@ import { getHiddenPanelIds, getPreExpandedMenuItems } from "../Utils/panelUtils"
 
 export type MenuItemToggleFn<TPanelItemId extends string> = (menuItemId: TPanelItemId) => void;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const PanelSideBarContext = createContext<PanelSideBarContextProps<any, any> | null>(null);
 
 export interface PanelSideBarMenuProviderProps<TPanelItemId extends string, TPanelItem>
@@ -48,11 +49,11 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
 
   const preExpandedMenuItemIds = getPreExpandedMenuItems(menuItems);
   const [toggledMenuItemIds, setToggledMenuItemIds] = useState<TPanelItemId[]>(
-    activePanelId ? preExpandedMenuItemIds.concat(activePanelId) : preExpandedMenuItemIds,
+    activePanelId ? [...preExpandedMenuItemIds, activePanelId] : preExpandedMenuItemIds,
   );
   const toggleMenuItem: MenuItemToggleFn<TPanelItemId> = (menuItemId) => {
     setToggledMenuItemIds((prev) => {
-      const idExists = !!prev.find((id) => id == menuItemId);
+      const idExists = prev.some((id) => id == menuItemId);
 
       if (idExists) {
         return prev.filter((id) => id !== menuItemId);
@@ -71,6 +72,7 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
         return [...prev, ...toggledMenuItemIds];
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [menuItems]);
 
   const untoggleMenuItems = () => setToggledMenuItemIds([]);

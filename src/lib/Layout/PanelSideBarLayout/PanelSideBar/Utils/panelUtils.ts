@@ -8,14 +8,14 @@
 const getHiddenPanelIds = <TPanelItemId extends string, TPanelItem>(items: PanelItem<TPanelItemId, TPanelItem>[]) => {
   let hiddenIds: TPanelItemId[] = [];
 
-  items.forEach((item) => {
+  for (const item of items) {
     if (item.display == false) {
       hiddenIds = [...hiddenIds, item.id];
     }
     if (item.children) {
       hiddenIds = [...hiddenIds, ...getHiddenPanelIds(item.children)];
     }
-  });
+  }
 
   return hiddenIds;
 };
@@ -28,12 +28,12 @@ const getHiddenPanelIds = <TPanelItemId extends string, TPanelItem>(items: Panel
 const getChildrenPanelItemsIds = <TPanelItemId extends string, TPanelItem>(children: PanelItem<TPanelItemId, TPanelItem>[]) => {
   let childrenIds: TPanelItemId[] = [];
 
-  children.forEach((child) => {
+  for (const child of children) {
     if (child.children) {
       childrenIds = [...childrenIds, child.id];
       childrenIds = [...childrenIds, ...getChildrenPanelItemsIds(child.children)];
     }
-  });
+  }
 
   return childrenIds;
 };
@@ -46,14 +46,14 @@ const getChildrenPanelItemsIds = <TPanelItemId extends string, TPanelItem>(child
 const getPreExpandedMenuItems = <TPanelItemId extends string, TPanelItem>(items: PanelItem<TPanelItemId, TPanelItem>[]) => {
   let preExpandedIds: TPanelItemId[] = [];
 
-  items.forEach((x) => {
+  for (const x of items) {
     if (x.expanded) {
       preExpandedIds = [...preExpandedIds, x.id];
     }
     if (x.children) {
       preExpandedIds = [...preExpandedIds, ...getPreExpandedMenuItems(x.children)];
     }
-  });
+  }
 
   return preExpandedIds;
 };
