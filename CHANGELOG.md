@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### dependabot: \#70 Bump tj-actions/changed-files from 45 to 46 in the github-actions group
+
 ## [5.0.0] - 2025-03-04
 
 ### dependabot: \#68 Bump the github-actions group with 5 updates
