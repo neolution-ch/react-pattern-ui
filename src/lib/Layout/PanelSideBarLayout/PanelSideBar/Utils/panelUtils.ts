@@ -9,7 +9,7 @@ const getHiddenPanelIds = <TPanelItemId extends string, TPanelItem>(items: Panel
   let hiddenIds: TPanelItemId[] = [];
 
   for (const item of items) {
-    if (item.display == false) {
+    if (item.display === false) {
       hiddenIds = [...hiddenIds, item.id];
     }
     if (item.children) {

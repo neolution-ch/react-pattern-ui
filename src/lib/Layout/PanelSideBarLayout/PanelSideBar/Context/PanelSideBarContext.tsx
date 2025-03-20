@@ -53,7 +53,7 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
   );
   const toggleMenuItem: MenuItemToggleFn<TPanelItemId> = (menuItemId) => {
     setToggledMenuItemIds((prev) => {
-      const idExists = prev.some((id) => id == menuItemId);
+      const idExists = prev.includes(menuItemId);
 
       if (idExists) {
         return prev.filter((id) => id !== menuItemId);

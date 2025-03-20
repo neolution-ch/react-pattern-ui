@@ -24,9 +24,9 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
 
   const className = classNames(
     "panel-layout",
-    { "sidenav-dark": theme == "dark" },
-    { "sidenav-light": theme == "light" },
-    { "sidenav-blue": theme == "blue" },
+    { "sidenav-dark": theme === "dark" },
+    { "sidenav-light": theme === "light" },
+    { "sidenav-blue": theme === "blue" },
     { "show-icons": isIconShownOnSidebarCollapse },
   );
 
@@ -56,7 +56,7 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
               }
             }
           }}
-          title={typeof title == "string" ? String(title) : ""}
+          title={typeof title === "string" ? String(title) : ""}
           disabled={disabled}
         >
           {icon && <FontAwesomeIcon icon={icon} size="lg" fixedWidth />}
