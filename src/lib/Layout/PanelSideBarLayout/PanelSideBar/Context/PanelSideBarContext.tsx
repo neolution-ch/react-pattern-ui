@@ -72,8 +72,7 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
         return [...prev, ...toggledMenuItemIds];
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [menuItems]);
+  }, [menuItems, defaultActivePanelId]);
 
   const untoggleMenuItems = () => setToggledMenuItemIds([]);
 

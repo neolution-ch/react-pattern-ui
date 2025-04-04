@@ -1,6 +1,5 @@
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// eslint-disable-next-line import/named
 import { Button, ButtonProps } from "reactstrap";
 import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import classNames from "classnames";

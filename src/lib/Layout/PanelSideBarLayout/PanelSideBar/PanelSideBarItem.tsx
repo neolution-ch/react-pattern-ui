@@ -53,8 +53,7 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
     if (scrollToActiveItemRef.current && isActive) {
       scrollToActiveItemRef.current.scrollIntoView();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isActive]);
 
   return (
     <>

@@ -44,8 +44,7 @@ function Paging({
       [...(possiblePageItemCounts ?? [25, 50, 100, 200]), currentItemsPerPage]
         .filter((value, index, array) => array.indexOf(value) === index)
         .sort((a, b) => a - b),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
+    [currentItemsPerPage, possiblePageItemCounts],
   );
 
   return (

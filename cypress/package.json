@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
-    "@neolution-ch/eslint-config-neolution": "https://pkg.pr.new/neolution-ch/eslint-config-neolution/@neolution-ch/eslint-config-neolution@dd11c66",
+    "@neolution-ch/eslint-config-neolution": "^2.0.0",
     "cypress": "^11.0.0"
   }
 }
