@@ -53,7 +53,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
-    "@neolution-ch/eslint-config-neolution": "^2.0.0",
+    "@neolution-ch/eslint-config-neolution": "2.1.0",
     "@popperjs/core": "^2.11.6",
     "@release-it/keep-a-changelog": "^3.1.0",
     "@rollup/plugin-commonjs": "^24.1.0",

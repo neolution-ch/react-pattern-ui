@@ -22,7 +22,7 @@ interface PagingTranslations {
 }
 
 // eslint-disable-next-line complexity
-function Paging({
+const Paging = ({
   currentItemsPerPage,
   currentPage,
   totalRecords,
@@ -35,7 +35,7 @@ function Paging({
   changePageSizePossible = true,
   setItemsPerPage,
   setCurrentPage,
-}: PagingProps) {
+}: PagingProps) => {
   const maxPage = Math.ceil(totalRecords / currentItemsPerPage);
   const firstPageShown = Math.max(0, Math.min(currentPage - Math.ceil(maxPagesShown / 2), maxPage - maxPagesShown));
 
@@ -111,6 +111,6 @@ function Paging({
       </Row>
     </div>
   );
-}
+};
 
 export { Paging, PagingProps, PagingTranslations };

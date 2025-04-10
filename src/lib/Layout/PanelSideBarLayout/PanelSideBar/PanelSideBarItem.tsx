@@ -99,11 +99,9 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
               </a>
             </div>
           ) : (
-            <>
-              <LinkRenderer item={item}>
-                <PanelSidebarItemNavLink<TPanelItemId, TPanelItem> className="nav-link" item={item} collapsedWithIcon={collapsedWithIcon} />
-              </LinkRenderer>
-            </>
+            <LinkRenderer item={item}>
+              <PanelSidebarItemNavLink<TPanelItemId, TPanelItem> className="nav-link" item={item} collapsedWithIcon={collapsedWithIcon} />
+            </LinkRenderer>
           )}
         </div>
       </NavItem>
