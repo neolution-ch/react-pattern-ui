@@ -50,7 +50,7 @@
     "classnames": "^2.3.2"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
     "@neolution-ch/eslint-config-neolution": "2.1.0",
@@ -72,7 +72,7 @@
     "prettier": "^3.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "reactstrap": "^9.1.5",
+    "reactstrap": "^9.2.3",
     "release-it": "^15.10.3",
     "rollup": "^3.3.1",
     "rollup-plugin-import-css": "^3.2.1",
