@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
-    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.1.18",
     "@neolution-ch/eslint-config-neolution": "2.1.0",
     "@popperjs/core": "^2.11.6",
@@ -85,12 +85,12 @@
     "yalc": "^1.0.0-pre.53"
   },
   "peerDependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.1.1",
-    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/fontawesome-svg-core": "^6",
+    "@fortawesome/free-solid-svg-icons": "^6",
     "@fortawesome/react-fontawesome": "^0.1.18 || ^0.2.0",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
-    "reactstrap": "^8.0.0 || ^9.0.0"
+    "reactstrap": "^8 || ^9"
   },
   "engines": {
     "node": ">=16"
