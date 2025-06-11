@@ -17,9 +17,9 @@ export const PanelSideBarToggle = (props: PanelSideBarToggleProps) => {
     <Button
       {...buttonProps}
       className={classNames(
-        { "side-nav-toggle-dark": theme == "dark" },
-        { "side-nav-toggle-light": theme == "light" },
-        { "side-nav-toggle-blue": theme == "blue" },
+        { "side-nav-toggle-dark": theme === "dark" },
+        { "side-nav-toggle-light": theme === "light" },
+        { "side-nav-toggle-blue": theme === "blue" },
         { "show-icons": isIconShownOnSidebarCollapse },
       )}
       id="side-nav-toggle"

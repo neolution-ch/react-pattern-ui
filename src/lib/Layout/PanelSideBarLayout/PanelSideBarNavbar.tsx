@@ -33,9 +33,9 @@ const PanelSidebarNavbar = (props: PanelSidebarNavbarProps) => {
       id="nav-top"
       className={classNames(
         "panel-layout navbar navbar-expand",
-        { "navbar-dark": theme == "dark" },
-        { "navbar-light": theme == "light" },
-        { "navbar-blue": theme == "blue" },
+        { "navbar-dark": theme === "dark" },
+        { "navbar-light": theme === "light" },
+        { "navbar-blue": theme === "blue" },
       )}
     >
       <div className="navbar-brand">{brand}</div>

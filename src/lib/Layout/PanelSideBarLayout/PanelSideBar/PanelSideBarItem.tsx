@@ -53,7 +53,7 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
     if (scrollToActiveItemRef.current && isActive) {
       scrollToActiveItemRef.current.scrollIntoView();
     }
-  }, []);
+  }, [isActive]);
 
   return (
     <>
@@ -99,11 +99,9 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
               </a>
             </div>
           ) : (
-            <>
-              <LinkRenderer item={item}>
-                <PanelSidebarItemNavLink<TPanelItemId, TPanelItem> className="nav-link" item={item} collapsedWithIcon={collapsedWithIcon} />
-              </LinkRenderer>
-            </>
+            <LinkRenderer item={item}>
+              <PanelSidebarItemNavLink<TPanelItemId, TPanelItem> className="nav-link" item={item} collapsedWithIcon={collapsedWithIcon} />
+            </LinkRenderer>
           )}
         </div>
       </NavItem>
@@ -112,12 +110,13 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
           {item.children?.map((childItem) => (
             <PanelSideBarItem
               key={childItem.id}
-              children={childItem}
               depth={depth + 1}
               active={item.active}
               isParentHidden={hiddenMenuItemIds.includes(item.id)}
               isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
-            />
+            >
+              {childItem}
+            </PanelSideBarItem>
           ))}
         </Collapse>
       )}

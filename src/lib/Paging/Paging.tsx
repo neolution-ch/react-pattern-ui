@@ -21,7 +21,8 @@ interface PagingTranslations {
   itemsPerPageDropdown: string;
 }
 
-function Paging({
+// eslint-disable-next-line complexity
+const Paging = ({
   currentItemsPerPage,
   currentPage,
   totalRecords,
@@ -34,16 +35,16 @@ function Paging({
   changePageSizePossible = true,
   setItemsPerPage,
   setCurrentPage,
-}: PagingProps) {
+}: PagingProps) => {
   const maxPage = Math.ceil(totalRecords / currentItemsPerPage);
   const firstPageShown = Math.max(0, Math.min(currentPage - Math.ceil(maxPagesShown / 2), maxPage - maxPagesShown));
 
   const possibleItemsPerPage = useMemo(
     () =>
       [...(possiblePageItemCounts ?? [25, 50, 100, 200]), currentItemsPerPage]
-        .filter((value, index, array) => array.indexOf(value) == index)
+        .filter((value, index, array) => array.indexOf(value) === index)
         .sort((a, b) => a - b),
-    [],
+    [currentItemsPerPage, possiblePageItemCounts],
   );
 
   return (
@@ -86,7 +87,7 @@ function Paging({
                   {"<"}
                 </Button>
               )}
-              {Array.from(Array(maxPage + 1).keys())
+              {Array.from({ length: maxPage + 1 }, (_, i) => i)
                 .filter((page) => page > firstPageShown)
                 .slice(0, maxPagesShown)
                 .map((page) => (
@@ -110,6 +111,6 @@ function Paging({
       </Row>
     </div>
   );
-}
+};
 
 export { Paging, PagingProps, PagingTranslations };

@@ -18,14 +18,12 @@ export const getActivePanelParentsIds = <TPanelItemId extends string, TPanelItem
 ) => {
   let parentsIds: TPanelItemId[] = [];
 
-  items.forEach((item) => {
-    if (item.children) {
-      if (hasActiveChildren(item.children)) {
-        parentsIds = [...parentsIds, item.id];
-        parentsIds = [...parentsIds, ...getActivePanelParentsIds(item.children, activePanel)];
-      }
+  for (const item of items) {
+    if (item.children && hasActiveChildren(item.children)) {
+      parentsIds = [...parentsIds, item.id];
+      parentsIds = [...parentsIds, ...getActivePanelParentsIds(item.children, activePanel)];
     }
-  });
+  }
 
   return parentsIds;
 };

@@ -37,7 +37,7 @@
     "build-lib": "rollup -c",
     "clean-dist": "shx rm -rf dist",
     "copy-sass": "shx cp -r styles dist/scss",
-    "lint": "eslint \"**/*.{ts,tsx}\" --cache --max-warnings 0",
+    "lint": "eslint --cache",
     "prepack": "yarn build",
     "prepare-pr": "yarn prettier . --write && yarn lint && yarn build && yarn test\"",
     "prettier-check": "prettier --check .",
@@ -50,9 +50,10 @@
     "classnames": "^2.3.2"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.1.1",
-    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.1.18",
+    "@neolution-ch/eslint-config-neolution": "2.1.0",
     "@popperjs/core": "^2.11.6",
     "@release-it/keep-a-changelog": "^3.1.0",
     "@rollup/plugin-commonjs": "^24.1.0",
@@ -66,15 +67,12 @@
     "bootstrap": "^5.2.3",
     "concurrently": "^8.0.1",
     "cross-env": "^7.0.3",
-    "eslint": "^8.39.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-import-resolver-typescript": "^3.5.5",
-    "eslint-plugin-import": "^2.27.5",
+    "eslint": "^9.18.0",
     "nodemon": "^2.0.22",
-    "prettier": "^2.8.8",
+    "prettier": "^3.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "reactstrap": "^9.1.5",
+    "reactstrap": "^9.2.3",
     "release-it": "^15.10.3",
     "rollup": "^3.3.1",
     "rollup-plugin-import-css": "^3.2.1",
@@ -87,12 +85,12 @@
     "yalc": "^1.0.0-pre.53"
   },
   "peerDependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.1.1",
-    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/fontawesome-svg-core": "^6",
+    "@fortawesome/free-solid-svg-icons": "^6",
     "@fortawesome/react-fontawesome": "^0.1.18 || ^0.2.0",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
-    "reactstrap": "^8.0.0 || ^9.0.0"
+    "reactstrap": "^8 || ^9"
   },
   "engines": {
     "node": ">=16"
