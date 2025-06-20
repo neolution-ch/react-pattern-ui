@@ -3,7 +3,24 @@ import { PanelItem } from "../Definitions/PanelItem";
 import { PanelLinkRenderer } from "../Definitions/PanelLinkRenderer";
 import { MenuItemToggleFn } from "./PanelSideBarContext";
 
-export interface PanelSideBarContextProps<TPanelItemId extends string, TPanelItem> {
+export interface SidebarProps {
+  /**
+   * If the sidebar is currently open or not
+   */
+  isSidebarOpen: boolean;
+
+  /**
+   * Function for toggling sidebar
+   */
+  toggleSidebar: () => void;
+
+  /**
+   * The theme
+   */
+  theme?: "light" | "dark" | "blue";
+}
+
+export interface PanelSideBarContextProps<TPanelItemId extends string, TPanelItem> extends SidebarProps {
   /**
    * The active panel id.
    */
@@ -36,20 +53,6 @@ export interface PanelSideBarContextProps<TPanelItemId extends string, TPanelIte
    * Function for untoggling all menu items
    */
   untoggleMenuItems: () => void;
-
-  /**
-   * If the sidebar is currently open or not
-   */
-  isSidebarOpen: boolean;
-  /**
-   * Function for toggling sidebar
-   */
-  toggleSidebar: () => void;
-
-  /**
-   * The theme
-   */
-  theme?: "light" | "dark" | "blue";
 
   /**
    * Boolean indicating if you want to render first items level as icons or directly as menu entries

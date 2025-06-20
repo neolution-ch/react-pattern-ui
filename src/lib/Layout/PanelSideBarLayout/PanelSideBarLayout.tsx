@@ -4,7 +4,7 @@ import "../../../../styles/Layout/index.scss";
 import { PanelSideBar } from "./PanelSideBar/PanelSidebar";
 import { PanelSideBarLayoutContent } from "./PanelSideBarLayoutContent";
 import { PanelSideBarToggle } from "./PanelSideBar/PanelSideBarToggle";
-import { PanelSidebarNavbar } from "./PanelSideBarNavbar";
+import { PanelSidebarNavbarInternal, PanelSidebarNavbarInternalProps } from "./PanelSideBarNavbar";
 import { usePanelSideBarContext } from "./PanelSideBar/Context/PanelSideBarContext";
 
 export interface PanelSideBarLayoutProps extends PropsWithChildren {
@@ -39,6 +39,12 @@ export interface PanelSideBarLayoutProps extends PropsWithChildren {
    */
   useResponsiveLayout?: boolean;
 }
+
+const PanelSidebarNavbar = (props: Omit<PanelSidebarNavbarInternalProps, "toggleSidebar" | "theme">) => {
+  const { toggleSidebar, theme } = usePanelSideBarContext();
+
+  return <PanelSidebarNavbarInternal toggleSidebar={toggleSidebar} theme={theme} {...props} />;
+};
 
 export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarLayoutProps) => {
   const {

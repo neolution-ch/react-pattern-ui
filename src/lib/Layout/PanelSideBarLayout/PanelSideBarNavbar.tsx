@@ -2,10 +2,10 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReactNode } from "react";
 import { Nav, NavItem } from "reactstrap";
-import { usePanelSideBarContext } from "./PanelSideBar/Context/PanelSideBarContext";
 import classNames from "classnames";
+import { SidebarProps } from "./PanelSideBar/Context/PanelSideBarContextProps";
 
-interface PanelSidebarNavbarProps {
+export interface PanelSidebarNavbarInternalProps extends Pick<Partial<SidebarProps>, "theme" | "toggleSidebar"> {
   /**
    * The brand content shown on the top navigation bar.
    */
@@ -25,9 +25,13 @@ interface PanelSidebarNavbarProps {
   useToggleButton?: boolean;
 }
 
-const PanelSidebarNavbar = (props: PanelSidebarNavbarProps) => {
-  const { brand, navbarRightItems, navbarLeftItems, useToggleButton } = props;
-  const { toggleSidebar, theme } = usePanelSideBarContext();
+const PanelSidebarNavbarInternal = (props: PanelSidebarNavbarInternalProps) => {
+  const { brand, navbarRightItems, navbarLeftItems, useToggleButton, toggleSidebar, theme } = props;
+
+  if (useToggleButton && !toggleSidebar) {
+    throw new Error("You must provide the toggleSidebar function when useToggleButton is true.");
+  }
+
   return (
     <nav
       id="nav-top"
@@ -40,7 +44,7 @@ const PanelSidebarNavbar = (props: PanelSidebarNavbarProps) => {
     >
       <div className="navbar-brand">{brand}</div>
       {useToggleButton && (
-        <button id="sidebar-toggle" className="btn btn-link btn-sm order-0 me-lg-0" onClick={() => toggleSidebar()}>
+        <button id="sidebar-toggle" className="btn btn-link btn-sm order-0 me-lg-0" onClick={() => toggleSidebar && toggleSidebar()}>
           <FontAwesomeIcon icon={faBars} size="2x" />
         </button>
       )}
@@ -64,4 +68,10 @@ const PanelSidebarNavbar = (props: PanelSidebarNavbarProps) => {
   );
 };
 
-export { PanelSidebarNavbar };
+export type PanelSidebarNavbarProps = Omit<PanelSidebarNavbarInternalProps, "toggleSidebar" | "useToggleButton">;
+
+const PanelSidebarNavbar = (props: PanelSidebarNavbarProps) => {
+  return <PanelSidebarNavbarInternal {...props} useToggleButton={false} />;
+};
+
+export { PanelSidebarNavbarInternal, PanelSidebarNavbar };
