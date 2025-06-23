@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Possibility to render the whole PanelSidebarLayout hiding completely the SidebarNav.
 - Export for `PanelSidebarNavbar` component. It can be used to render only the Navbar without need of context.
 
 ## [5.1.0] - 2025-06-11

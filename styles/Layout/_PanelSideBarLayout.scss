@@ -47,6 +47,10 @@ section.content:first-of-type {
   justify-content: space-between;
   display: flex;
   position: relative;
+
+  &.exclude-sidebar-menu {
+    margin-left: 0rem;
+  }
 }
 
 #side-nav.panel-layout {

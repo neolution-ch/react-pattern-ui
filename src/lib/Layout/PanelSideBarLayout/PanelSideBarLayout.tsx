@@ -38,6 +38,11 @@ export interface PanelSideBarLayoutProps extends PropsWithChildren {
    * If use the responsive layout when the screen is sm in order to remove the sidebar overlay.
    */
   useResponsiveLayout?: boolean;
+
+  /**
+   * If true, exclude the sidebar menu.
+   */
+  excludeSibebarMenu?: boolean;
 }
 
 const PanelSidebarNavbar = (props: Omit<PanelSidebarNavbarInternalProps, "toggleSidebar" | "theme">) => {
@@ -56,6 +61,7 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
     collapsible = true,
     useToggleButton = false,
     useResponsiveLayout = false,
+    excludeSibebarMenu = false,
   } = props;
 
   const { isSidebarOpen, toggleSidebar, renderFirstItemsLevelAsTiles, menuItems, activePanelId } = usePanelSideBarContext<
@@ -89,15 +95,23 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
           { "section-tiles": renderFirstItemsLevelAsTiles },
         )}
       >
-        <PanelSideBar<TPanelItemId, TPanelItem> isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse} />
-        {collapsible && !useToggleButton && (
-          <PanelSideBarToggle
-            onClick={toggleSidebar}
-            toggled={!isSidebarOpen}
-            isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
-          />
+        {!excludeSibebarMenu && (
+          <>
+            <PanelSideBar<TPanelItemId, TPanelItem> isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse} />
+            {collapsible && !useToggleButton && (
+              <PanelSideBarToggle
+                onClick={toggleSidebar}
+                toggled={!isSidebarOpen}
+                isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
+              />
+            )}
+          </>
         )}
-        <PanelSideBarLayoutContent footer={footer} isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}>
+        <PanelSideBarLayoutContent
+          excludeSibebarMenu={excludeSibebarMenu}
+          footer={footer}
+          isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
+        >
           {children}
         </PanelSideBarLayoutContent>
       </section>
