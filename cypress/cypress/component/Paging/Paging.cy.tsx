@@ -1,5 +1,6 @@
 import { Paging } from "react-pattern-ui";
 import { faker } from "@faker-js/faker";
+import { mount } from "cypress/react18";
 
 describe("Paging.cy.tsx", () => {
   it("basic paging works", () => {
@@ -8,7 +9,7 @@ describe("Paging.cy.tsx", () => {
     const currentPage = faker.datatype.number({ min: 2, max: pages - 1 });
     const translations = { showedItemsText: "Item {from} to {to} from {total}", itemsPerPageDropdown: "Items per page" };
 
-    cy.mount(
+    mount(
       <Paging
         currentItemsPerPage={itemsPerPage}
         currentPage={currentPage}
@@ -74,7 +75,7 @@ describe("Paging.cy.tsx", () => {
     const currentPage = faker.datatype.number({ min: 2, max: pages - 1 });
     const translations = { showedItemsText: "Item {from} to {to} from {total}", itemsPerPageDropdown: "Items per page" };
 
-    cy.mount(
+    mount(
       <Paging
         currentItemsPerPage={itemsPerPage}
         currentPage={currentPage}
