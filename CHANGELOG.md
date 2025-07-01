@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- move cypress declarations into type file
+
 ## [5.2.0] - 2025-06-23
 
 ### Added
