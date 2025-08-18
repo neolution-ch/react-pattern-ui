@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### dependabot: \#74 Bump the github-actions group across 1 directory with 2 updates
+
 ### Removed
 
 - remove cypress declarations
