@@ -1,4 +1,4 @@
-form div:not(.paging)[role="group"] {
+form div[role="group"]:not(.paging div[role="group"]) {
   display: flex;
   gap: 0.25rem;
 
