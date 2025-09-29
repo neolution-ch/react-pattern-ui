@@ -100,4 +100,51 @@ describe("Paging.cy.tsx", () => {
           .replace("{total}", (pages * itemsPerPage).toString()),
       );
   });
+
+    it("custom navigationComponents work correctly", () => {
+    const itemsPerPage = 10;
+    const pages = 5;
+    const currentPage = 3;
+    const translations = { showedItemsText: "Item {from} to {to} from {total}", itemsPerPageDropdown: "Items per page" };
+    const customNavigationComponents = {
+      backPageComponent: "←",
+      nextPageComponent: "→", 
+      firstPageComponent: "⇤",
+      lastPageComponent: "⇥"
+    };
+
+    mount(
+      <Paging
+        currentItemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        currentRecordCount={itemsPerPage}
+        setCurrentPage={cy.spy().as("setCurrentPage")}
+        totalRecords={pages * itemsPerPage}
+        setItemsPerPage={cy.spy().as("setItemsPerPage")}
+        translations={translations}
+        navigationComponents={customNavigationComponents}
+      />,
+    );
+
+    // Check that custom navigation components are rendered
+    cy.get("[data-cy-root] > .container-fluid > .row > .col-6:nth-of-type(2) > .btn-group > button.btn").then(
+      (items: JQuery<HTMLElement>) => {
+        // Verify custom symbols are present
+        cy.wrap(items.filter((_, item) => item.textContent === "⇤")).should("exist").and("be.visible");
+        cy.wrap(items.filter((_, item) => item.textContent === "←")).should("exist").and("be.visible");
+        cy.wrap(items.filter((_, item) => item.textContent === "→")).should("exist").and("be.visible");
+        cy.wrap(items.filter((_, item) => item.textContent === "⇥")).should("exist").and("be.visible");
+        
+        // Test functionality with custom components
+        cy.wrap(items.filter((_, item) => item.textContent === "⇤")).click();
+        cy.get("@setCurrentPage").should("be.calledWith", 1);
+        cy.wrap(items.filter((_, item) => item.textContent === "←")).click();
+        cy.get("@setCurrentPage").should("be.calledWith", currentPage - 1);
+        cy.wrap(items.filter((_, item) => item.textContent === "→")).click();
+        cy.get("@setCurrentPage").should("be.calledWith", currentPage + 1);
+        cy.wrap(items.filter((_, item) => item.textContent === "⇥")).click();
+        cy.get("@setCurrentPage").should("be.calledWith", pages);
+      },
+    );
+  });
 });
