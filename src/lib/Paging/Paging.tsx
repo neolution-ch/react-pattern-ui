@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown } from "reactstrap";
-import { useMemo } from "react";
+import { ReactNode, useMemo } from "react";
 
 interface PagingProps {
   currentItemsPerPage: number;
@@ -8,6 +8,7 @@ interface PagingProps {
   currentRecordCount: number;
   pagingPossible?: boolean;
   translations: PagingTranslations;
+  navigationComponents?: PagingNavigationComponents;
   possiblePageItemCounts?: number[];
   maxPagesShown?: number;
   showControls?: boolean;
@@ -21,6 +22,20 @@ interface PagingTranslations {
   itemsPerPageDropdown: string;
 }
 
+interface PagingNavigationComponents {
+  backPageComponent: ReactNode;
+  nextPageComponent: ReactNode;
+  firstPageComponent: ReactNode;
+  lastPageComponent: ReactNode;
+}
+
+const defaultNavigationComponents: PagingNavigationComponents = {
+  backPageComponent: "<",
+  nextPageComponent: ">",
+  firstPageComponent: "<<",
+  lastPageComponent: ">>",
+};
+
 // eslint-disable-next-line complexity
 const Paging = ({
   currentItemsPerPage,
@@ -29,6 +44,7 @@ const Paging = ({
   currentRecordCount,
   pagingPossible = true,
   translations,
+  navigationComponents = defaultNavigationComponents,
   possiblePageItemCounts,
   maxPagesShown = 7,
   showControls = true,
@@ -36,6 +52,7 @@ const Paging = ({
   setItemsPerPage,
   setCurrentPage,
 }: PagingProps) => {
+  const { backPageComponent, nextPageComponent, firstPageComponent, lastPageComponent } = navigationComponents;
   const maxPage = Math.ceil(totalRecords / currentItemsPerPage);
   const firstPageShown = Math.max(0, Math.min(currentPage - Math.ceil(maxPagesShown / 2), maxPage - maxPagesShown));
 
@@ -79,12 +96,12 @@ const Paging = ({
             <ButtonGroup size="sm">
               {showControls && (
                 <Button color="secondary" outline disabled={currentPage === 1} onClick={() => setCurrentPage(1)}>
-                  {"<<"}
+                  {firstPageComponent}
                 </Button>
               )}
               {showControls && (
                 <Button color="secondary" outline disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>
-                  {"<"}
+                  {backPageComponent}
                 </Button>
               )}
               {Array.from({ length: maxPage + 1 }, (_, i) => i)
@@ -97,12 +114,12 @@ const Paging = ({
                 ))}
               {showControls && (
                 <Button color="secondary" outline disabled={currentPage === maxPage} onClick={() => setCurrentPage(currentPage + 1)}>
-                  {">"}
+                  {nextPageComponent}
                 </Button>
               )}
               {showControls && (
                 <Button color="secondary" outline disabled={currentPage === maxPage} onClick={() => setCurrentPage(maxPage)}>
-                  {">>"}
+                  {lastPageComponent}
                 </Button>
               )}
             </ButtonGroup>
@@ -113,4 +130,4 @@ const Paging = ({
   );
 };
 
-export { Paging, PagingProps, PagingTranslations };
+export { Paging, PagingProps, PagingTranslations, PagingNavigationComponents };

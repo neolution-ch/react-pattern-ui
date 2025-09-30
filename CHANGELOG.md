@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fix
+
+- paging when displayed inside a form.
+
+### Added
+
+- possibility to customize back/next first/last page navigation components.
+
 ### Removed
 
 - remove cypress declarations
