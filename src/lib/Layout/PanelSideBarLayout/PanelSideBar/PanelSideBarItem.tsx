@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, RefObject } from "react";
 import { Collapse, NavItem } from "reactstrap";
 import { PanelItem } from "./../PanelSideBar/Definitions/PanelItem";
 import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
@@ -12,7 +12,8 @@ export interface PanelSideBarItemProps<TPanelItemId extends string, TPanelItem> 
   active?: boolean;
   isParentHidden?: boolean;
   isIconShownOnSidebarCollapse: boolean;
-  disableScrollToActiveItem: boolean;
+  scrollActiveItemToCenter: boolean;
+  sideNavRef: RefObject<HTMLElement>;
 }
 
 const PanelSidebarItemNavLink = <TPanelItemId extends string, TPanelItem>({
@@ -38,7 +39,7 @@ const PanelSidebarItemNavLink = <TPanelItemId extends string, TPanelItem>({
 
 // eslint-disable-next-line complexity
 const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarItemProps<TPanelItemId, TPanelItem>) => {
-  const { depth = 0, children: item, isParentHidden = false, isIconShownOnSidebarCollapse, disableScrollToActiveItem } = props;
+  const { depth = 0, children: item, isParentHidden = false, isIconShownOnSidebarCollapse, scrollActiveItemToCenter, sideNavRef } = props;
   const { LinkRenderer, toggledMenuItemIds, toggleMenuItem, hiddenMenuItemIds, isSidebarOpen } = usePanelSideBarContext<
     TPanelItemId,
     TPanelItem
@@ -51,10 +52,25 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
   const collapsedWithIcon = isIconShownOnSidebarCollapse && !isSidebarOpen;
 
   useEffect(() => {
-    if (!disableScrollToActiveItem && scrollToActiveItemRef.current && isActive) {
-      scrollToActiveItemRef.current.scrollIntoView();
+    if (scrollToActiveItemRef.current && isActive) {
+
+      if (!scrollActiveItemToCenter) {
+        scrollToActiveItemRef.current.scrollIntoView();
+        return;
+      }
+
+      if (!sideNavRef.current) {
+        return;
+      }
+
+      if (sideNavRef.current) {
+        const sidebarRect = sideNavRef.current.getBoundingClientRect();
+        const itemRect = scrollToActiveItemRef.current.getBoundingClientRect();
+        const offset = itemRect.top - sidebarRect.top - sideNavRef.current.clientHeight / 2 + itemRect.height / 2;
+        sideNavRef.current.scrollTop += offset;
+      }
     }
-  }, [isActive, disableScrollToActiveItem]);
+  }, [isActive, scrollActiveItemToCenter, sideNavRef]);
 
   return (
     <>
@@ -115,7 +131,8 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
               active={item.active}
               isParentHidden={hiddenMenuItemIds.includes(item.id)}
               isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
-              disableScrollToActiveItem={disableScrollToActiveItem}
+              scrollActiveItemToCenter={scrollActiveItemToCenter}
+              sideNavRef={sideNavRef}
             >
               {childItem}
             </PanelSideBarItem>

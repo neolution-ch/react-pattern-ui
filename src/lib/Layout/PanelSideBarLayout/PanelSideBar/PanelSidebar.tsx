@@ -3,14 +3,15 @@ import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import { PanelItem } from "./Definitions/PanelItem";
 import { PanelSideBarItem } from "./PanelSideBarItem";
 import { PanelItemsRenderer } from "./PanelItemsRenderer";
+import { useRef } from "react";
 
 interface PanelSideBarProps {
   isIconShownOnSidebarCollapse: boolean;
-  disableScrollToActiveItem: boolean;
+  scrollActiveItemToCenter: boolean;
 }
 
 export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarProps) => {
-  const { isIconShownOnSidebarCollapse, disableScrollToActiveItem } = props;
+  const { isIconShownOnSidebarCollapse, scrollActiveItemToCenter } = props;
   const {
     activePanelId,
     menuItems,
@@ -21,6 +22,7 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
     theme,
     hiddenMenuItemIds,
   } = usePanelSideBarContext<TPanelItemId, TPanelItem>();
+  const sideNavRef = useRef<HTMLElement>(null);
 
   const className = classNames(
     "panel-layout",
@@ -38,7 +40,7 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
     }
 
     return (
-      <nav id="side-nav" className={className}>
+      <nav id="side-nav" className={className} ref={sideNavRef}>
         <div className="side-nav__tiles">
           {
             <PanelItemsRenderer
@@ -56,7 +58,8 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
             <PanelSideBarItem<TPanelItemId, TPanelItem>
               key={item.id}
               isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
-              disableScrollToActiveItem={disableScrollToActiveItem}
+              scrollActiveItemToCenter={scrollActiveItemToCenter}
+              sideNavRef={sideNavRef}
             >
               {item}
             </PanelSideBarItem>
@@ -66,13 +69,14 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
     );
   } else {
     return (
-      <nav id="side-nav" className={className}>
+      <nav id="side-nav" className={className} ref={sideNavRef}>
         <div className="side-nav__items">
           {menuItems?.map((item) => (
             <PanelSideBarItem<TPanelItemId, TPanelItem>
               key={item.id}
               isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
-              disableScrollToActiveItem={disableScrollToActiveItem}
+              scrollActiveItemToCenter={scrollActiveItemToCenter}
+              sideNavRef={sideNavRef}
             >
               {item}
             </PanelSideBarItem>
