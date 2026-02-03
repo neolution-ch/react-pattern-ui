@@ -43,6 +43,11 @@ export interface PanelSideBarLayoutProps extends PropsWithChildren {
    * If true, exclude the sidebar menu.
    */
   excludeSibebarMenu?: boolean;
+
+  /**
+   * If true, scrolling to active item is not performed.
+   */
+  disableScrollToActiveItem?: boolean;
 }
 
 const PanelSidebarNavbar = (props: Omit<PanelSidebarNavbarInternalProps, "toggleSidebar" | "theme">) => {
@@ -62,6 +67,7 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
     useToggleButton = false,
     useResponsiveLayout = false,
     excludeSibebarMenu = false,
+    disableScrollToActiveItem = false,
   } = props;
 
   const { isSidebarOpen, toggleSidebar, renderFirstItemsLevelAsTiles, menuItems, activePanelId } = usePanelSideBarContext<
@@ -97,7 +103,10 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
       >
         {!excludeSibebarMenu && (
           <>
-            <PanelSideBar<TPanelItemId, TPanelItem> isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse} />
+            <PanelSideBar<TPanelItemId, TPanelItem>
+              isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
+              disableScrollToActiveItem={disableScrollToActiveItem}
+            />
             {collapsible && !useToggleButton && (
               <PanelSideBarToggle
                 onClick={toggleSidebar}

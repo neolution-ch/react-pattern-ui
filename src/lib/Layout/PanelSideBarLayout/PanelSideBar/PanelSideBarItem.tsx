@@ -12,6 +12,7 @@ export interface PanelSideBarItemProps<TPanelItemId extends string, TPanelItem> 
   active?: boolean;
   isParentHidden?: boolean;
   isIconShownOnSidebarCollapse: boolean;
+  disableScrollToActiveItem: boolean;
 }
 
 const PanelSidebarItemNavLink = <TPanelItemId extends string, TPanelItem>({
@@ -37,7 +38,7 @@ const PanelSidebarItemNavLink = <TPanelItemId extends string, TPanelItem>({
 
 // eslint-disable-next-line complexity
 const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarItemProps<TPanelItemId, TPanelItem>) => {
-  const { depth = 0, children: item, isParentHidden = false, isIconShownOnSidebarCollapse } = props;
+  const { depth = 0, children: item, isParentHidden = false, isIconShownOnSidebarCollapse, disableScrollToActiveItem } = props;
   const { LinkRenderer, toggledMenuItemIds, toggleMenuItem, hiddenMenuItemIds, isSidebarOpen } = usePanelSideBarContext<
     TPanelItemId,
     TPanelItem
@@ -50,10 +51,10 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
   const collapsedWithIcon = isIconShownOnSidebarCollapse && !isSidebarOpen;
 
   useEffect(() => {
-    if (scrollToActiveItemRef.current && isActive) {
+    if (!disableScrollToActiveItem && scrollToActiveItemRef.current && isActive) {
       scrollToActiveItemRef.current.scrollIntoView();
     }
-  }, [isActive]);
+  }, [isActive, disableScrollToActiveItem]);
 
   return (
     <>
@@ -114,6 +115,7 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
               active={item.active}
               isParentHidden={hiddenMenuItemIds.includes(item.id)}
               isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
+              disableScrollToActiveItem={disableScrollToActiveItem}
             >
               {childItem}
             </PanelSideBarItem>

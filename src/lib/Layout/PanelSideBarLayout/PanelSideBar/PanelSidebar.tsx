@@ -6,10 +6,11 @@ import { PanelItemsRenderer } from "./PanelItemsRenderer";
 
 interface PanelSideBarProps {
   isIconShownOnSidebarCollapse: boolean;
+  disableScrollToActiveItem: boolean;
 }
 
 export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarProps) => {
-  const { isIconShownOnSidebarCollapse } = props;
+  const { isIconShownOnSidebarCollapse, disableScrollToActiveItem } = props;
   const {
     activePanelId,
     menuItems,
@@ -52,7 +53,11 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
         </div>
         <div className="side-nav__items">
           {activePanel?.children?.map((item) => (
-            <PanelSideBarItem<TPanelItemId, TPanelItem> key={item.id} isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}>
+            <PanelSideBarItem<TPanelItemId, TPanelItem>
+              key={item.id}
+              isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
+              disableScrollToActiveItem={disableScrollToActiveItem}
+            >
               {item}
             </PanelSideBarItem>
           ))}
@@ -64,7 +69,11 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
       <nav id="side-nav" className={className}>
         <div className="side-nav__items">
           {menuItems?.map((item) => (
-            <PanelSideBarItem<TPanelItemId, TPanelItem> key={item.id} isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}>
+            <PanelSideBarItem<TPanelItemId, TPanelItem>
+              key={item.id}
+              isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
+              disableScrollToActiveItem={disableScrollToActiveItem}
+            >
               {item}
             </PanelSideBarItem>
           ))}

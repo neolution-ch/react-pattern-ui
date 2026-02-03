@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- property `disableScrollToActiveItem` to `PanelSideBarLayout` in order to disable scroll on the active element selection.
+
 ## [5.3.0] - 2025-09-30
 
 ### Fix
