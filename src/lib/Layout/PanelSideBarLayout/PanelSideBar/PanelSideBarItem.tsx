@@ -12,7 +12,6 @@ export interface PanelSideBarItemProps<TPanelItemId extends string, TPanelItem> 
   active?: boolean;
   isParentHidden?: boolean;
   isIconShownOnSidebarCollapse: boolean;
-  scrollActiveItemToCenter: boolean;
   sideNavRef: RefObject<HTMLElement>;
 }
 
@@ -39,7 +38,7 @@ const PanelSidebarItemNavLink = <TPanelItemId extends string, TPanelItem>({
 
 // eslint-disable-next-line complexity
 const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarItemProps<TPanelItemId, TPanelItem>) => {
-  const { depth = 0, children: item, isParentHidden = false, isIconShownOnSidebarCollapse, scrollActiveItemToCenter, sideNavRef } = props;
+  const { depth = 0, children: item, isParentHidden = false, isIconShownOnSidebarCollapse, sideNavRef } = props;
   const { LinkRenderer, toggledMenuItemIds, toggleMenuItem, hiddenMenuItemIds, isSidebarOpen } = usePanelSideBarContext<
     TPanelItemId,
     TPanelItem
@@ -52,25 +51,17 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
   const collapsedWithIcon = isIconShownOnSidebarCollapse && !isSidebarOpen;
 
   useEffect(() => {
-    if (scrollToActiveItemRef.current && isActive) {
+    const currentItem = scrollToActiveItemRef.current;
+    const sidebar = sideNavRef.current;
 
-      if (!scrollActiveItemToCenter) {
-        scrollToActiveItemRef.current.scrollIntoView();
-        return;
-      }
+    console.log("use-effect on", { item: item, currentItemOffsetTop: currentItem?.offsetTop, sidebarOffsetTop: sidebar?.offsetTop });
 
-      if (!sideNavRef.current) {
-        return;
-      }
-
-      if (sideNavRef.current) {
-        const sidebarRect = sideNavRef.current.getBoundingClientRect();
-        const itemRect = scrollToActiveItemRef.current.getBoundingClientRect();
-        const offset = itemRect.top - sidebarRect.top - sideNavRef.current.clientHeight / 2 + itemRect.height / 2;
-        sideNavRef.current.scrollTop += offset;
-      }
+    if (!item.active || !currentItem || !sidebar) {
+      return;
     }
-  }, [isActive, scrollActiveItemToCenter, sideNavRef]);
+
+    sidebar.scrollTo({ top: currentItem.offsetTop - sidebar.offsetTop - (sidebar.clientHeight / 2), behavior: "smooth"});
+  }, [sideNavRef, scrollToActiveItemRef, item.active]);
 
   return (
     <>
@@ -131,7 +122,6 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
               active={item.active}
               isParentHidden={hiddenMenuItemIds.includes(item.id)}
               isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
-              scrollActiveItemToCenter={scrollActiveItemToCenter}
               sideNavRef={sideNavRef}
             >
               {childItem}

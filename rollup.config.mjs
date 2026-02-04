@@ -23,7 +23,7 @@ const plugins = [
   terser({
     output: { comments: false },
     compress: {
-      drop_console: true,
+      drop_console: false,
     },
   }),
 ];

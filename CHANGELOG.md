@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- instant scrolling to top on active `PanelSideBarItem`; scrolling smoothing to center instead.
+
 ### Added
 
 - property `scrollActiveItemToCenter` to `PanelSideBarLayout` in order to scroll the active element to the center of the sidebar.

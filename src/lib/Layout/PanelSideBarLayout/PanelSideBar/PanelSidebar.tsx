@@ -7,11 +7,10 @@ import { useRef } from "react";
 
 interface PanelSideBarProps {
   isIconShownOnSidebarCollapse: boolean;
-  scrollActiveItemToCenter: boolean;
 }
 
 export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarProps) => {
-  const { isIconShownOnSidebarCollapse, scrollActiveItemToCenter } = props;
+  const { isIconShownOnSidebarCollapse } = props;
   const {
     activePanelId,
     menuItems,
@@ -58,7 +57,6 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
             <PanelSideBarItem<TPanelItemId, TPanelItem>
               key={item.id}
               isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
-              scrollActiveItemToCenter={scrollActiveItemToCenter}
               sideNavRef={sideNavRef}
             >
               {item}
@@ -75,7 +73,6 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
             <PanelSideBarItem<TPanelItemId, TPanelItem>
               key={item.id}
               isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
-              scrollActiveItemToCenter={scrollActiveItemToCenter}
               sideNavRef={sideNavRef}
             >
               {item}

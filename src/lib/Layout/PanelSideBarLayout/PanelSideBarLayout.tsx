@@ -43,11 +43,6 @@ export interface PanelSideBarLayoutProps extends PropsWithChildren {
    * If true, exclude the sidebar menu.
    */
   excludeSibebarMenu?: boolean;
-
-  /**
-   * If true, scrolling to active item is performed on the center of the sidebar.
-   */
-  scrollActiveItemToCenter?: boolean;
 }
 
 const PanelSidebarNavbar = (props: Omit<PanelSidebarNavbarInternalProps, "toggleSidebar" | "theme">) => {
@@ -67,7 +62,6 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
     useToggleButton = false,
     useResponsiveLayout = false,
     excludeSibebarMenu = false,
-    scrollActiveItemToCenter = false,
   } = props;
 
   const { isSidebarOpen, toggleSidebar, renderFirstItemsLevelAsTiles, menuItems, activePanelId } = usePanelSideBarContext<
@@ -105,7 +99,6 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
           <>
             <PanelSideBar<TPanelItemId, TPanelItem>
               isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
-              scrollActiveItemToCenter={scrollActiveItemToCenter}
             />
             {collapsible && !useToggleButton && (
               <PanelSideBarToggle
