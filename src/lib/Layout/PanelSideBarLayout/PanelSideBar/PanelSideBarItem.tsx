@@ -56,8 +56,6 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
       return;
     }
 
-    console.log("scroll running on on", { item: item });
-
     currentItem.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [scrollToActiveItemRef, item.active]);
 
