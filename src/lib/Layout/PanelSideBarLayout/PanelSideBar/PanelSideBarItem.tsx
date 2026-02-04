@@ -54,14 +54,19 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
     const currentItem = scrollToActiveItemRef.current;
     const sidebar = sideNavRef.current;
 
-    console.log("use-effect on", { item: item, currentItemOffsetTop: currentItem?.offsetTop, sidebarOffsetTop: sidebar?.offsetTop });
-
-    if (!item.active || !currentItem || !sidebar) {
+    if (!isActive || !currentItem || !sidebar) {
       return;
     }
 
-    sidebar.scrollTo({ top: currentItem.offsetTop - sidebar.offsetTop - (sidebar.clientHeight / 2), behavior: "smooth"});
-  }, [sideNavRef, scrollToActiveItemRef, item.active]);
+    console.log("scroll running on on", { item: item });
+
+    const itemCenter = currentItem.offsetTop + currentItem.offsetHeight / 2;
+    const sidebarCenter = sidebar.clientHeight / 2;
+
+   //  currentItem.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    sidebar.scrollTo({ top: itemCenter - sidebarCenter, behavior: "smooth"});
+  }, [sideNavRef, scrollToActiveItemRef, item]);
 
   return (
     <>
