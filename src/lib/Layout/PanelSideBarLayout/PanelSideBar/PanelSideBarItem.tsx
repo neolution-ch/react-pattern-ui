@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
-import { useRef, useEffect, RefObject } from "react";
+import { useRef, useEffect } from "react";
 import { Collapse, NavItem } from "reactstrap";
 import { PanelItem } from "./../PanelSideBar/Definitions/PanelItem";
 import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
@@ -12,7 +12,6 @@ export interface PanelSideBarItemProps<TPanelItemId extends string, TPanelItem> 
   active?: boolean;
   isParentHidden?: boolean;
   isIconShownOnSidebarCollapse: boolean;
-  sideNavRef: RefObject<HTMLElement>;
 }
 
 const PanelSidebarItemNavLink = <TPanelItemId extends string, TPanelItem>({
@@ -38,7 +37,7 @@ const PanelSidebarItemNavLink = <TPanelItemId extends string, TPanelItem>({
 
 // eslint-disable-next-line complexity
 const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarItemProps<TPanelItemId, TPanelItem>) => {
-  const { depth = 0, children: item, isParentHidden = false, isIconShownOnSidebarCollapse, sideNavRef } = props;
+  const { depth = 0, children: item, isParentHidden = false, isIconShownOnSidebarCollapse } = props;
   const { LinkRenderer, toggledMenuItemIds, toggleMenuItem, hiddenMenuItemIds, isSidebarOpen } = usePanelSideBarContext<
     TPanelItemId,
     TPanelItem
@@ -52,21 +51,15 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
 
   useEffect(() => {
     const currentItem = scrollToActiveItemRef.current;
-    const sidebar = sideNavRef.current;
 
-    if (!isActive || !currentItem || !sidebar) {
+    if (!item.active || !currentItem) {
       return;
     }
 
     console.log("scroll running on on", { item: item });
 
-    const itemCenter = currentItem.offsetTop + currentItem.offsetHeight / 2;
-    const sidebarCenter = sidebar.clientHeight / 2;
-
-   //  currentItem.scrollIntoView({ behavior: "smooth", block: "center" });
-
-    sidebar.scrollTo({ top: itemCenter - sidebarCenter, behavior: "smooth"});
-  }, [sideNavRef, scrollToActiveItemRef, item]);
+    currentItem.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [scrollToActiveItemRef, item.active]);
 
   return (
     <>
@@ -127,7 +120,6 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
               active={item.active}
               isParentHidden={hiddenMenuItemIds.includes(item.id)}
               isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
-              sideNavRef={sideNavRef}
             >
               {childItem}
             </PanelSideBarItem>
