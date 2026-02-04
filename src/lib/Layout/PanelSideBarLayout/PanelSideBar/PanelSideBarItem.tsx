@@ -50,10 +50,14 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
   const collapsedWithIcon = isIconShownOnSidebarCollapse && !isSidebarOpen;
 
   useEffect(() => {
-    if (scrollToActiveItemRef.current && isActive) {
-      scrollToActiveItemRef.current.scrollIntoView();
+    const currentItem = scrollToActiveItemRef.current;
+
+    if (!item.active || !currentItem) {
+      return;
     }
-  }, [isActive]);
+
+    currentItem.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [scrollToActiveItemRef, item.active]);
 
   return (
     <>
