@@ -52,10 +52,7 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
         </div>
         <div className="side-nav__items">
           {activePanel?.children?.map((item) => (
-            <PanelSideBarItem<TPanelItemId, TPanelItem>
-              key={item.id}
-              isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
-            >
+            <PanelSideBarItem<TPanelItemId, TPanelItem> key={item.id} isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}>
               {item}
             </PanelSideBarItem>
           ))}
@@ -67,10 +64,7 @@ export const PanelSideBar = <TPanelItemId extends string, TPanelItem>(props: Pan
       <nav id="side-nav" className={className}>
         <div className="side-nav__items">
           {menuItems?.map((item) => (
-            <PanelSideBarItem<TPanelItemId, TPanelItem>
-              key={item.id}
-              isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
-            >
+            <PanelSideBarItem<TPanelItemId, TPanelItem> key={item.id} isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}>
               {item}
             </PanelSideBarItem>
           ))}

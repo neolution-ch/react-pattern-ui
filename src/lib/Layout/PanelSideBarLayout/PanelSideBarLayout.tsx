@@ -97,9 +97,7 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
       >
         {!excludeSibebarMenu && (
           <>
-            <PanelSideBar<TPanelItemId, TPanelItem>
-              isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
-            />
+            <PanelSideBar<TPanelItemId, TPanelItem> isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse} />
             {collapsible && !useToggleButton && (
               <PanelSideBarToggle
                 onClick={toggleSidebar}
