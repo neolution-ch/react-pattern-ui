@@ -36,7 +36,6 @@ const defaultNavigationComponents: PagingNavigationComponents = {
   lastPageComponent: ">>",
 };
 
-// eslint-disable-next-line complexity
 const Paging = ({
   currentItemsPerPage,
   currentPage,
@@ -60,7 +59,7 @@ const Paging = ({
     () =>
       [...(possiblePageItemCounts ?? [25, 50, 100, 200]), currentItemsPerPage]
         .filter((value, index, array) => array.indexOf(value) === index)
-        .sort((a, b) => a - b),
+        .toSorted((a, b) => a - b),
     [currentItemsPerPage, possiblePageItemCounts],
   );
 

@@ -35,7 +35,6 @@ const PanelSidebarItemNavLink = <TPanelItemId extends string, TPanelItem>({
   );
 };
 
-// eslint-disable-next-line complexity
 const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarItemProps<TPanelItemId, TPanelItem>) => {
   const { depth = 0, children: item, isParentHidden = false, isIconShownOnSidebarCollapse } = props;
   const { LinkRenderer, toggledMenuItemIds, toggleMenuItem, hiddenMenuItemIds, isSidebarOpen } = usePanelSideBarContext<
