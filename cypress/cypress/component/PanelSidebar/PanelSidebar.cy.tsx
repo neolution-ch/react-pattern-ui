@@ -9,7 +9,7 @@ import {
   PanelItemOnSideBarCollapseOptions,
 } from "react-pattern-ui";
 import { faBars, faCogs, faInfo, faHome, faPerson } from "@fortawesome/free-solid-svg-icons";
-import { mount } from "cypress/react18";
+import { mount } from "cypress/react";
 
 type AppRoutes = "home" | "settings" | "dropdownTest" | "dropdown-test1" | "dropdown-test2" | "info";
 type TSideBarMenuItem = PanelItem<AppRoutes>;

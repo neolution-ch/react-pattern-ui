@@ -1,6 +1,6 @@
 import { Paging } from "react-pattern-ui";
 import { faker } from "@faker-js/faker";
-import { mount } from "cypress/react18";
+import { mount } from "cypress/react";
 
 describe("Paging.cy.tsx", () => {
   it("basic paging works", () => {
