@@ -1,4 +1,13 @@
-import { Button, ButtonGroup, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown } from "reactstrap";
+import {
+  Button,
+  ButtonGroup,
+  Col,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Row,
+  UncontrolledButtonDropdown,
+} from "@neolution-ch/reactstrap";
 import { ReactNode, useMemo } from "react";
 
 interface PagingProps {
@@ -36,7 +45,6 @@ const defaultNavigationComponents: PagingNavigationComponents = {
   lastPageComponent: ">>",
 };
 
-// eslint-disable-next-line complexity
 const Paging = ({
   currentItemsPerPage,
   currentPage,
@@ -60,7 +68,7 @@ const Paging = ({
     () =>
       [...(possiblePageItemCounts ?? [25, 50, 100, 200]), currentItemsPerPage]
         .filter((value, index, array) => array.indexOf(value) === index)
-        .sort((a, b) => a - b),
+        .toSorted((a, b) => a - b),
     [currentItemsPerPage, possiblePageItemCounts],
   );
 

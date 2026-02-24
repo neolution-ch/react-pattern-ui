@@ -8,11 +8,10 @@ export type MenuItemToggleFn<TPanelItemId extends string> = (menuItemId: TPanelI
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const PanelSideBarContext = createContext<PanelSideBarContextProps<any, any> | null>(null);
 
-export interface PanelSideBarMenuProviderProps<TPanelItemId extends string, TPanelItem>
-  extends Pick<
-    PanelSideBarContextProps<TPanelItemId, TPanelItem>,
-    "menuItems" | "LinkRenderer" | "theme" | "renderTilesAsLinks" | "renderFirstItemsLevelAsTiles" | "defaultActivePanelId"
-  > {
+export interface PanelSideBarMenuProviderProps<TPanelItemId extends string, TPanelItem> extends Pick<
+  PanelSideBarContextProps<TPanelItemId, TPanelItem>,
+  "menuItems" | "LinkRenderer" | "theme" | "renderTilesAsLinks" | "renderFirstItemsLevelAsTiles" | "defaultActivePanelId"
+> {
   /**
    * The children elements.
    */
@@ -65,6 +64,8 @@ export const PanelSideBarProvider = <TPanelItemId extends string, TPanelItem>(
 
   useEffect(() => {
     const activePanelId = getActivePanel(menuItems, defaultActivePanelId)?.id;
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setActivePanelId(activePanelId);
     if (activePanelId) {
       setToggledMenuItemIds((prev) => {

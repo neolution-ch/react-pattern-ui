@@ -1,5 +1,5 @@
 import commonjs from "@rollup/plugin-commonjs";
-import { default as nodeResolve } from "@rollup/plugin-node-resolve";
+import nodeResolver from "@rollup/plugin-node-resolve";
 import external from "rollup-plugin-peer-deps-external";
 import terser from "@rollup/plugin-terser";
 import typescript from "rollup-plugin-typescript2";
@@ -19,7 +19,7 @@ const plugins = [
   commonjs({
     include: /\/node_modules\//,
   }),
-  nodeResolve(),
+  nodeResolver(),
   terser({
     output: { comments: false },
     compress: {
