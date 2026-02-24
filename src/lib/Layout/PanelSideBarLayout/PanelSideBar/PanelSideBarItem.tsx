@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import { useRef, useEffect } from "react";
-import { Collapse, NavItem } from "reactstrap";
+import { Collapse, NavItem } from "@neolution-ch/reactstrap";
 import { PanelItem } from "./../PanelSideBar/Definitions/PanelItem";
 import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import { hasActiveChildren } from "./Utils/getActivePanel";

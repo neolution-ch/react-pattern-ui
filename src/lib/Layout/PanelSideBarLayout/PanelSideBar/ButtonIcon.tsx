@@ -1,5 +1,5 @@
 import { PanelItem } from "./Definitions/PanelItem";
-import { Button } from "reactstrap";
+import { Button } from "@neolution-ch/reactstrap";
 import classNames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

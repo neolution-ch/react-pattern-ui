@@ -1,4 +1,13 @@
-import { Button, ButtonGroup, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown } from "reactstrap";
+import {
+  Button,
+  ButtonGroup,
+  Col,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Row,
+  UncontrolledButtonDropdown,
+} from "@neolution-ch/reactstrap";
 import { ReactNode, useMemo } from "react";
 
 interface PagingProps {

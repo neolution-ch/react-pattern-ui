@@ -70,7 +70,7 @@
     "prettier": "^3.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "reactstrap": "^9.2.3",
+    "@neolution-ch/reactstrap": "^10.0.0-rc.0",
     "release-it": "^19.2.4",
     "rollup": "^4.57.1",
     "rollup-plugin-import-css": "^4.2.0",
@@ -88,7 +88,7 @@
     "@fortawesome/react-fontawesome": "^0.1.18 || ^0.2.0 || ^3.0.0",
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
-    "reactstrap": "^8 || ^9"
+    "@neolution-ch/reactstrap": "^10.0.0-rc.0"
   },
   "engines": {
     "node": ">=16"
