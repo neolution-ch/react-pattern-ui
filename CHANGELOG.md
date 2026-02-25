@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### dependabot: \#77 Bump the github-actions group across 1 directory with 4 updates
+
 ## [6.0.0] - 2026-02-24
 
 ### Changed
