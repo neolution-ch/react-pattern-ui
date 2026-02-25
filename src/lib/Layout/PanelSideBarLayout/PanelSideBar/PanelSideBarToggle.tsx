@@ -1,6 +1,6 @@
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, ButtonProps } from "reactstrap";
+import { Button, ButtonProps } from "@neolution-ch/reactstrap";
 import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import classNames from "classnames";
 

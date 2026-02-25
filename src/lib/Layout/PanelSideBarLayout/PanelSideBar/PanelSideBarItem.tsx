@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import { useRef, useEffect } from "react";
-import { Collapse, NavItem } from "reactstrap";
+import { Collapse, NavItem } from "@neolution-ch/reactstrap";
 import { PanelItem } from "./../PanelSideBar/Definitions/PanelItem";
 import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import { hasActiveChildren } from "./Utils/getActivePanel";
@@ -35,7 +35,6 @@ const PanelSidebarItemNavLink = <TPanelItemId extends string, TPanelItem>({
   );
 };
 
-// eslint-disable-next-line complexity
 const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarItemProps<TPanelItemId, TPanelItem>) => {
   const { depth = 0, children: item, isParentHidden = false, isIconShownOnSidebarCollapse } = props;
   const { LinkRenderer, toggledMenuItemIds, toggleMenuItem, hiddenMenuItemIds, isSidebarOpen } = usePanelSideBarContext<
@@ -50,10 +49,14 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
   const collapsedWithIcon = isIconShownOnSidebarCollapse && !isSidebarOpen;
 
   useEffect(() => {
-    if (scrollToActiveItemRef.current && isActive) {
-      scrollToActiveItemRef.current.scrollIntoView();
+    const currentItem = scrollToActiveItemRef.current;
+
+    if (!item.active || !currentItem) {
+      return;
     }
-  }, [isActive]);
+
+    currentItem.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [scrollToActiveItemRef, item.active]);
 
   return (
     <>

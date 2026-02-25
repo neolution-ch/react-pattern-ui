@@ -1,12 +1,12 @@
 import { Paging } from "react-pattern-ui";
 import { faker } from "@faker-js/faker";
-import { mount } from "cypress/react18";
+import { mount } from "cypress/react";
 
 describe("Paging.cy.tsx", () => {
   it("basic paging works", () => {
-    const itemsPerPage = faker.datatype.number({ min: 1, max: 999 });
-    const pages = faker.datatype.number({ min: 3, max: 999 });
-    const currentPage = faker.datatype.number({ min: 2, max: pages - 1 });
+    const itemsPerPage = faker.number.int({ min: 1, max: 999 });
+    const pages = faker.number.int({ min: 3, max: 999 });
+    const currentPage = faker.number.int({ min: 2, max: pages - 1 });
     const translations = { showedItemsText: "Item {from} to {to} from {total}", itemsPerPageDropdown: "Items per page" };
 
     mount(
@@ -32,7 +32,7 @@ describe("Paging.cy.tsx", () => {
     cy.get("[data-cy-root] > .container-fluid > .row > .col-6:first-of-type > .btn-group > .dropdown-menu > .dropdown-item").then(
       (items: JQuery<HTMLElement>) => {
         expect(items.map((_, item) => item.textContent).toArray(), "possible items per page").to.deep.eq(
-          [25, 50, 100, 200, itemsPerPage].sort((a, b) => a - b).map((itemNumber): string => itemNumber.toString()),
+          [25, 50, 100, 200, itemsPerPage].toSorted((a, b) => a - b).map((itemNumber): string => itemNumber.toString()),
         );
         cy.wrap(items.filter((_, item) => item.textContent === "25")).click();
         cy.get("@setItemsPerPage").should("be.calledOnceWith", 25);
@@ -70,9 +70,9 @@ describe("Paging.cy.tsx", () => {
   });
 
   it("paging without change of page size", () => {
-    const itemsPerPage = faker.datatype.number({ min: 1, max: 999 });
-    const pages = faker.datatype.number({ min: 3, max: 999 });
-    const currentPage = faker.datatype.number({ min: 2, max: pages - 1 });
+    const itemsPerPage = faker.number.int({ min: 1, max: 999 });
+    const pages = faker.number.int({ min: 3, max: 999 });
+    const currentPage = faker.number.int({ min: 2, max: pages - 1 });
     const translations = { showedItemsText: "Item {from} to {to} from {total}", itemsPerPageDropdown: "Items per page" };
 
     mount(
