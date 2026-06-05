@@ -3,7 +3,7 @@ import "../../../../styles/Layout/index.scss";
 import { PanelSideBar } from "./PanelSideBar/PanelSidebar";
 import { PanelSideBarLayoutContent } from "./PanelSideBarLayoutContent";
 import { PanelSideBarToggle } from "./PanelSideBar/PanelSideBarToggle";
-import { PanelSidebarNavbarInternal, PanelSidebarNavbarInternalProps } from "./PanelSideBarNavbar";
+import { PanelSidebarNavbarInternal } from "./PanelSideBarNavbar";
 import { usePanelSideBarContext } from "./PanelSideBar/Context/PanelSideBarContext";
 import { MainSection } from "./PanelSideBar/MainSection";
 
