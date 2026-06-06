@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.1.0] - 2026-06-06
+
 ### Added
 
 - `NavbarLayout`, a component which will rendered exactly the same layout but only with the navbar and will not require the context
@@ -303,12 +305,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - created package :tada:
 - added tests
 
-[Unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/6.0.0...HEAD
+[Unreleased]: https://github.com/neolution-ch/react-pattern-ui/compare/6.1.0...HEAD
 [2.1.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.2...2.1.0
 [2.0.2]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/neolution-ch/react-pattern-ui/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/neolution-ch/react-pattern-ui/compare/45cbeb76034667019da84605082679900f506d75...2.0.0
+[6.1.0]: https://github.com/neolution-ch/react-pattern-ui/compare/6.0.0...6.1.0
 [6.0.0]: https://github.com/neolution-ch/react-pattern-ui/compare/5.3.1...6.0.0
 [5.3.1]: https://github.com/neolution-ch/react-pattern-ui/compare/5.3.0...5.3.1
 [5.3.0]: https://github.com/neolution-ch/react-pattern-ui/compare/5.2.0...5.3.0
