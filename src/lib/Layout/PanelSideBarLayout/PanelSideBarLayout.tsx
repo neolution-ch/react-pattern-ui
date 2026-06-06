@@ -1,11 +1,11 @@
-import classNames from "classnames";
 import { PropsWithChildren, ReactNode, useMemo } from "react";
 import "../../../../styles/Layout/index.scss";
 import { PanelSideBar } from "./PanelSideBar/PanelSidebar";
 import { PanelSideBarLayoutContent } from "./PanelSideBarLayoutContent";
 import { PanelSideBarToggle } from "./PanelSideBar/PanelSideBarToggle";
-import { PanelSidebarNavbarInternal, PanelSidebarNavbarInternalProps } from "./PanelSideBarNavbar";
+import { PanelSidebarNavbarInternal } from "./PanelSideBarNavbar";
 import { usePanelSideBarContext } from "./PanelSideBar/Context/PanelSideBarContext";
+import { MainSection } from "./PanelSideBar/MainSection";
 
 export interface PanelSideBarLayoutProps extends PropsWithChildren {
   /**
@@ -45,12 +45,6 @@ export interface PanelSideBarLayoutProps extends PropsWithChildren {
   excludeSibebarMenu?: boolean;
 }
 
-const PanelSidebarNavbar = (props: Omit<PanelSidebarNavbarInternalProps, "toggleSidebar" | "theme">) => {
-  const { toggleSidebar, theme } = usePanelSideBarContext();
-
-  return <PanelSidebarNavbarInternal toggleSidebar={toggleSidebar} theme={theme} {...props} />;
-};
-
 export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(props: PanelSideBarLayoutProps) => {
   const {
     brand,
@@ -64,10 +58,8 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
     excludeSibebarMenu = false,
   } = props;
 
-  const { isSidebarOpen, toggleSidebar, renderFirstItemsLevelAsTiles, menuItems, activePanelId } = usePanelSideBarContext<
-    TPanelItemId,
-    TPanelItem
-  >();
+  const { isSidebarOpen, toggleSidebar, theme, renderFirstItemsLevelAsTiles, menuItems, activePanelId, mainContentBodyRef } =
+    usePanelSideBarContext<TPanelItemId, TPanelItem>();
 
   if (useResponsiveLayout && !useToggleButton) {
     throw new Error("Responsive layout can be used only with toggle button in the navbar!");
@@ -80,20 +72,18 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
 
   return (
     <>
-      <PanelSidebarNavbar
+      <PanelSidebarNavbarInternal
         useToggleButton={useToggleButton}
+        theme={theme}
+        toggleSidebar={toggleSidebar}
         brand={brand}
         navbarRightItems={navbarRightItems}
         navbarLeftItems={navbarLeftItems}
       />
-      <section
-        id="main-section"
-        className={classNames(
-          { toggled: !isSidebarOpen },
-          { "responsive-layout": useResponsiveLayout },
-          { "section-no-tiles": !renderFirstItemsLevelAsTiles },
-          { "section-tiles": renderFirstItemsLevelAsTiles },
-        )}
+      <MainSection
+        isSidebarOpen={isSidebarOpen}
+        useResponsiveLayout={useResponsiveLayout}
+        renderFirstItemsLevelAsTiles={renderFirstItemsLevelAsTiles}
       >
         {!excludeSibebarMenu && (
           <>
@@ -111,10 +101,11 @@ export const PanelSideBarLayout = <TPanelItemId extends string, TPanelItem>(prop
           excludeSibebarMenu={excludeSibebarMenu}
           footer={footer}
           isIconShownOnSidebarCollapse={isIconShownOnSidebarCollapse}
+          mainContentBodyRef={mainContentBodyRef}
         >
           {children}
         </PanelSideBarLayoutContent>
-      </section>
+      </MainSection>
     </>
   );
 };
