@@ -205,7 +205,6 @@ section.content:first-of-type {
 
         .nav {
           .nav-item.menu-open .nav-link {
-            &::after,
             div {
               color: $sidenav-dark-link-active-color;
             }
@@ -377,10 +376,6 @@ section.content:first-of-type {
       &.show-icons {
         margin-left: #{$tile-size + $toggle-base-width + $sidenav-items-icon-width};
       }
-
-      .dropdown-toggle::after {
-        display: none;
-      }
     }
   }
 
@@ -406,10 +401,6 @@ section.content:first-of-type {
     > section.content:first-of-type {
       transition: #{margin $sidebar-transition};
       margin-left: #{$toggle-base-width};
-
-      .dropdown-toggle::after {
-        display: none;
-      }
     }
   }
 }
