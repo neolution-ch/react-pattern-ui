@@ -5,6 +5,7 @@ import { Collapse, NavItem } from "@neolution-ch/reactstrap";
 import { PanelItem } from "./../PanelSideBar/Definitions/PanelItem";
 import { usePanelSideBarContext } from "./Context/PanelSideBarContext";
 import { hasActiveChildren } from "./Utils/getActivePanel";
+import { faChevronDown, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 export interface PanelSideBarItemProps<TPanelItemId extends string, TPanelItem> {
   children: PanelItem<TPanelItemId, TPanelItem>;
@@ -72,7 +73,7 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
       >
         <div ref={scrollToActiveItemRef}>
           {hasItems ? (
-            <div className={classNames("d-flex flex-row", { "justify-content-between": item.collapseIconOnly })}>
+            <div className={"d-flex flex-row justify-content-between"}>
               {item.collapseIconOnly && (
                 <LinkRenderer item={item}>
                   <PanelSidebarItemNavLink<TPanelItemId, TPanelItem>
@@ -99,6 +100,7 @@ const PanelSideBarItem = <TPanelItemId extends string, TPanelItem>(props: PanelS
                 {!item.collapseIconOnly && (
                   <PanelSidebarItemNavLink<TPanelItemId, TPanelItem> item={item} collapsedWithIcon={collapsedWithIcon} />
                 )}
+                <FontAwesomeIcon icon={isOpen ? faChevronDown : faChevronRight} />
               </a>
             </div>
           ) : (
